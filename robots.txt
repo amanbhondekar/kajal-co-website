@@ -1,0 +1,10 @@
+# Preview build — not for indexing.
+# Note: on a GitHub Pages *project* site this file is served at
+# /kajal-co-website/robots.txt, which crawlers ignore (they only read
+# robots.txt at the domain root). The per-page
+# <meta name="robots" content="noindex, nofollow"> tags are what actually
+# keep this build out of search results.
+# This file matters once the site moves to a custom domain at the root.
+
+User-agent: *
+Disallow: /

@@ -1,1 +1,177 @@
-# kajal-co-website
+# Kajal & Co. — Website
+
+Static marketing site for Kajal & Co. — website design, SEO, and performance marketing.
+
+Websites that convert. SEO that compounds. Ads that pay back.
+
+---
+
+## Running locally
+
+No build step and no dependencies — plain HTML, CSS, and vanilla JS. Any static server works:
+
+```bash
+python -m http.server 4477
+```
+
+Then open <http://localhost:4477>.
+
+---
+
+## Structure
+
+```
+.
+├── index.html          # Home
+├── about.html          # Story, principles, team, press, workshop
+├── services.html       # Website Design, SEO, Performance Marketing + FAQ
+├── portfolio.html      # Case studies with service filters
+├── contact.html        # Free growth audit form
+└── assets/
+    ├── css/style.css   # Tokens + all components
+    └── js/main.js      # Interactions
+```
+
+---
+
+## Layout
+
+The section architecture is reverse-engineered from the reference site
+(shapinfotech.in), rebuilt with our own tokens. The recurring patterns are:
+
+| Pattern | Where |
+| --- | --- |
+| Floating pill nav, blurred, inset from the top | every page |
+| Split hero: copy left, drifting device collage right | home |
+| Section head — title block left, action button right | everywhere |
+| Dark full-bleed band between light sections | process, team, stats |
+| Horizontal snap rail + dot pagination | home work slider |
+| Sticky stacking cards | home "how we help" |
+| Numbered 5-up process row | services, contact |
+| Sticky aside + accordion | all FAQ blocks |
+| Edge-to-edge marquee (logos, quotes, big type) | trust strip, testimonials, bands |
+| Big-number stat card grid opposite a text column | home, about, portfolio |
+
+**Note on the home page:** "How we work" and "How we help" hold each other's
+original layouts. The process steps run in the dark 2×2 card grid (section 3),
+and the three services run as sticky stacking cards (section 6). The 2×2 on
+dark matches the reference site's own service grid.
+
+---
+
+## Design system
+
+All tokens are custom properties at the top of `assets/css/style.css`.
+
+**Type** — two families, strictly divided.
+
+| Family | Scope |
+| --- | --- |
+| Bricolage Grotesque (variable, 200–800) | everything: headings, body, buttons, links |
+| Geist Mono (variable, 300–700) | eyebrows and overlines only |
+
+The mono set is declared in one selector list at the top of the typography
+block: `.eyebrow`, `.mono-tag`, `.hero__badge`, `.svc-card__num`, `.rule__n`,
+`.badge`, `.proc span`, `.stat-card span`, `.stat-row span`, `.work-card__tags
+span`, `.work-card__metric span`, `.footer h4`. Tracking drops to `.1em` there
+— mono is already wide.
+
+| Token | Range | Used for |
+| --- | --- | --- |
+| `--fs-stat` | 48 → 72px | stat numbers, work-card metrics |
+| `--fs-display` / `--fs-h2` | 40 → 56px | h1, section headings |
+| `--fs-h3` | 20 → 24px | card titles |
+| `--fs-lead` | 16 → 18px | intro paragraphs |
+| `--fs-body` | 16px | body |
+| `--fs-sm` | 14px | card body, buttons, links |
+| `--fs-xs` | 12px | eyebrows, tags, labels |
+
+Headings run `-0.04em` tracking at `1.08` line-height; body runs `1.6`. Every size
+is fluid via `clamp()`, so there are no per-breakpoint type overrides.
+
+**Colour** — black, white, neutrals, plus one lime accent.
+
+| Token | Value | Role |
+| --- | --- | --- |
+| `--ink` | `#0b0b0b` | dark sections |
+| `--ink-2` / `--ink-3` | `#141414` / `#1c1c1c` | cards on dark |
+| `--paper` | `#ffffff` | page |
+| `--mist` | `#f3f3f1` | light grey sections, panels |
+| `--text-2` / `--text-3` | `#55554f` / `#8e8e86` | body / meta |
+
+Two-tone headings use `.hl` for the second phrase — a neutral grey on light,
+40% white on dark. Dark sections are opted in with `.on-dark`, which re-maps
+button, border, and text colours automatically.
+
+**Lime accent** — `--accent` resolves per surface: `#B5FF2A` on light,
+`#9FE815` on dark (swapped by `.on-dark`). Used in six places only, so it stays
+an accent rather than a second brand colour:
+
+1. step / phase badges (`.badge`)
+2. the hero badge chip (`.hero__badge i`)
+3. checkmarks in feature lists and chips
+4. the top rule on numbered process steps (`.proc`)
+5. the active slider dot (`.rail-dots .is-active`)
+6. marquee band bullets (`.band__item i`)
+
+Headings, stat numbers, and buttons stay black/white deliberately. Lime is never
+used for body text — at these values it fails contrast on white.
+
+**CTAs** — one pair site-wide: **Book Discovery Call** (primary, solid, carries
+the Google Meet mark on the left) and **Contact Us** (secondary, outline, arrow
+right). The Meet mark is inline SVG with class `.ico-meet`; `.btn svg` sizing is
+overridden for it so the logo keeps its 87.5×72 ratio and doesn't inherit the
+arrow's hover nudge.
+
+**Shape** — `--r-card: 20px`, `--r-panel: 16px`, `--r-sm: 10px`, pills at `999px`.
+
+**Logo** — text placeholder `Kajal & Co.` (`.brand`) until real artwork lands.
+
+**Contact** — `kajalandani.co@gmail.com` is the only contact point. There is no
+phone number and no WhatsApp link anywhere on the site.
+
+---
+
+## Interactions (`assets/js/main.js`)
+
+Scroll reveals · seamless marquees (track content is duplicated at runtime) ·
+work-rail dot pagination · portfolio filters · one-open-at-a-time accordions ·
+mobile sheet nav · sticky header shrink · year stamp.
+
+All animation respects `prefers-reduced-motion`.
+
+---
+
+## Placeholder content
+
+Anything still needing real client data carries the `.placeholder` class and
+renders with a dotted underline. Counts as built: portfolio 41, home 33,
+about 10, contact 7, services 6.
+
+**Delete the single `.placeholder` rule in `style.css` to switch the markers off.**
+
+See `CONTENT-TO-REPLACE.md` for the fill-in sheet.
+
+---
+
+## Before launch
+
+- [ ] **Fill in the case studies.** All six slots are empty scaffolding — no invented client names remain.
+- [ ] **Point the Book Discovery Call CTAs at a real booking link** (Google Calendar / Cal.com). They currently go to the contact form.
+- [ ] **Add the LinkedIn URL** — the only contact placeholder left.
+- [ ] **Confirm the pricing floor, start window, and minimum ad spend** left open in the FAQs.
+- [ ] **Confirm team surnames** and swap the initials blocks for real photos.
+- [ ] **Add client logos** — the trust marquee and logo wall repeat a "Client Logo" chip.
+- [ ] **Add project imagery.** `.work-card__media` takes an `<img>` with no layout change; the CSS grid artwork is a stand-in.
+- [ ] **Add hero collage imagery.** `.tile` elements are CSS-drawn stand-ins for real screenshots.
+- [ ] **Wire the forms.** Front-end only — they submit nowhere.
+- [ ] Update the announcement bar month (home only), or delete the `.announce` block.
+- [ ] Add `/privacy` and `/terms`, currently linked as `#`.
+- [ ] Remove `<meta name="robots" content="noindex, nofollow">` from all five pages.
+
+## Folded in, not standalone
+
+The copy deck specifies routes that live inside the five pages rather than on
+their own: `/faq` (home + services), `/clients` (portfolio), `/how-we-work`
+(home + contact), `/audit` (contact), `/workshop` (about), plus `/insights`,
+the four service spoke pages, and the utility pages.
