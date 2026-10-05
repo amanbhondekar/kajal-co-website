@@ -22,14 +22,18 @@ Then open <http://localhost:4477>.
 
 ```
 .
-├── index.html          # Home
-├── about.html          # Story, principles, team, press, workshop
-├── services.html       # Website Design, SEO, Performance Marketing + FAQ
-├── portfolio.html      # Case studies with service filters
-├── contact.html        # Free growth audit form
+├── index.html                   # Home
+├── about.html                   # Story, principles, team, press, workshop
+├── services.html                # Overview of all three services
+├── website-design.html          # Service page
+├── performance-marketing.html   # Service page
+├── seo.html                     # Service page
+├── portfolio.html               # Case studies with service filters
+├── contact.html                 # Contact + discovery call
 └── assets/
-    ├── css/style.css   # Tokens + all components
-    └── js/main.js      # Interactions
+    ├── css/style.css            # Tokens + all components
+    ├── js/main.js               # Interactions
+    └── img/                     # Logos + collateral icons
 ```
 
 ---
@@ -165,24 +169,24 @@ Both dropdowns list the three services; "Our Works" items deep-link to
 matching filter. CSS drives the menus on hover/focus; the JS adds click and
 Escape handling so they work on touch, where `:hover` never resolves.
 
-**Logo** — four SVGs in `assets/img/`. The symbol is a 181 × 65 artboard
-(2.7846:1); the three wordmarks are 369 × 84 (4.3929:1).
+**Logo** — five SVGs in `assets/img/`.
 
-| File | Fill | Used on |
+| File | Artboard | Used on |
 | --- | --- | --- |
-| `logo-black.svg` | black | **header** — 32px tall at every breakpoint |
-| `logo-white.svg` | white | footer, 40px tall |
-| `logo-symbol.svg` | black + lime dot | unused |
-| `logo-default.svg` | `#9FE815` | unused lime wordmark |
-
-`.brand img` sets `max-width: none` — the global `img { max-width: 100% }` cap
-would otherwise squash the mark whenever its grid track is narrower than its
-natural width, which is exactly what happened at mobile widths.
+| `logo-bold.svg` | 188 × 44 (4.2727:1), purple | **header** — 32px tall at every breakpoint |
+| `logo-white.svg` | 369 × 84 (4.3929:1), white | footer, 40px tall |
+| `logo-black.svg` | 369 × 84, black | unused |
+| `logo-default.svg` | 369 × 84, lime | unused |
+| `logo-symbol.svg` | 181 × 65, black + lime dot | unused |
 
 Always sized by height with `width: auto`, so the ratio stays locked.
+`.brand img` also sets `max-width: none` — the global `img { max-width: 100% }`
+cap would otherwise squash the mark whenever its grid track is narrower than
+its natural width, which is what happened at mobile widths.
 
-There is no white version of the symbol, so the footer keeps the white
-**wordmark** — the symbol's black fill would disappear on the dark panel.
+**Collateral icons** — `icon-1` … `icon-4` sit on the four "How we work"
+cards. They run a purple-to-white gradient, so `.svc-card__icon` is a dark
+tile; on a light fill the white end of the gradient disappears.
 
 **Contact** — `kajalandani.co@gmail.com` is the only contact point. There is no
 phone number and no WhatsApp link anywhere on the site.
@@ -199,32 +203,32 @@ All animation respects `prefers-reduced-motion`.
 
 ---
 
-## Placeholder content
+## Mock content
 
-Anything still needing real client data carries the `.placeholder` class and
-renders with a dotted underline. Counts as built: portfolio 41, home 33,
-about 10, contact 7, services 6.
+There are **no placeholder markers left** — every slot is filled so the site
+reads as finished. That means nothing on the page tells you what is real.
 
-**Delete the single `.placeholder` rule in `style.css` to switch the markers off.**
+**`CONTENT-TO-REPLACE.md` is the only record of what is invented**, and almost
+all of the proof is: six case studies, three testimonials, seven client logos,
+every headline number, the pricing, and two of the three team bios. Read it
+before showing this to anyone.
 
-See `CONTENT-TO-REPLACE.md` for the fill-in sheet.
+The site is currently indexable, so those invented claims are crawlable.
 
 ---
 
 ## Before launch
 
-- [ ] **Fill in the case studies.** All six slots are empty scaffolding — no invented client names remain.
+- [ ] **Replace every invented claim** listed in `CONTENT-TO-REPLACE.md`, or cut the sections that carry them.
+- [ ] **Write real Privacy Policy and Terms pages.** Both link to `#`; no legal copy has been drafted, deliberately.
 - [ ] **Point the Book Discovery Call CTAs at a real booking link** (Google Calendar / Cal.com). They currently go to the contact form.
-- [ ] **Add the LinkedIn URL** — the only contact placeholder left.
-- [ ] **Confirm the pricing floor, start window, and minimum ad spend** left open in the FAQs.
-- [ ] **Confirm team surnames** and swap the initials blocks for real photos.
-- [ ] **Add client logos** — the trust marquee runs seven mock marks (Northwind, Vertex, Lumen, Arcadia, Meridian, Cobalt, Quill). They are invented placeholders, not real clients. The portfolio logo wall still repeats a "Client Logo" chip.
+- [ ] **Add the real Instagram and LinkedIn URLs** — both are `#`.
+- [ ] **Swap the initials blocks for real photos** — founder on home, three on about.
 - [ ] **Add project imagery.** `.work-card__media` takes an `<img>` with no layout change; the CSS grid artwork is a stand-in.
 - [ ] **Add hero collage imagery.** `.tile` elements are CSS-drawn stand-ins for real screenshots.
-- [ ] **Wire the forms.** Front-end only — they submit nowhere.
+- [ ] **Wire the form.** Front-end only — it submits nowhere. Netlify Forms is not enabled on the project.
 - [ ] Update the announcement bar month (home only), or delete the `.announce` block.
-- [ ] Add `/privacy` and `/terms`, currently linked as `#`.
-- [ ] Remove `<meta name="robots" content="noindex, nofollow">` from all five pages.
+- [ ] Consider re-adding `noindex` until the mock content is replaced.
 
 ## Folded in, not standalone
 

@@ -1,159 +1,79 @@
-# Real content needed
+# Content that is still invented
 
-Everything below is currently **invented** and live on the preview site. Fill in the
-right-hand values (or strike out what you don't have) and I'll swap it all in.
+The site now carries **no visible placeholder markers** — every slot is filled
+with mock copy so it reads as a finished page. That makes this file the only
+record of what is real and what is not.
 
-Partial is fine — tell me how many real case studies exist and I'll resize the
-layout to fit. Better three real ones than six padded out.
-
----
-
-## 1. Case studies — 6 slots
-
-3 appear on the home slider, all 6 on the Work page. Each needs:
-
-| Field | Used for | Example (invented) |
-| --- | --- | --- |
-| Client name | Card title, tag row | Aarna Jewels |
-| Service | Filter + tag — one of Website Design / SEO / Performance Marketing | Website Design |
-| Industry | Filter + badge | Jewellery |
-| Model | Tag row | D2C |
-| Duration | Tag row | 6 weeks |
-| Big metric | Large number over the image | 3.2× |
-| Metric label | Under the big number | Enquiries in 90 days |
-| Outcome headline | Serif headline, needs a real number | Enquiries up 3.2× in 90 days |
-| Description | One or two lines on what you did | A conversion-led rebuild that put the enquiry path on every page |
-| Quote | Short pull quote | "The new site does the selling our showroom used to do." |
-| Attribution | Name, role, company | Priya Nair, Founder @ Aarna Jewels |
-| Image | Optional — drop files in `assets/img/` | (CSS placeholder art) |
-
-**Fill in:**
-
-```
-CASE 1
-  client:
-  service:
-  industry:
-  model:
-  duration:
-  metric:
-  metric label:
-  outcome headline:
-  description:
-  quote:
-  attribution:
-
-CASE 2
-  ...
-
-(repeat to CASE 6, or stop wherever your real work ends)
-```
+**Everything listed below is invented.** None of it should survive a public
+launch, and right now the site is indexable.
 
 ---
 
-## 2. Testimonials — 4 slots
+## 1. Case studies — all six are fictional
 
-Scrolling column on Home and Work. Can reuse case-study quotes, but longer.
+Clients, metrics, quotes and attributions were written to be plausible, not
+true. They appear on the home page slider (first three) and the portfolio grid
+(all six).
 
-```
-TESTIMONIAL 1
-  outcome headline:        e.g. Leads up 3× in 90 days
-  quote:                   2–3 sentences; mark any phrase to bold
-  name, role, company:
-  result badge:            e.g. 3× enquiries · 90 days
+| # | Client | Service | Metric claimed | Quote attributed to |
+| --- | --- | --- | --- | --- |
+| 1 | Aarna Jewels | Website Design | Enquiries up 3.2× in 90 days | Priya Nair, Founder |
+| 2 | Northline Interiors | SEO | Organic enquiries up 4.1× | Rohan Mehta, Director |
+| 3 | Veda Wellness | Performance Marketing | ROAS 4.6× | Ananya Rao, Co-founder |
+| 4 | Studio Mehr | Website Design | Project enquiries up 2.4× | Imran Qureshi, Principal |
+| 5 | Kesari Foods | SEO | Non-brand traffic up 5.8× | Divya Shah, Growth Lead |
+| 6 | Lumen Dental | Performance Marketing | ₹640 cost per booked consult | Dr. Sameer Joshi, Founder |
 
-(repeat to 4)
-```
+## 2. Testimonials — three, all fictional
 
----
+Reuse the names from cases 1–3. Same warning: these are fabricated quotes
+attributed to fabricated people.
 
-## 3. Logo marquee — hero
+## 3. Client logo marquee — seven invented brands
 
-Currently 10 invented names under "Trusted by 60+ brands".
+Northwind, Vertex, Lumen, Arcadia, Meridian, Cobalt, Quill. They sit under a
+heading that reads "Brands I've Worked With".
 
-```
-Brands to list (any number, 8–12 reads best):
-Logo files?  Y / N   — if yes, drop SVG or PNG in assets/img/logos/
-```
+## 4. Numbers quoted as fact
 
-> Worth checking you have permission to show client names and logos publicly.
-> Your own copy deck flagged this for the `/clients` page.
+- `₹1 Cr+` revenue generated — hero, founder section
+- `60+` brands — hero, trust strip
+- `400+` people trained — founder section
+- `38` sites shipped, median load `1.8s` — website design page
+- `₹68 lakh` tracked paid revenue — performance marketing page
+- Press logos: Mid-Day, YourStory
 
----
+## 5. Pricing and commitments
 
-## 4. Service proof lines
+- Websites from ₹1,20,000
+- Retainers from ₹45,000 / month
+- Suggested ad budget floor ₹75,000 / month
+- Start window 1–2 weeks; websites 4–8 weeks
+- Reply within two working days
 
-One headline stat per service card.
+## 6. People
 
-| Service | Currently | Real value |
-| --- | --- | --- |
-| Website Design | **38** sites shipped | |
-| SEO | **4×** organic leads for Northline Interiors | |
-| Performance Marketing | **₹1 Cr+** client revenue from paid | |
+- Kajal Andani — real; her founder story paragraphs are invented
+- Harsh Vora (SEO) — surname and bio invented
+- Aman Shetty (Website Design) — surname and bio invented
+- Kajal's portrait is an initials block; swap for a real image at
+  `.founder__photo` on the home page and `.person__photo` on about
 
-And the three stat strips on the Services page:
+## 7. Dead links
 
-```
-Website Design:  38 sites  ·  <2s load time  ·  90+ Lighthouse
-SEO:             4× for Northline  ·  23 local keywords for Lumen  ·  3–6 mo
-Performance:     ₹1 Cr+ revenue  ·  4.1× ROAS Veda  ·  −46% CPO Kesari
-```
+These render normally but go nowhere (`href="#"`):
 
----
-
-## 5. Team
-
-| Currently | Real |
-| --- | --- |
-| Kajal Andani — Performance Marketing | confirmed from deck |
-| Harsh **Parekh** — SEO | surname invented |
-| Aman **Bhondekar** — Website Design | guessed from your email — confirm |
-
-Bios are one line each and currently generic. Photos would replace the initials blocks —
-drop them in `assets/img/team/`.
+- Instagram, LinkedIn
+- Privacy Policy, Terms of Use — **no legal pages exist.** I did not invent
+  legal copy; these need writing properly before launch.
+- "Read the case study" on every portfolio card
 
 ---
 
-## 6. Press
+## Before this goes public
 
-Mid-Day came from your deck. **YourStory, The Better India and Business Standard are invented.**
-
-```
-Real outlets:
-```
-
----
-
-## 7. Contact details
-
-| Field | Currently | Real |
-| --- | --- | --- |
-| Email | hello@kajalandco.com | |
-| WhatsApp | wa.me/910000000000 | |
-| LinkedIn | `#` | |
-| Instagram | @_kajalandani | from deck — confirm |
-| Domain | kajalandco.com | |
-
----
-
-## 8. Pricing — in the FAQs
-
-All three invented:
-
-```
-Websites from:          ₹1,20,000
-Retainers from:         ₹40,000/mo
-Minimum ad spend:       ₹75,000/mo
-```
-
-Happy to phrase these as "from ₹X" or drop the numbers entirely and say
-"scoped after the audit" if you'd rather not publish rates.
-
----
-
-## 9. Other invented specifics
-
-- "80+ launches since 2013" / "60+ brands" / "₹1 Cr+" / "400+ trained" — from your deck, confirm they're current
-- "Now booking for March 2026" in the announcement bar
-- Response time "within 48 hours, Mon–Fri"
-- Timelines: websites 4–8 weeks, SEO 3–6 months, start within 1–2 weeks
+- [ ] Replace everything above with real client data, or remove the sections
+- [ ] Write real Privacy Policy and Terms pages
+- [ ] Point the Book Discovery Call CTAs at a real booking link
+- [ ] Wire the form — it currently posts nowhere
+- [ ] Consider re-adding `noindex` until the mock content is gone
