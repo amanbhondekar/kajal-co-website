@@ -347,10 +347,12 @@ em, .em        { font-style: italic; font-weight: 500; }
   box-shadow: var(--shadow-nav);
 }
 
-/* Logo — locked to 48px tall, width follows the 369:84 artboard ratio. */
+/* Logo — height-stepped per breakpoint; width always follows the artboard
+   ratio (symbol 181:65, wordmark 369:84). Never set both dimensions. */
 .brand { display: block; flex: none; }
-.brand img { height: 48px; width: auto; display: block; }
-@media (max-width: 480px) { .brand img { height: 38px; } }
+.brand img { height: 40px; width: auto; display: block; }
+@media (max-width: 1023px) { .brand img { height: 36px; } }
+@media (max-width: 767px)  { .brand img { height: 32px; } }
 
 .nav { display: flex; align-items: center; gap: .25rem; }
 .nav__link {
@@ -507,11 +509,10 @@ em, .em        { font-style: italic; font-weight: 500; }
    -------------------------------------------------------------------------- */
 .trust { border-block: 1px solid var(--line); padding-block: clamp(2rem, 1rem + 2.5vw, 3rem); }
 .trust__top {
-  display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between;
-  gap: 1rem 2rem; margin-bottom: 1.75rem;
+  display: flex; justify-content: center; text-align: center;
+  margin-bottom: 1.75rem;
 }
-.trust__stat { display: flex; align-items: baseline; gap: .6rem; }
-.trust__stat b { font-size: clamp(1.5rem,1rem + 2vw,2rem); font-weight: 600; letter-spacing: var(--ls-tight); }
+.trust__top b { font-size: clamp(1.5rem,1rem + 2vw,2rem); font-weight: 600; letter-spacing: var(--ls-tight); }
 
 .marquee {
   overflow: hidden;
@@ -523,16 +524,30 @@ em, .em        { font-style: italic; font-weight: 500; }
 .marquee:hover .marquee__track { animation-play-state: paused; }
 @keyframes slide { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
+/* Mock client logos — stand-ins until real marks are supplied. */
 .logo-item {
-  display: grid; place-items: center;
-  min-width: clamp(140px, 16vw, 190px); height: 54px; padding-inline: 1.5rem;
+  display: flex; align-items: center; justify-content: center; gap: .55rem;
+  min-width: clamp(150px, 17vw, 200px); height: 54px; padding-inline: 1.5rem;
   font-size: var(--fs-sm); font-weight: 600; letter-spacing: -.02em;
   color: var(--text-3); border-right: 1px solid var(--line); white-space: nowrap;
 }
+.logo-item svg { width: 19px; height: 19px; flex: none; fill: currentColor; }
+.on-dark .logo-item { border-color: var(--line-dark); color: var(--on-dark-3); }
 
 /* big word marquee band */
 .band { border-block: 1px solid var(--line); padding-block: clamp(1.25rem,.5rem + 2vw,2rem); overflow: hidden; }
 .band.on-dark { border-color: var(--line-dark); }
+
+/* accent band — sits directly above the footer: lime field, black type */
+.band--accent {
+  background: var(--lime-light);
+  border: 0;
+  height: 88px;
+  padding-block: 0;
+  display: grid; align-content: center;
+}
+.band--accent .band__item,
+.band--accent .band__item i { color: var(--ink); }
 .band__item {
   display: inline-flex; align-items: center; gap: clamp(1.5rem,3vw,3rem);
   padding-inline: clamp(.75rem,1.5vw,1.5rem);
@@ -696,6 +711,12 @@ em, .em        { font-style: italic; font-weight: 500; }
   min-height: clamp(160px, 20vw, 230px); display: grid; place-items: center;
 }
 .step__panel svg { width: clamp(44px,5vw,60px); height: clamp(44px,5vw,60px); color: var(--text-3); }
+
+/* sticky steps on a dark section */
+.on-dark .step { background: var(--ink-2); border-color: var(--line-dark); box-shadow: none; }
+.on-dark .step__panel { background: var(--ink-3); border-color: var(--line-dark); }
+.on-dark .step__panel svg { color: var(--on-dark-3); }
+.on-dark .chip { background: var(--ink-3); border-color: var(--line-dark); color: var(--on-dark-2); }
 
 /* --------------------------------------------------------------------------
    13. Stats

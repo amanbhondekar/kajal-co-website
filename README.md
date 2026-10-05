@@ -52,10 +52,14 @@ The section architecture is reverse-engineered from the reference site
 | Edge-to-edge marquee (logos, quotes, big type) | trust strip, testimonials, bands |
 | Big-number stat card grid opposite a text column | home, about, portfolio |
 
-**Note on the home page:** "How we work" and "How we help" hold each other's
-original layouts. The process steps run in the dark 2×2 card grid (section 3),
-and the three services run as sticky stacking cards (section 6). The 2×2 on
-dark matches the reference site's own service grid.
+**Note on the home page:** "How we help" and "How we work" have swapped both
+position and theme. "How we help" now runs first, as **dark** sticky stacking
+cards; "How we work" runs after the testimonials, as a **light** 2×2 card grid.
+Each kept the layout it had — only placement and surface changed.
+
+The lime accent band sits directly above `<footer>` on the home, about and
+services pages: a full-bleed 88px strip, `#B5FF2A` field with black type and
+bullets. Portfolio and contact don't have one.
 
 ---
 
@@ -144,16 +148,20 @@ services; "Our Works" items deep-link to `portfolio.html#<service>`, and
 menus on hover/focus; the JS adds click and Escape handling so they work on
 touch, where `:hover` never resolves.
 
-**Logo** — three SVG variants in `assets/img/`, all on a 369 × 84 artboard
-(ratio 4.3929:1):
+**Logo** — four SVGs in `assets/img/`. The symbol is a 181 × 65 artboard
+(2.7846:1); the three wordmarks are 369 × 84 (4.3929:1).
 
 | File | Fill | Used on |
 | --- | --- | --- |
-| `logo-black.svg` | black | header, 48px tall (38px under 480px wide) |
+| `logo-symbol.svg` | black + lime dot | **header** — 40px desktop / 36px tablet / 32px mobile |
 | `logo-white.svg` | white | footer, 40px tall |
-| `logo-default.svg` | `#9FE815` | unused — the lime mark, held for dark/neutral surfaces |
+| `logo-black.svg` | black | unused wordmark |
+| `logo-default.svg` | `#9FE815` | unused lime wordmark |
 
 Always sized by height with `width: auto`, so the ratio stays locked.
+
+There is no white version of the symbol, so the footer keeps the white
+**wordmark** — the symbol's black fill would disappear on the dark panel.
 
 **Contact** — `kajalandani.co@gmail.com` is the only contact point. There is no
 phone number and no WhatsApp link anywhere on the site.
@@ -189,7 +197,7 @@ See `CONTENT-TO-REPLACE.md` for the fill-in sheet.
 - [ ] **Add the LinkedIn URL** — the only contact placeholder left.
 - [ ] **Confirm the pricing floor, start window, and minimum ad spend** left open in the FAQs.
 - [ ] **Confirm team surnames** and swap the initials blocks for real photos.
-- [ ] **Add client logos** — the trust marquee and logo wall repeat a "Client Logo" chip.
+- [ ] **Add client logos** — the trust marquee runs seven mock marks (Northwind, Vertex, Lumen, Arcadia, Meridian, Cobalt, Quill). They are invented placeholders, not real clients. The portfolio logo wall still repeats a "Client Logo" chip.
 - [ ] **Add project imagery.** `.work-card__media` takes an `<img>` with no layout change; the CSS grid artwork is a stand-in.
 - [ ] **Add hero collage imagery.** `.tile` elements are CSS-drawn stand-ins for real screenshots.
 - [ ] **Wire the forms.** Front-end only — they submit nowhere.
