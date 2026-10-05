@@ -31,13 +31,9 @@
   --line-dark:  rgba(255,255,255,.12);
   --line-dark-2:rgba(255,255,255,.22);
 
-  /* Two accents, one per surface. --accent and --on-accent always travel
-     together: whatever --accent is, --on-accent is legible on top of it.
-     Light sections take purple, dark sections take lime (see .on-dark).     */
-  --purple:     #742aff;   /* accent on light backgrounds */
-  --lime:       #9FE815;   /* accent on dark backgrounds  */
-  --lime-light: #B5FF2A;   /* the marquee band field only */
-
+  /* One accent across every surface. --accent and --on-accent travel
+     together: whatever --accent is, --on-accent is legible on top of it.   */
+  --purple:     #742aff;
   --accent:     var(--purple);
   --on-accent:  #ffffff;
 
@@ -223,30 +219,13 @@ em, .em        { font-style: italic; font-weight: 500; }
 .section { padding-block: var(--section); position: relative; }
 .section--tight { padding-block: calc(var(--section) * .68); }
 
-.on-dark {
-  background: var(--ink); color: var(--on-dark);
-  --accent: var(--lime); --on-accent: var(--ink);
-}
+.on-dark { background: var(--ink); color: var(--on-dark); }
 .on-mist { background: var(--mist); }
 
-/* faint graph-paper backdrop (hero + stat bands) */
-.grid-bg { position: relative; isolation: isolate; }
-.grid-bg::before {
-  content: ''; position: absolute; inset: 0; z-index: -1;
-  background-image:
-    linear-gradient(to right, var(--line) 1px, transparent 1px),
-    linear-gradient(to bottom, var(--line) 1px, transparent 1px);
-  background-size: 88px 88px;
-  -webkit-mask-image: radial-gradient(120% 90% at 50% 0%, #000 20%, transparent 78%);
-          mask-image: radial-gradient(120% 90% at 50% 0%, #000 20%, transparent 78%);
-  opacity: .7;
-}
-.on-dark.grid-bg::before {
-  background-image:
-    linear-gradient(to right, var(--line-dark) 1px, transparent 1px),
-    linear-gradient(to bottom, var(--line-dark) 1px, transparent 1px);
-  opacity: 1;
-}
+/* Section background treatment — the graph-paper grid was removed; a new
+   animated backdrop will hang off this hook. Left as a no-op stacking
+   context so sections keep their own layer when one lands. */
+.has-bg { position: relative; isolation: isolate; }
 
 /* the recurring section header: title block left, action right */
 .sec-head {
@@ -357,12 +336,11 @@ em, .em        { font-style: italic; font-weight: 500; }
   box-shadow: var(--shadow-nav);
 }
 
-/* Logo — height-stepped per breakpoint; width always follows the artboard
-   ratio (symbol 181:65, wordmark 369:84). Never set both dimensions. */
+/* Logo — 32px tall everywhere; width follows the 369:84 wordmark ratio.
+   max-width:none overrides the global img cap, which would otherwise squash
+   the mark when its grid track is narrower than its natural width. */
 .brand { display: block; flex: none; }
-.brand img { height: 40px; width: auto; display: block; }
-@media (max-width: 1023px) { .brand img { height: 36px; } }
-@media (max-width: 767px)  { .brand img { height: 32px; } }
+.brand img { height: 32px; width: auto; max-width: none; display: block; }
 
 /* scoped to the header grid — the footer centres its own brand */
 .header__inner > .brand { justify-self: start; }
@@ -429,6 +407,8 @@ em, .em        { font-style: italic; font-weight: 500; }
   .nav { display: none; }
   .burger { display: grid; }
   .header__cta .btn { display: none; }
+  /* with the nav gone, let the logo take its natural width */
+  .header__inner { grid-template-columns: auto 1fr; }
 }
 
 /* mobile sheet */
@@ -553,16 +533,16 @@ em, .em        { font-style: italic; font-weight: 500; }
 .band { border-block: 1px solid var(--line); padding-block: clamp(1.25rem,.5rem + 2vw,2rem); overflow: hidden; }
 .band.on-dark { border-color: var(--line-dark); }
 
-/* accent band — sits directly above the footer: lime field, black type */
+/* accent band — sits directly above the footer: accent field, legible type */
 .band--accent {
-  background: var(--lime-light);
+  background: var(--accent);
   border: 0;
   height: 88px;
   padding-block: 0;
   display: grid; align-content: center;
 }
 .band--accent .band__item,
-.band--accent .band__item i { color: var(--ink); }
+.band--accent .band__item i { color: var(--on-accent); }
 .band__item {
   display: inline-flex; align-items: center; gap: clamp(1.5rem,3vw,3rem);
   padding-inline: clamp(.75rem,1.5vw,1.5rem);
@@ -778,15 +758,16 @@ em, .em        { font-style: italic; font-weight: 500; }
 .person__role { font-size: var(--fs-sm); color: var(--text-3); margin-top: .25rem; }
 .person__body p { font-size: var(--fs-sm); color: var(--text-2); margin-top: .75rem; }
 
-/* team strip (compact, home) */
-.team-strip { display: flex; flex-wrap: wrap; gap: .75rem; }
-.team-strip > div {
-  display: flex; align-items: center; gap: .75rem;
-  padding: .6rem 1rem .6rem .6rem;
-  border: 1px solid var(--line-dark); border-radius: var(--r-pill); background: var(--ink-2);
+/* founder column — portrait above a pair of stat cards, on one grid */
+.founder__media { display: grid; gap: var(--gutter); }
+.founder__photo {
+  aspect-ratio: 4 / 3; border-radius: var(--r-card);
+  background: var(--ink-3); border: 1px solid var(--line-dark);
+  display: grid; place-items: center; overflow: hidden;
+  font-size: clamp(2.25rem, 4vw, 3rem); font-weight: 600;
+  letter-spacing: var(--ls-tight); color: var(--on-dark-3);
 }
-.team-strip b { font-size: var(--fs-sm); font-weight: 600; display: block; }
-.team-strip span { font-size: var(--fs-xs); color: var(--on-dark-3); }
+.founder__photo img { width: 100%; height: 100%; object-fit: cover; }
 
 /* --------------------------------------------------------------------------
    15. Principles / bordered rule grid
@@ -897,32 +878,41 @@ em, .em        { font-style: italic; font-weight: 500; }
   letter-spacing: .1em; text-transform: uppercase; color: var(--on-dark-2);
 }
 
+/* 680px frame; one rhythm throughout — 2rem between groups, 1rem inside */
 .quote-form {
-  max-width: 44rem;
+  max-width: 680px;
   margin: clamp(2rem, 1rem + 3vw, 3.5rem) auto 0;
   padding: clamp(1.5rem, 1rem + 2vw, 2.5rem);
   background: var(--ink-2); border: 1px solid var(--line-dark);
   border-radius: var(--r-card);
-  display: grid; gap: clamp(1.5rem, 1rem + 1vw, 2rem);
+  display: grid; gap: 2rem;
 }
-.quote-form__group { display: grid; gap: .75rem; border: 0; padding: 0; margin: 0; min-width: 0; }
-.quote-form__legend { font-size: var(--fs-sm); font-weight: 600; color: var(--on-dark); padding: 0; }
+.quote-form__group { display: grid; gap: 1rem; border: 0; padding: 0; margin: 0; min-width: 0; }
+.quote-form .form__row { gap: 1rem; }
+.quote-form__legend {
+  font-size: var(--fs-sm); font-weight: 600; color: var(--on-dark);
+  padding: 0; line-height: 1.3;
+}
 
-.check-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: .6rem; }
+/* plain checkboxes — no box container */
+.check-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: .9rem 1rem; }
 @media (max-width: 560px) { .check-grid { grid-template-columns: 1fr; } }
 .check {
   display: flex; align-items: center; gap: .65rem;
-  padding: .8rem 1rem; border-radius: var(--r-sm);
-  border: 1px solid var(--line-dark); background: var(--ink);
   font-size: var(--fs-sm); color: var(--on-dark-2); cursor: pointer;
-  transition: border-color .16s var(--ease), color .16s var(--ease);
+  transition: color .16s var(--ease);
 }
-.check:hover { border-color: var(--line-dark-2); color: var(--on-dark); }
+.check:hover,
+.check:has(input:checked) { color: var(--on-dark); }
 .check input {
   width: 16px; height: 16px; flex: none; margin: 0;
   accent-color: var(--accent); cursor: pointer;
 }
-.check:has(input:checked) { border-color: var(--accent); color: var(--on-dark); }
+
+/* both CTAs share the row equally */
+.quote-form .btn-row { display: flex; gap: .75rem; }
+.quote-form .btn-row > .btn { flex: 1 1 0; justify-content: center; }
+@media (max-width: 480px) { .quote-form .btn-row { flex-direction: column; } }
 
 /* --- input icons --------------------------------------------------------- */
 .field--icon { position: relative; }
@@ -945,18 +935,25 @@ em, .em        { font-style: italic; font-weight: 500; }
 }
 .phone:focus-within { border-color: var(--paper); box-shadow: 0 0 0 3px rgba(255,255,255,.1); }
 .phone .field__ico { color: var(--on-dark-3); }
+/* both children match the plain inputs exactly: .8rem block padding on a
+   1.6 line box, no border or background of their own */
 .phone select,
 .phone input {
   border: 0; border-radius: 0; background: transparent;
-  padding-block: .8rem;
+  padding-block: .8rem; line-height: 1.6; font-size: var(--fs-sm);
 }
 .phone select:focus,
 .phone input:focus { outline: none; box-shadow: none; border-color: transparent; }
 .phone select {
-  padding-left: 2.9rem; padding-right: .6rem;
+  -webkit-appearance: none; appearance: none;
+  padding-left: 2.9rem; padding-right: 2.1rem;
   border-right: 1px solid var(--line-dark);
   color: var(--on-dark); cursor: pointer;
   font-variant-numeric: tabular-nums;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-opacity='.45' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right .85rem center;
+  background-size: 11px 11px;
 }
 .phone input { padding-inline: 1rem; }
 

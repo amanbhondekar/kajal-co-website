@@ -114,20 +114,11 @@ Two-tone headings use `.hl` for the second phrase — a neutral grey on light,
 40% white on dark. Dark sections are opted in with `.on-dark`, which re-maps
 button, border, and text colours automatically.
 
-**Two accents, one per surface** — `--accent` and `--on-accent` always travel
-together, so whatever the accent is, text on top of it stays legible:
+**One accent** — `#742aff` purple, on every surface. `--accent` and
+`--on-accent` (white) travel together, so text on an accent fill stays legible
+without per-surface variants. There is no lime anywhere in the stylesheet.
 
-| Surface | `--accent` | `--on-accent` |
-| --- | --- | --- |
-| light | `#742aff` purple | white |
-| dark (`.on-dark`) | `#9FE815` lime | ink |
-
-Purple is never used on dark sections and lime is never used on light ones —
-the swap is handled entirely by `.on-dark`, so components don't need variants.
-The marquee band keeps its own brighter `--lime-light` (`#B5FF2A`) field, since
-it is an accent surface rather than an accent *on* a surface.
-
-The accent is used in six places only, so it stays an accent rather than a
+The accent is used in seven places only, so it stays an accent rather than a
 second brand colour:
 
 1. step / phase badges (`.badge`)
@@ -135,14 +126,14 @@ second brand colour:
 3. checkmarks in feature lists and chips
 4. the top rule on numbered process steps (`.proc`)
 5. the active slider dot (`.rail-dots .is-active`)
-6. marquee band bullets (`.band__item i`)
+6. the pre-footer marquee band field (`.band--accent`)
+7. the two-tone heading half (`.hl`), italic
 
-Headings, stat numbers and buttons stay black/white deliberately. The two-tone
-heading half (`.hl`) is the one text use, and it is why light sections run
-purple: lime on white measured about 1.6:1, purple is about 6:1.
+Headings, stat numbers and buttons stay black/white deliberately.
 
-**Note:** `logo-symbol.svg` has a hard-coded lime dot, so the header logo keeps
-its lime on a light surface where everything else is purple.
+**Contrast:** purple on white is about 6:1 and passes AA for any size. Purple
+on the near-black sections is about 3.3:1 — fine for the large bold `.hl`
+headings it is used on, but it should not be used for body text on dark.
 
 **CTAs** — one pair site-wide: **Book Discovery Call** (primary, solid, carries
 the Google Meet mark on the left) and **Contact Us** (secondary, outline, arrow
@@ -179,10 +170,14 @@ Escape handling so they work on touch, where `:hover` never resolves.
 
 | File | Fill | Used on |
 | --- | --- | --- |
-| `logo-symbol.svg` | black + lime dot | **header** — 40px desktop / 36px tablet / 32px mobile |
+| `logo-black.svg` | black | **header** — 32px tall at every breakpoint |
 | `logo-white.svg` | white | footer, 40px tall |
-| `logo-black.svg` | black | unused wordmark |
+| `logo-symbol.svg` | black + lime dot | unused |
 | `logo-default.svg` | `#9FE815` | unused lime wordmark |
+
+`.brand img` sets `max-width: none` — the global `img { max-width: 100% }` cap
+would otherwise squash the mark whenever its grid track is narrower than its
+natural width, which is exactly what happened at mobile widths.
 
 Always sized by height with `width: auto`, so the ratio stays locked.
 
