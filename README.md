@@ -57,9 +57,16 @@ position and theme. "How we help" now runs first, as **dark** sticky stacking
 cards; "How we work" runs after the testimonials, as a **light** 2×2 card grid.
 Each kept the layout it had — only placement and surface changed.
 
-The lime accent band sits directly above `<footer>` on the home, about and
-services pages: a full-bleed 88px strip, `#B5FF2A` field with black type and
-bullets. Portfolio and contact don't have one.
+**Every page ends with the same three blocks:** `marquee → form → footer`.
+
+- **Marquee** — full-bleed 88px strip, `#B5FF2A` field, black type and bullets.
+- **Form** (`.contact-cta`) — centred pill eyebrow, two-tone heading, and a
+  dark card holding Name / Email / WhatsApp, a four-way service checkbox grid
+  (three services plus Other), and a message field. It has no bottom padding
+  and the footer has no top border, so the two read as one continuous panel.
+- **Footer** — brand column (logo, blurb, email, copyright) plus three short
+  link columns: Services, Follow us, Legal. No Menu column. Closed by an
+  oversized `Kajal & Co.` watermark at 5.5% white.
 
 ---
 
@@ -141,12 +148,15 @@ The content frame is `width: min(var(--container), 100% - var(--margin) * 2)`
 with `--container: 1280px`. `.header__inner` uses the same expression, so the
 nav pill and the page content share one max-width and their edges line up.
 
-**Nav** — About · Services ▾ · Our Works ▾. Home is reached through the logo,
-Contact through the Book Discovery Call button. Both dropdowns list the three
-services; "Our Works" items deep-link to `portfolio.html#<service>`, and
-`main.js` reads that hash to preselect the matching filter. CSS drives the
-menus on hover/focus; the JS adds click and Escape handling so they work on
-touch, where `:hover` never resolves.
+**Nav** — About · Services ▾ · Our Works ▾, at 16px in `#222222`. Home is
+reached through the logo, Contact through the Book Discovery Call button.
+`.header__inner` is a `1fr auto 1fr` grid with 14px/16px padding, so the nav
+stays optically centred whatever the logo and button widths do.
+
+Both dropdowns list the three services; "Our Works" items deep-link to
+`portfolio.html#<service>`, and `main.js` reads that hash to preselect the
+matching filter. CSS drives the menus on hover/focus; the JS adds click and
+Escape handling so they work on touch, where `:hover` never resolves.
 
 **Logo** — four SVGs in `assets/img/`. The symbol is a 181 × 65 artboard
 (2.7846:1); the three wordmarks are 369 × 84 (4.3929:1).

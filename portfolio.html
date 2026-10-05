@@ -256,64 +256,105 @@
 </main>
 
 <!-- ============================ FINAL CTA + FOOTER ============================ -->
-<section class="cta-final on-dark">
-  <div class="container">
-    <div class="cta-final__grid">
-      <div data-reveal>
-        <h2 class="h2">Want results <span class="hl"><em>like this?</em></span></h2>
-        <p class="lead mt-2">One service. A recorded review within 48 hours.</p>
-        <div class="btn-row mt-3">
-          <a class="btn btn--lg" href="contact.html"><svg class="ico-meet" viewBox="0 0 87.5 72" aria-hidden="true"><path fill="#00832d" d="M49.5 36l8.53 9.75 11.47 7.33 2-17.02-2-16.64-11.69 6.44z"/><path fill="#0066da" d="M0 51.5V66c0 3.315 2.685 6 6 6h14.5l3-10.96-3-9.54-9.95-3z"/><path fill="#e94235" d="M20.5 0L0 20.5l10.55 3 9.95-3 2.95-9.41z"/><path fill="#2684fc" d="M20.5 20.5H0v31h20.5z"/><path fill="#00ac47" d="M82.6 8.68L69.5 19.42v33.66l13.16 10.79c1.97 1.54 4.85.135 4.85-2.37V11c0-2.535-2.945-3.925-4.91-2.32zM49.5 36v15.5h-29V72h43c3.315 0 6-2.685 6-6V53.08z"/><path fill="#ffba00" d="M63.5 0h-43v20.5h29V36l20-16.57V6c0-3.315-2.685-6-6-6z"/></svg>Book Discovery Call</a>
-          <a class="btn btn--ghost btn--lg" href="contact.html">Contact Us
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-          </a>
-        </div>
-      </div>
-      <div class="grid grid--2" data-reveal>
-        <div class="stat-card"><b class="stat-num">48h</b><span>Reply time</span></div>
-        <div class="stat-card"><b class="stat-num">1</b><span>Point of contact</span></div>
-      </div>
+<!-- ============================ MARQUEE ============================ -->
+<div class="band band--accent">
+  <div class="marquee">
+    <div class="marquee__track">
+      <span class="band__item">Websites that convert <i>&#9679;</i> SEO that compounds <i>&#9679;</i> Ads that pay back <i>&#9679;</i></span>
     </div>
   </div>
+</div>
 
-  <footer class="footer mt-4">
-    <div class="container">
-      <div class="footer__grid">
-        <div>
-          <a href="index.html" class="brand" aria-label="Kajal &amp; Co. &mdash; home">
-            <img src="assets/img/logo-white.svg" alt="Kajal &amp; Co." width="176" height="40">
-          </a>
-          <p class="lead mt-2">Websites that convert. SEO that compounds. Ads that pay back.</p>
-          <div class="footer__contact">
-            <a href="mailto:kajalandani.co@gmail.com">kajalandani.co@gmail.com</a>
+<!-- ============================ FORM ============================ -->
+<section class="contact-cta on-dark" id="start">
+  <div class="container">
+    <div class="contact-cta__head" data-reveal>
+      <span class="pill-eyebrow">Let&rsquo;s make it happen</span>
+      <h2><span class="hl">Ready to</span><br>get started.</h2>
+      <p class="contact-cta__sub">Tell us what you&rsquo;re growing. We reply within 48 hours.</p>
+    </div>
+
+    <form class="quote-form" data-reveal onsubmit="return false;">
+      <div class="quote-form__group">
+        <p class="quote-form__legend">Contact information</p>
+        <div class="form__row">
+          <div class="field">
+            <label class="sr-only" for="q-name">Name</label>
+            <input id="q-name" name="name" type="text" placeholder="Name" required>
+          </div>
+          <div class="field">
+            <label class="sr-only" for="q-email">Email</label>
+            <input id="q-email" name="email" type="email" placeholder="Email" required>
           </div>
         </div>
-        <div>
-          <h4>Pages</h4>
-          <nav class="footer__links">
-            <a href="index.html">Home</a>
-            <a href="about.html">About</a>
-            <a href="services.html">Services</a>
-            <a href="portfolio.html">Our Works</a>
-            <a href="contact.html">Contact</a>
-          </nav>
-        </div>
-        <div>
-          <h4>Elsewhere</h4>
-          <nav class="footer__links">
-            <a href="#">Instagram @_kajalandani</a>
-            <a href="#" class="placeholder">LinkedIn</a>
-            <a href="contact.html">Book a discovery call</a>
-          </nav>
+        <div class="field">
+          <label class="sr-only" for="q-whatsapp">WhatsApp number</label>
+          <input id="q-whatsapp" name="whatsapp" type="tel" placeholder="WhatsApp number">
         </div>
       </div>
-      <div class="footer__bar">
-        <span>&copy; <span data-year>2026</span> Kajal &amp; Co.</span>
-        <nav><a href="#">Privacy</a><a href="#">Terms</a></nav>
+
+      <fieldset class="quote-form__group">
+        <legend class="quote-form__legend">What can we help with?</legend>
+        <div class="check-grid">
+          <label class="check"><input type="checkbox" name="service" value="website-design">Website Design &amp; Development</label>
+          <label class="check"><input type="checkbox" name="service" value="performance-marketing">Performance Marketing</label>
+          <label class="check"><input type="checkbox" name="service" value="seo">SEO Search Engine Optimization</label>
+          <label class="check"><input type="checkbox" name="service" value="other">Other</label>
+        </div>
+      </fieldset>
+
+      <div class="quote-form__group">
+        <label class="quote-form__legend" for="q-message">Message</label>
+        <div class="field">
+          <textarea id="q-message" name="message" placeholder="Tell us about your project"></textarea>
+        </div>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn btn--lg" type="submit"><svg class="ico-meet" viewBox="0 0 87.5 72" aria-hidden="true"><path fill="#00832d" d="M49.5 36l8.53 9.75 11.47 7.33 2-17.02-2-16.64-11.69 6.44z"/><path fill="#0066da" d="M0 51.5V66c0 3.315 2.685 6 6 6h14.5l3-10.96-3-9.54-9.95-3z"/><path fill="#e94235" d="M20.5 0L0 20.5l10.55 3 9.95-3 2.95-9.41z"/><path fill="#2684fc" d="M20.5 20.5H0v31h20.5z"/><path fill="#00ac47" d="M82.6 8.68L69.5 19.42v33.66l13.16 10.79c1.97 1.54 4.85.135 4.85-2.37V11c0-2.535-2.945-3.925-4.91-2.32zM49.5 36v15.5h-29V72h43c3.315 0 6-2.685 6-6V53.08z"/><path fill="#ffba00" d="M63.5 0h-43v20.5h29V36l20-16.57V6c0-3.315-2.685-6-6-6z"/></svg>Book Discovery Call</button>
+      </div>
+    </form>
+  </div>
+</section>
+
+<!-- ============================ FOOTER ============================ -->
+<footer class="footer on-dark">
+  <div class="container">
+    <div class="footer__grid">
+      <div>
+        <a href="index.html" class="brand" aria-label="Kajal &amp; Co. &mdash; home">
+          <img src="assets/img/logo-white.svg" alt="Kajal &amp; Co." width="176" height="40">
+        </a>
+        <p class="footer__blurb">Websites that convert, SEO that compounds, and ads that pay back &mdash; from three specialists and one point of contact.</p>
+        <a class="footer__mail" href="mailto:kajalandani.co@gmail.com">kajalandani.co@gmail.com</a>
+        <p class="footer__copy">&copy; <span data-year>2026</span> Kajal &amp; Co. &middot; Working with brands worldwide</p>
+      </div>
+      <div>
+        <h4>Services</h4>
+        <nav class="footer__links">
+            <a href="services.html#website-design">Website Design &amp; Development</a>
+            <a href="services.html#performance-marketing">Performance Marketing</a>
+            <a href="services.html#seo">SEO Search Engine Optimization</a>
+        </nav>
+      </div>
+      <div>
+        <h4>Follow us</h4>
+        <nav class="footer__links">
+          <a href="#">Instagram</a>
+          <a href="#" class="placeholder">LinkedIn</a>
+        </nav>
+      </div>
+      <div>
+        <h4>Legal</h4>
+        <nav class="footer__links">
+          <a href="#" class="placeholder">Privacy Policy</a>
+          <a href="#" class="placeholder">Terms</a>
+        </nav>
       </div>
     </div>
-  </footer>
-</section>
+    <div class="footer__mark" aria-hidden="true"><span>Kajal &amp; Co.</span></div>
+  </div>
+</footer>
 
 <script src="assets/js/main.js"></script>
 </body>
