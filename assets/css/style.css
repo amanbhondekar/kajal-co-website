@@ -31,10 +31,15 @@
   --line-dark:  rgba(255,255,255,.12);
   --line-dark-2:rgba(255,255,255,.22);
 
-  /* lime accent — used sparingly, swaps per surface */
-  --lime-light: #B5FF2A;   /* accent on light backgrounds */
-  --lime-dark:  #9FE815;   /* accent on dark backgrounds  */
-  --accent:     var(--lime-light);
+  /* Two accents, one per surface. --accent and --on-accent always travel
+     together: whatever --accent is, --on-accent is legible on top of it.
+     Light sections take purple, dark sections take lime (see .on-dark).     */
+  --purple:     #742aff;   /* accent on light backgrounds */
+  --lime:       #9FE815;   /* accent on dark backgrounds  */
+  --lime-light: #B5FF2A;   /* the marquee band field only */
+
+  --accent:     var(--purple);
+  --on-accent:  #ffffff;
 
   /* families */
   --font-sans:  'Bricolage Grotesque', system-ui, -apple-system, 'Segoe UI', sans-serif;
@@ -218,7 +223,10 @@ em, .em        { font-style: italic; font-weight: 500; }
 .section { padding-block: var(--section); position: relative; }
 .section--tight { padding-block: calc(var(--section) * .68); }
 
-.on-dark { background: var(--ink); color: var(--on-dark); --accent: var(--lime-dark); }
+.on-dark {
+  background: var(--ink); color: var(--on-dark);
+  --accent: var(--lime); --on-accent: var(--ink);
+}
 .on-mist { background: var(--mist); }
 
 /* faint graph-paper backdrop (hero + stat bands) */
@@ -318,10 +326,9 @@ em, .em        { font-style: italic; font-weight: 500; }
 /* step / phase badge */
 .badge {
   display: inline-block; padding: .35rem .7rem; border-radius: var(--r-sm);
-  background: var(--accent); color: var(--ink);
+  background: var(--accent); color: var(--on-accent);
   font-size: var(--fs-xs); font-weight: 500; letter-spacing: .1em; text-transform: uppercase;
 }
-.on-dark .badge { background: var(--accent); color: var(--ink); }
 .badge--outline { background: transparent; color: var(--text-2); border: 1px solid var(--line-2); }
 
 /* --------------------------------------------------------------------------
@@ -469,7 +476,7 @@ em, .em        { font-style: italic; font-weight: 500; }
 }
 .hero__badge i {
   width: 22px; height: 22px; border-radius: var(--r-pill); flex: none;
-  background: var(--accent); color: var(--ink);
+  background: var(--accent); color: var(--on-accent);
   display: grid; place-items: center; font-style: normal; font-size: 11px; font-weight: 700;
 }
 @media (max-width: 520px) {
@@ -480,6 +487,7 @@ em, .em        { font-style: italic; font-weight: 500; }
 .hero .lead { margin-top: 1.5rem; max-width: 44ch; }
 .hero .btn-row { margin-top: 2rem; }
 .hero__micro { margin-top: 1rem; font-size: var(--fs-sm); color: var(--text-3); }
+.hero__stats { margin-top: clamp(2rem, 1.5rem + 1.5vw, 2.75rem); }
 
 /* collage: two offset columns of device tiles, slow opposing drift */
 .collage {
@@ -569,7 +577,8 @@ em, .em        { font-style: italic; font-weight: 500; }
    -------------------------------------------------------------------------- */
 .svc-card {
   display: flex; flex-direction: column;
-  padding: clamp(1.5rem, 1rem + 1.4vw, 2rem);
+  /* 8px tighter than the other card surfaces: 16px → 24px */
+  padding: clamp(1rem, .5rem + 1.4vw, 1.5rem);
   border-radius: var(--r-card); border: 1px solid var(--line);
   background: var(--paper); height: 100%;
   transition: transform .25s var(--ease), border-color .25s var(--ease);

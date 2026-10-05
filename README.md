@@ -114,9 +114,21 @@ Two-tone headings use `.hl` for the second phrase — a neutral grey on light,
 40% white on dark. Dark sections are opted in with `.on-dark`, which re-maps
 button, border, and text colours automatically.
 
-**Lime accent** — `--accent` resolves per surface: `#B5FF2A` on light,
-`#9FE815` on dark (swapped by `.on-dark`). Used in six places only, so it stays
-an accent rather than a second brand colour:
+**Two accents, one per surface** — `--accent` and `--on-accent` always travel
+together, so whatever the accent is, text on top of it stays legible:
+
+| Surface | `--accent` | `--on-accent` |
+| --- | --- | --- |
+| light | `#742aff` purple | white |
+| dark (`.on-dark`) | `#9FE815` lime | ink |
+
+Purple is never used on dark sections and lime is never used on light ones —
+the swap is handled entirely by `.on-dark`, so components don't need variants.
+The marquee band keeps its own brighter `--lime-light` (`#B5FF2A`) field, since
+it is an accent surface rather than an accent *on* a surface.
+
+The accent is used in six places only, so it stays an accent rather than a
+second brand colour:
 
 1. step / phase badges (`.badge`)
 2. the hero badge chip (`.hero__badge i`)
@@ -125,8 +137,12 @@ an accent rather than a second brand colour:
 5. the active slider dot (`.rail-dots .is-active`)
 6. marquee band bullets (`.band__item i`)
 
-Headings, stat numbers, and buttons stay black/white deliberately. Lime is never
-used for body text — at these values it fails contrast on white.
+Headings, stat numbers and buttons stay black/white deliberately. The two-tone
+heading half (`.hl`) is the one text use, and it is why light sections run
+purple: lime on white measured about 1.6:1, purple is about 6:1.
+
+**Note:** `logo-symbol.svg` has a hard-coded lime dot, so the header logo keeps
+its lime on a light surface where everything else is purple.
 
 **CTAs** — one pair site-wide: **Book Discovery Call** (primary, solid, carries
 the Google Meet mark on the left) and **Contact Us** (secondary, outline, arrow
