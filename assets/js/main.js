@@ -23,6 +23,38 @@
     });
   }
 
+  /* ---------- nav dropdowns ----------
+     CSS handles hover and focus-within. This adds click/keyboard toggling so
+     the menus also work on touch, where :hover never resolves.              */
+  var dropItems = Array.prototype.slice.call(document.querySelectorAll('.nav__item'));
+  if (dropItems.length) {
+    var closeDrops = function (except) {
+      dropItems.forEach(function (it) {
+        if (it === except) return;
+        it.classList.remove('is-open');
+        var t = it.querySelector('.nav__link--drop');
+        if (t) t.setAttribute('aria-expanded', 'false');
+      });
+    };
+    dropItems.forEach(function (item) {
+      var trigger = item.querySelector('.nav__link--drop');
+      if (!trigger) return;
+      trigger.addEventListener('click', function (e) {
+        e.preventDefault();
+        var open = !item.classList.contains('is-open');
+        closeDrops(item);
+        item.classList.toggle('is-open', open);
+        trigger.setAttribute('aria-expanded', String(open));
+      });
+    });
+    document.addEventListener('click', function (e) {
+      if (!e.target.closest('.nav__item')) closeDrops(null);
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') closeDrops(null);
+    });
+  }
+
   /* ---------- sticky header shrink ---------- */
   var header = document.querySelector('.header');
   if (header) {
@@ -91,17 +123,27 @@
   var filterBar = document.querySelector('[data-filters]');
   if (filterBar) {
     var items = document.querySelectorAll('[data-service]');
-    filterBar.addEventListener('click', function (e) {
-      var btn = e.target.closest('button[data-filter]');
-      if (!btn) return;
+    var applyFilter = function (f) {
       Array.prototype.forEach.call(filterBar.querySelectorAll('button'), function (b) {
-        b.classList.toggle('is-active', b === btn);
+        b.classList.toggle('is-active', b.dataset.filter === f);
       });
-      var f = btn.dataset.filter;
       items.forEach(function (it) {
         it.classList.toggle('is-hidden', f !== 'all' && it.dataset.service !== f);
       });
+    };
+
+    filterBar.addEventListener('click', function (e) {
+      var btn = e.target.closest('button[data-filter]');
+      if (btn) applyFilter(btn.dataset.filter);
     });
+
+    // deep links from the "Our Works" nav dropdown, e.g. portfolio.html#seo
+    var fromHash = function () {
+      var h = (location.hash || '').replace('#', '');
+      if (h && filterBar.querySelector('button[data-filter="' + h + '"]')) applyFilter(h);
+    };
+    fromHash();
+    window.addEventListener('hashchange', fromHash);
   }
 
   /* ---------- accordion: one open at a time, per group ---------- */

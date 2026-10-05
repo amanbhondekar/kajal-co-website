@@ -125,7 +125,35 @@ arrow's hover nudge.
 
 **Shape** — `--r-card: 20px`, `--r-panel: 16px`, `--r-sm: 10px`, pills at `999px`.
 
-**Logo** — text placeholder `Kajal & Co.` (`.brand`) until real artwork lands.
+**Space** — three stepped tokens, set in media queries rather than `clamp()`:
+
+| Token | Desktop | Tablet (≤1023) | Mobile (≤767) |
+| --- | --- | --- | --- |
+| `--margin` — page edge to content | 80px | 40px | 20px |
+| `--gutter` — gap between columns | 28px | 20px | 12px |
+| `--section` — space between sections | 100px | 72px | 56px |
+
+The content frame is `width: min(var(--container), 100% - var(--margin) * 2)`
+with `--container: 1280px`. `.header__inner` uses the same expression, so the
+nav pill and the page content share one max-width and their edges line up.
+
+**Nav** — About · Services ▾ · Our Works ▾. Home is reached through the logo,
+Contact through the Book Discovery Call button. Both dropdowns list the three
+services; "Our Works" items deep-link to `portfolio.html#<service>`, and
+`main.js` reads that hash to preselect the matching filter. CSS drives the
+menus on hover/focus; the JS adds click and Escape handling so they work on
+touch, where `:hover` never resolves.
+
+**Logo** — three SVG variants in `assets/img/`, all on a 369 × 84 artboard
+(ratio 4.3929:1):
+
+| File | Fill | Used on |
+| --- | --- | --- |
+| `logo-black.svg` | black | header, 48px tall (38px under 480px wide) |
+| `logo-white.svg` | white | footer, 40px tall |
+| `logo-default.svg` | `#9FE815` | unused — the lime mark, held for dark/neutral surfaces |
+
+Always sized by height with `width: auto`, so the ratio stays locked.
 
 **Contact** — `kajalandani.co@gmail.com` is the only contact point. There is no
 phone number and no WhatsApp link anywhere on the site.

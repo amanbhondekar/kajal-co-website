@@ -58,11 +58,20 @@
   --ls-head:    -.03em;
   --ls-wide:    .14em;
 
-  /* space */
-  --gutter:     clamp(1.25rem, .6rem + 2.4vw, 2.5rem);
-  --container:  1200px;
-  --s-pad:      clamp(4.5rem, 2.2rem + 8vw, 8rem);   /* 72 → 128 */
-  --gap:        clamp(1rem, .6rem + 1.4vw, 1.5rem);
+  /* --- space -------------------------------------------------------------
+     Three tokens, stepped per breakpoint (see the media queries below):
+
+                     desktop   tablet   mobile
+     --margin          80px      40px     20px    page edge → content
+     --gutter          28px      20px     12px    gap between grid columns
+     --section        100px      72px     56px    vertical space between sections
+
+     --container is the content frame: content width is
+     min(1280px, 100vw − 2 × --margin).                                      */
+  --container:  1280px;
+  --margin:     80px;
+  --gutter:     28px;
+  --section:    100px;
 
   /* shape */
   --r-card:     20px;
@@ -74,6 +83,15 @@
   --shadow-card:0 1px 2px rgba(0,0,0,.03), 0 12px 32px -20px rgba(0,0,0,.18);
 
   --ease:       cubic-bezier(.22,.61,.36,1);
+}
+
+/* tablet: 768–1023 */
+@media (max-width: 1023px) {
+  :root { --margin: 40px; --gutter: 20px; --section: 72px; }
+}
+/* mobile: < 768 */
+@media (max-width: 767px) {
+  :root { --margin: 20px; --gutter: 12px; --section: 56px; }
 }
 
 /* --------------------------------------------------------------------------
@@ -190,14 +208,15 @@ em, .em        { font-style: italic; font-weight: 500; }
 /* --------------------------------------------------------------------------
    4. Layout primitives
    -------------------------------------------------------------------------- */
+/* Content frame: 1280px cap, falling back to viewport minus the page margin.
+   The header pill uses the same expression, so their edges line up exactly. */
 .container {
-  width: 100%; max-width: var(--container);
-  margin-inline: auto; padding-inline: var(--gutter);
+  width: min(var(--container), 100% - var(--margin) * 2);
+  margin-inline: auto;
 }
-.container--wide { max-width: 1360px; }
 
-.section { padding-block: var(--s-pad); position: relative; }
-.section--tight { padding-block: calc(var(--s-pad) * .62); }
+.section { padding-block: var(--section); position: relative; }
+.section--tight { padding-block: calc(var(--section) * .68); }
 
 .on-dark { background: var(--ink); color: var(--on-dark); --accent: var(--lime-dark); }
 .on-mist { background: var(--mist); }
@@ -224,7 +243,7 @@ em, .em        { font-style: italic; font-weight: 500; }
 /* the recurring section header: title block left, action right */
 .sec-head {
   display: grid; grid-template-columns: minmax(0,1fr) auto;
-  align-items: end; gap: var(--gap);
+  align-items: end; gap: var(--gutter);
   margin-bottom: clamp(2.5rem, 1.5rem + 3vw, 4rem);
 }
 .sec-head__title { max-width: 18ch; }
@@ -237,7 +256,7 @@ em, .em        { font-style: italic; font-weight: 500; }
 }
 
 /* generic card grids */
-.grid    { display: grid; gap: var(--gap); }
+.grid    { display: grid; gap: var(--gutter); }
 .grid--2 { grid-template-columns: repeat(2, minmax(0,1fr)); }
 .grid--3 { grid-template-columns: repeat(3, minmax(0,1fr)); }
 .grid--4 { grid-template-columns: repeat(4, minmax(0,1fr)); }
@@ -312,13 +331,15 @@ em, .em        { font-style: italic; font-weight: 500; }
 .announce a { display: block; padding: .6rem 1rem; }
 .announce a:hover { color: var(--paper); }
 
-.header { position: sticky; top: 0; z-index: 100; padding: 1rem var(--gutter); transition: padding .25s var(--ease); }
+.header { position: sticky; top: 0; z-index: 100; padding-block: 1rem; transition: padding .25s var(--ease); }
 .header.is-stuck { padding-block: .5rem; }
 
+/* same width expression as .container, so the pill aligns with the content */
 .header__inner {
-  max-width: 1280px; margin-inline: auto;
+  width: min(var(--container), 100% - var(--margin) * 2);
+  margin-inline: auto;
   display: flex; align-items: center; justify-content: space-between; gap: 1rem;
-  padding: .7rem .7rem .7rem 1.5rem;
+  padding: .5rem .5rem .5rem 1.25rem;
   background: rgba(255,255,255,.86);
   -webkit-backdrop-filter: blur(16px) saturate(1.4);
           backdrop-filter: blur(16px) saturate(1.4);
@@ -326,17 +347,52 @@ em, .em        { font-style: italic; font-weight: 500; }
   box-shadow: var(--shadow-nav);
 }
 
-.brand { font-size: 1.0625rem; font-weight: 700; letter-spacing: -.035em; white-space: nowrap; }
-.brand span { font-weight: 400; color: var(--text-3); }
+/* Logo — locked to 48px tall, width follows the 369:84 artboard ratio. */
+.brand { display: block; flex: none; }
+.brand img { height: 48px; width: auto; display: block; }
+@media (max-width: 480px) { .brand img { height: 38px; } }
 
 .nav { display: flex; align-items: center; gap: .25rem; }
 .nav__link {
+  display: inline-flex; align-items: center; gap: .35rem;
   padding: .5rem .85rem; border-radius: var(--r-pill);
   font-size: var(--fs-sm); font-weight: 500; color: var(--text-2);
+  background: none; border: 0; font-family: inherit; cursor: pointer;
   transition: color .16s var(--ease), background-color .16s var(--ease);
 }
 .nav__link:hover { color: var(--text); background: var(--mist); }
 .nav__link[aria-current="page"] { color: var(--text); font-weight: 600; }
+
+/* --- nav dropdowns ------------------------------------------------------- */
+.nav__item { position: relative; display: flex; }
+.nav__link--drop svg { width: 11px; height: 11px; transition: transform .2s var(--ease); }
+.nav__item.is-open .nav__link--drop { color: var(--text); background: var(--mist); }
+.nav__item.is-open .nav__link--drop svg { transform: rotate(180deg); }
+
+.nav__drop {
+  position: absolute; top: calc(100% + .55rem); left: 50%;
+  transform: translateX(-50%) translateY(-6px);
+  min-width: 272px; padding: .4rem;
+  background: var(--paper); border: 1px solid var(--line);
+  border-radius: var(--r-panel); box-shadow: var(--shadow-nav);
+  display: grid; gap: 2px; z-index: 10;
+  opacity: 0; visibility: hidden; pointer-events: none;
+  transition: opacity .18s var(--ease), transform .18s var(--ease), visibility .18s;
+}
+/* keeps the menu open while the pointer crosses the gap below the trigger */
+.nav__drop::before { content: ''; position: absolute; inset-inline: 0; top: -.55rem; height: .55rem; }
+.nav__item:hover .nav__drop,
+.nav__item:focus-within .nav__drop,
+.nav__item.is-open .nav__drop {
+  opacity: 1; visibility: visible; pointer-events: auto;
+  transform: translateX(-50%) translateY(0);
+}
+.nav__drop a {
+  padding: .6rem .8rem; border-radius: var(--r-sm);
+  font-size: var(--fs-sm); color: var(--text-2); white-space: nowrap;
+  transition: color .16s var(--ease), background-color .16s var(--ease);
+}
+.nav__drop a:hover { background: var(--mist); color: var(--text); }
 
 .header__cta { display: flex; align-items: center; gap: .5rem; }
 
@@ -362,19 +418,27 @@ em, .em        { font-style: italic; font-weight: 500; }
 /* mobile sheet */
 .sheet {
   position: fixed; inset: 0; z-index: 99; background: var(--paper);
-  padding: 8.5rem var(--gutter) 2rem;
+  padding: 7.5rem var(--margin) 2rem;
   overflow-y: auto;
   display: flex; flex-direction: column; justify-content: space-between;
   transform: translateY(-100%); visibility: hidden;
   transition: transform .4s var(--ease), visibility .4s;
 }
 .sheet.is-open { transform: translateY(0); visibility: visible; }
-.sheet__nav { display: flex; flex-direction: column; gap: .25rem; }
+.sheet__nav { display: flex; flex-direction: column; }
 .sheet__link {
-  font-size: clamp(2rem, 9vw, 2.75rem); font-weight: 600;
+  display: block;
+  font-size: clamp(1.75rem, 7.5vw, 2.5rem); font-weight: 600;
   letter-spacing: var(--ls-tight); line-height: 1.25;
-  padding-block: .35rem; border-bottom: 1px solid var(--line);
+  padding-block: .3rem; border-bottom: 1px solid var(--line);
 }
+.sheet__group { border-bottom: 1px solid var(--line); padding-block: .3rem .75rem; }
+.sheet__group > .sheet__link { border-bottom: 0; padding-bottom: .1rem; }
+.sheet__sub { display: grid; gap: .1rem; padding-left: .1rem; }
+.sheet__sub a {
+  font-size: var(--fs-sm); color: var(--text-2); padding-block: .3rem;
+}
+.sheet__sub a:hover { color: var(--text); }
 .sheet__foot { display: grid; gap: 1rem; padding-top: 2rem; }
 
 /* --------------------------------------------------------------------------
@@ -410,12 +474,12 @@ em, .em        { font-style: italic; font-weight: 500; }
 
 /* collage: two offset columns of device tiles, slow opposing drift */
 .collage {
-  display: grid; grid-template-columns: 1fr 1fr; gap: var(--gap);
+  display: grid; grid-template-columns: 1fr 1fr; gap: var(--gutter);
   height: clamp(360px, 46vw, 540px); overflow: hidden;
   -webkit-mask-image: linear-gradient(to bottom, transparent, #000 12%, #000 88%, transparent);
           mask-image: linear-gradient(to bottom, transparent, #000 12%, #000 88%, transparent);
 }
-.collage__col { display: grid; gap: var(--gap); align-content: start; animation: drift 34s linear infinite; }
+.collage__col { display: grid; gap: var(--gutter); align-content: start; animation: drift 34s linear infinite; }
 .collage__col--b { animation-direction: reverse; }
 @keyframes drift { from { transform: translateY(0); } to { transform: translateY(-50%); } }
 .collage:hover .collage__col { animation-play-state: paused; }
@@ -522,8 +586,8 @@ em, .em        { font-style: italic; font-weight: 500; }
    -------------------------------------------------------------------------- */
 .rail {
   display: grid; grid-auto-flow: column;
-  grid-auto-columns: minmax(0, calc((100% - var(--gap) * 2) / 3));
-  gap: var(--gap); overflow-x: auto;
+  grid-auto-columns: minmax(0, calc((100% - var(--gutter) * 2) / 3));
+  gap: var(--gutter); overflow-x: auto;
   scroll-snap-type: x mandatory; scrollbar-width: none; padding-bottom: .5rem;
 }
 .rail::-webkit-scrollbar { display: none; }
@@ -586,7 +650,7 @@ em, .em        { font-style: italic; font-weight: 500; }
    11. Testimonials
    -------------------------------------------------------------------------- */
 .tst-card {
-  width: clamp(300px, 32vw, 400px); margin-right: var(--gap);
+  width: clamp(300px, 32vw, 400px); margin-right: var(--gutter);
   padding: clamp(1.5rem,1rem + 1.2vw,2rem);
   border-radius: var(--r-card); border: 1px solid var(--line); background: var(--paper);
   display: flex; flex-direction: column; gap: 1.25rem; white-space: normal;
@@ -780,7 +844,7 @@ em, .em        { font-style: italic; font-weight: 500; }
 /* --------------------------------------------------------------------------
    19. Final CTA + footer
    -------------------------------------------------------------------------- */
-.cta-final { padding-block: var(--s-pad); }
+.cta-final { padding-block: var(--section); }
 .cta-final__grid {
   display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr);
   gap: clamp(2rem,1rem + 4vw,4rem); align-items: start;
@@ -789,6 +853,7 @@ em, .em        { font-style: italic; font-weight: 500; }
 .cta-final h2 { max-width: 14ch; }
 
 .footer { border-top: 1px solid var(--line-dark); }
+.footer .brand img { height: 40px; }
 .footer__grid {
   display: grid; grid-template-columns: minmax(0,1.4fr) repeat(2, minmax(0,.6fr));
   gap: clamp(2rem,1rem + 3vw,3rem); padding-block: clamp(2.5rem,1.5rem + 3vw,4rem);
@@ -841,7 +906,7 @@ em, .em        { font-style: italic; font-weight: 500; }
 /* --------------------------------------------------------------------------
    21b. Service hub blocks + numbered process row
    -------------------------------------------------------------------------- */
-.svc-block + .svc-block { margin-top: var(--s-pad); padding-top: var(--s-pad); border-top: 1px solid var(--line); }
+.svc-block + .svc-block { margin-top: var(--section); padding-top: var(--section); border-top: 1px solid var(--line); }
 .on-dark .svc-block + .svc-block { border-color: var(--line-dark); }
 
 .svc-block__split {
@@ -858,7 +923,7 @@ em, .em        { font-style: italic; font-weight: 500; }
 .panel p { font-size: var(--fs-sm); color: var(--text-2); }
 .panel--plain { background: var(--paper); }
 
-.proc-row { display: grid; grid-template-columns: repeat(5, minmax(0,1fr)); gap: var(--gap); counter-reset: p; }
+.proc-row { display: grid; grid-template-columns: repeat(5, minmax(0,1fr)); gap: var(--gutter); counter-reset: p; }
 @media (max-width: 900px) { .proc-row { grid-template-columns: repeat(2, minmax(0,1fr)); } }
 @media (max-width: 480px) { .proc-row { grid-template-columns: 1fr; } }
 .proc {

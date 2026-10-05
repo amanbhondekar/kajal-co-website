@@ -16,13 +16,31 @@
 
 <header class="header">
   <div class="header__inner">
-    <a href="index.html" class="brand">Kajal <span>&amp; Co.</span></a>
+    <a href="index.html" class="brand" aria-label="Kajal &amp; Co. &mdash; home">
+      <img src="assets/img/logo-black.svg" alt="Kajal &amp; Co." width="211" height="48">
+    </a>
     <nav class="nav" aria-label="Primary">
-      <a class="nav__link" href="index.html">Home</a>
       <a class="nav__link" href="about.html" aria-current="page">About</a>
-      <a class="nav__link" href="services.html">Services</a>
-      <a class="nav__link" href="portfolio.html">Portfolio</a>
-      <a class="nav__link" href="contact.html">Contact</a>
+      <div class="nav__item">
+        <button type="button" class="nav__link nav__link--drop" aria-expanded="false" aria-controls="drop-services">Services
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+        </button>
+        <div class="nav__drop" id="drop-services">
+          <a href="services.html#website-design">Website Design &amp; Development</a>
+          <a href="services.html#performance-marketing">Performance Marketing</a>
+          <a href="services.html#seo">SEO Search Engine Optimization</a>
+        </div>
+      </div>
+      <div class="nav__item">
+        <button type="button" class="nav__link nav__link--drop" aria-expanded="false" aria-controls="drop-works">Our Works
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+        </button>
+        <div class="nav__drop" id="drop-works">
+          <a href="portfolio.html#website-design">Website Design &amp; Development</a>
+          <a href="portfolio.html#performance-marketing">Performance Marketing</a>
+          <a href="portfolio.html#seo">SEO Search Engine Optimization</a>
+        </div>
+      </div>
     </nav>
     <div class="header__cta">
       <a class="btn" href="contact.html"><svg class="ico-meet" viewBox="0 0 87.5 72" aria-hidden="true"><path fill="#00832d" d="M49.5 36l8.53 9.75 11.47 7.33 2-17.02-2-16.64-11.69 6.44z"/><path fill="#0066da" d="M0 51.5V66c0 3.315 2.685 6 6 6h14.5l3-10.96-3-9.54-9.95-3z"/><path fill="#e94235" d="M20.5 0L0 20.5l10.55 3 9.95-3 2.95-9.41z"/><path fill="#2684fc" d="M20.5 20.5H0v31h20.5z"/><path fill="#00ac47" d="M82.6 8.68L69.5 19.42v33.66l13.16 10.79c1.97 1.54 4.85.135 4.85-2.37V11c0-2.535-2.945-3.925-4.91-2.32zM49.5 36v15.5h-29V72h43c3.315 0 6-2.685 6-6V53.08z"/><path fill="#ffba00" d="M63.5 0h-43v20.5h29V36l20-16.57V6c0-3.315-2.685-6-6-6z"/></svg>Book Discovery Call</a>
@@ -35,11 +53,23 @@
 
 <div class="sheet" id="sheet">
   <nav class="sheet__nav" aria-label="Mobile">
-    <a class="sheet__link" href="index.html">Home</a>
     <a class="sheet__link" href="about.html">About</a>
-    <a class="sheet__link" href="services.html">Services</a>
-    <a class="sheet__link" href="portfolio.html">Portfolio</a>
-    <a class="sheet__link" href="contact.html">Contact</a>
+    <div class="sheet__group">
+      <a class="sheet__link" href="services.html">Services</a>
+      <div class="sheet__sub">
+        <a href="services.html#website-design">Website Design &amp; Development</a>
+        <a href="services.html#performance-marketing">Performance Marketing</a>
+        <a href="services.html#seo">SEO Search Engine Optimization</a>
+      </div>
+    </div>
+    <div class="sheet__group">
+      <a class="sheet__link" href="portfolio.html">Our Works</a>
+      <div class="sheet__sub">
+        <a href="portfolio.html#website-design">Website Design &amp; Development</a>
+        <a href="portfolio.html#performance-marketing">Performance Marketing</a>
+        <a href="portfolio.html#seo">SEO Search Engine Optimization</a>
+      </div>
+    </div>
   </nav>
   <div class="sheet__foot">
     <a class="btn btn--lg" href="contact.html"><svg class="ico-meet" viewBox="0 0 87.5 72" aria-hidden="true"><path fill="#00832d" d="M49.5 36l8.53 9.75 11.47 7.33 2-17.02-2-16.64-11.69 6.44z"/><path fill="#0066da" d="M0 51.5V66c0 3.315 2.685 6 6 6h14.5l3-10.96-3-9.54-9.95-3z"/><path fill="#e94235" d="M20.5 0L0 20.5l10.55 3 9.95-3 2.95-9.41z"/><path fill="#2684fc" d="M20.5 20.5H0v31h20.5z"/><path fill="#00ac47" d="M82.6 8.68L69.5 19.42v33.66l13.16 10.79c1.97 1.54 4.85.135 4.85-2.37V11c0-2.535-2.945-3.925-4.91-2.32zM49.5 36v15.5h-29V72h43c3.315 0 6-2.685 6-6V53.08z"/><path fill="#ffba00" d="M63.5 0h-43v20.5h29V36l20-16.57V6c0-3.315-2.685-6-6-6z"/></svg>Book Discovery Call</a>
@@ -227,7 +257,9 @@
     <div class="container">
       <div class="footer__grid">
         <div>
-          <a href="index.html" class="brand" style="color:#fff">Kajal <span style="color:rgba(255,255,255,.4)">&amp; Co.</span></a>
+          <a href="index.html" class="brand" aria-label="Kajal &amp; Co. &mdash; home">
+            <img src="assets/img/logo-white.svg" alt="Kajal &amp; Co." width="176" height="40">
+          </a>
           <p class="lead mt-2">Websites that convert. SEO that compounds. Ads that pay back.</p>
           <div class="footer__contact">
             <a href="mailto:kajalandani.co@gmail.com">kajalandani.co@gmail.com</a>
@@ -239,7 +271,7 @@
             <a href="index.html">Home</a>
             <a href="about.html">About</a>
             <a href="services.html">Services</a>
-            <a href="portfolio.html">Portfolio</a>
+            <a href="portfolio.html">Our Works</a>
             <a href="contact.html">Contact</a>
           </nav>
         </div>
