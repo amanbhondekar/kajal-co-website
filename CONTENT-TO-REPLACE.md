@@ -36,12 +36,18 @@ heading that reads "Brands I've Worked With".
 
 ## 4. Numbers quoted as fact
 
-- `₹1 Cr+` revenue generated — hero, founder section
+- `₹1 Cr+` revenue generated — hero, founder graphic
 - `60+` brands — hero, trust strip
-- `400+` people trained — founder section
+- `400+` people trained — about page
 - `38` sites shipped, median load `1.8s` — website design page
 - `₹68 lakh` tracked paid revenue — performance marketing page
+- `37K+` Instagram followers — founder graphic
 - Press logos: Mid-Day, YourStory
+
+> **Conflict to resolve.** The supplied `about-graphic.webp` says
+> **20+ trusted brands**, but the hero stat and the trust strip both say
+> **60+ brands** — and they appear on the same page. One of the two is wrong.
+> The graphic is baked artwork, so fixing it means a re-export.
 
 ## 5. Pricing and commitments
 

@@ -573,16 +573,10 @@ em, .em        { font-style: italic; font-weight: 500; }
 }
 .on-dark .svc-card__num { color: var(--on-dark-3); }
 
-/* Dark tile: the collateral icons run a purple-to-white gradient, so the
-   white end would disappear on a light fill. */
-.svc-card__icon {
-  width: 56px; height: 56px; border-radius: 14px;
-  border: 1px solid var(--line); background: var(--ink);
-  display: grid; place-items: center; margin-bottom: 1.25rem;
-}
-.svc-card__icon img { width: 32px; height: 32px; display: block; }
-.svc-card__icon svg { width: 22px; height: 22px; }
-.on-dark .svc-card__icon { background: var(--ink-3); border-color: var(--line-dark); }
+/* Bare icons — no tile. */
+.svc-card__icon { display: block; margin-bottom: 1.25rem; }
+.svc-card__icon img { width: 64px; height: 64px; display: block; }
+.svc-card__icon svg { width: 28px; height: 28px; }
 
 .svc-card h3 { margin-bottom: .75rem; }
 .svc-card .body { font-size: var(--fs-sm); }
@@ -665,7 +659,8 @@ em, .em        { font-style: italic; font-weight: 500; }
    -------------------------------------------------------------------------- */
 .tst-card {
   width: clamp(300px, 32vw, 400px); margin-right: var(--gutter);
-  padding: clamp(1.5rem,1rem + 1.2vw,2rem);
+  /* 12px tighter than the other card surfaces: 12px → 20px */
+  padding: clamp(.75rem,.5rem + 1.2vw,1.25rem);
   border-radius: var(--r-card); border: 1px solid var(--line); background: var(--paper);
   display: flex; flex-direction: column; gap: 1.25rem; white-space: normal;
 }
@@ -690,6 +685,7 @@ em, .em        { font-style: italic; font-weight: 500; }
 .steps { display: grid; gap: clamp(1rem,.5rem + 1.5vw,1.5rem); }
 .step {
   position: sticky; top: clamp(5.5rem, 4rem + 3vw, 7rem);
+  height: 560px;
   border-radius: var(--r-card); border: 1px solid var(--line);
   background: var(--paper); padding: clamp(1.5rem, 1rem + 2vw, 2.5rem);
   box-shadow: var(--shadow-card);
@@ -699,22 +695,18 @@ em, .em        { font-style: italic; font-weight: 500; }
   gap: clamp(1.5rem,1rem + 2vw,2.5rem); align-items: center;
 }
 @media (max-width: 860px) {
-  .step { position: static; }
+  .step { position: static; height: auto; }
   .step__grid { grid-template-columns: 1fr; }
 }
 .step h3 { margin: 1rem 0 .75rem; font-size: clamp(1.5rem,1.1rem + 1.6vw,2rem); }
 .step .body { font-size: var(--fs-sm); max-width: 48ch; }
 .step .chip-row { margin-top: 1.5rem; }
-.step__panel {
-  border-radius: var(--r-panel); background: var(--mist); border: 1px solid var(--line);
-  min-height: clamp(160px, 20vw, 230px); display: grid; place-items: center;
-}
-.step__panel svg { width: clamp(44px,5vw,60px); height: clamp(44px,5vw,60px); color: var(--text-3); }
+/* Reserved column — the box and icon are gone; motion graphics land here. */
+.step__panel { min-height: clamp(160px, 20vw, 230px); }
+@media (max-width: 860px) { .step__panel { display: none; } }
 
 /* sticky steps on a dark section */
 .on-dark .step { background: var(--ink-2); border-color: var(--line-dark); box-shadow: none; }
-.on-dark .step__panel { background: var(--ink-3); border-color: var(--line-dark); }
-.on-dark .step__panel svg { color: var(--on-dark-3); }
 .on-dark .chip { background: var(--ink-3); border-color: var(--line-dark); color: var(--on-dark-2); }
 
 /* --------------------------------------------------------------------------
@@ -761,16 +753,9 @@ em, .em        { font-style: italic; font-weight: 500; }
 .person__role { font-size: var(--fs-sm); color: var(--text-3); margin-top: .25rem; }
 .person__body p { font-size: var(--fs-sm); color: var(--text-2); margin-top: .75rem; }
 
-/* founder column — portrait above a pair of stat cards, on one grid */
-.founder__media { display: grid; gap: var(--gutter); }
-.founder__photo {
-  aspect-ratio: 4 / 3; border-radius: var(--r-card);
-  background: var(--ink-3); border: 1px solid var(--line-dark);
-  display: grid; place-items: center; overflow: hidden;
-  font-size: clamp(2.25rem, 4vw, 3rem); font-weight: 600;
-  letter-spacing: var(--ls-tight); color: var(--on-dark-3);
-}
-.founder__photo img { width: 100%; height: 100%; object-fit: cover; }
+/* founder column — one supplied graphic, which carries its own stats */
+.founder__media { display: block; }
+.founder__media img { width: 100%; height: auto; display: block; }
 
 /* --------------------------------------------------------------------------
    15. Principles / bordered rule grid
@@ -898,7 +883,10 @@ em, .em        { font-style: italic; font-weight: 500; }
 }
 
 /* plain checkboxes — no box container */
-.check-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: .9rem 1rem; }
+.check-grid {
+  display: grid; grid-template-columns: repeat(2, minmax(0,1fr));
+  gap: .9rem 1rem; margin-top: .5rem;
+}
 @media (max-width: 560px) { .check-grid { grid-template-columns: 1fr; } }
 .check {
   display: flex; align-items: center; gap: .65rem;
