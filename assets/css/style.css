@@ -259,7 +259,9 @@ em, .em        { font-style: italic; font-weight: 500; }
    -------------------------------------------------------------------------- */
 .btn {
   --btn-bg: var(--ink); --btn-fg: var(--paper); --btn-bd: var(--ink);
-  display: inline-flex; align-items: center; gap: .55rem;
+  /* centred so a stretched button (drawer, mobile rows) keeps its label
+     and icon in the middle rather than packed against the left padding */
+  display: inline-flex; align-items: center; justify-content: center; gap: .55rem;
   padding: .8rem 1.4rem; border-radius: var(--r-pill);
   border: 1px solid var(--btn-bd); background: var(--btn-bg); color: var(--btn-fg);
   font-size: var(--fs-sm); font-weight: 600; letter-spacing: -.01em;
@@ -428,22 +430,31 @@ em, .em        { font-style: italic; font-weight: 500; }
 
 .header__cta { display: flex; align-items: center; gap: .5rem; }
 
+/* Bars are absolutely positioned from the centre, so the open and closed
+   states share one origin — the X closes exactly, which it could not when
+   grid auto-rows spread the bars across the full button height. */
 .burger {
-  display: none; width: 42px; height: 42px; border-radius: var(--r-pill);
+  display: none; position: relative;
+  width: 42px; height: 42px; border-radius: var(--r-pill);
   border: 1px solid var(--line); background: var(--paper);
-  cursor: pointer; padding: 0; place-items: center;
+  cursor: pointer; padding: 0;
 }
 .burger span {
-  display: block; width: 16px; height: 1.5px; background: var(--ink);
-  margin: 3px auto; transition: transform .25s var(--ease), opacity .2s var(--ease);
+  position: absolute; left: 50%; top: 50%;
+  width: 18px; height: 1.8px; border-radius: 2px; background: var(--ink);
+  transition: transform .28s var(--ease), opacity .16s var(--ease);
 }
-.burger[aria-expanded="true"] span:nth-child(1) { transform: translateY(4.5px) rotate(45deg); }
-.burger[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
-.burger[aria-expanded="true"] span:nth-child(3) { transform: translateY(-4.5px) rotate(-45deg); }
+.burger span:nth-child(1) { transform: translate(-50%, calc(-50% - 5.5px)); }
+.burger span:nth-child(2) { transform: translate(-50%, -50%); }
+.burger span:nth-child(3) { transform: translate(-50%, calc(-50% + 5.5px)); }
+
+.burger[aria-expanded="true"] span:nth-child(1) { transform: translate(-50%, -50%) rotate(45deg); }
+.burger[aria-expanded="true"] span:nth-child(2) { opacity: 0; transform: translate(-50%, -50%) scaleX(.3); }
+.burger[aria-expanded="true"] span:nth-child(3) { transform: translate(-50%, -50%) rotate(-45deg); }
 
 @media (max-width: 900px) {
   .nav { display: none; }
-  .burger { display: grid; }
+  .burger { display: block; }
   .header__cta .btn { display: none; }
   /* with the nav gone, let the logo take its natural width */
   .header__inner { grid-template-columns: auto 1fr; }
