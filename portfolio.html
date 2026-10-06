@@ -268,7 +268,7 @@
 
     <form class="quote-form" data-reveal onsubmit="return false;">
       <div class="quote-form__group">
-        <p class="quote-form__legend">Contact information</p>
+        <p class="quote-form__legend">Contact information <span class="req">*</span></p>
         <div class="form__row">
           <div class="field field--icon">
             <label class="sr-only" for="q-name">Name</label>
@@ -284,9 +284,10 @@
         <div class="field">
           <label class="sr-only" for="q-code">Country code</label>
           <label class="sr-only" for="q-whatsapp">WhatsApp number</label>
-          <div class="phone">
-            <svg class="field__ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.38 8.38 0 0 1-9 8.4 8.5 8.5 0 0 1-3.8-.9L3 20.5l1.5-5.2A8.38 8.38 0 0 1 3.6 11.5a8.5 8.5 0 0 1 8.4-8.4 8.38 8.38 0 0 1 9 8.4z"/></svg>
-            <select id="q-code" name="country_code" aria-label="Country code">
+          <div class="phone" data-phone>
+            <span class="phone__code">
+              <span class="phone__flag" data-flag aria-hidden="true"></span>
+              <select id="q-code" name="country_code" aria-label="Country code">
               <option selected>+91</option>
               <option>+1</option>
               <option>+44</option>
@@ -295,20 +296,16 @@
               <option>+971</option>
               <option>+49</option>
               <option>+33</option>
-              <option>+81</option>
-              <option>+86</option>
-              <option>+27</option>
-              <option>+234</option>
-              <option>+880</option>
-            </select>
-            <input id="q-whatsapp" name="whatsapp" type="tel" placeholder="WhatsApp number" autocomplete="tel">
+              </select>
+            </span>
+            <input id="q-whatsapp" name="whatsapp" type="tel" placeholder="WhatsApp number" autocomplete="tel" required>
           </div>
         </div>
       </div>
 
       <fieldset class="quote-form__group">
-        <legend class="quote-form__legend">What can we help with?</legend>
-        <div class="check-grid">
+        <legend class="quote-form__legend">What can we help with? <span class="req">*</span></legend>
+        <div class="check-grid" data-check-group>
           <label class="check"><input type="checkbox" name="service" value="website-design">Website Design &amp; Development</label>
           <label class="check"><input type="checkbox" name="service" value="performance-marketing">Performance Marketing</label>
           <label class="check"><input type="checkbox" name="service" value="seo">SEO Search Engine Optimization</label>
@@ -337,13 +334,12 @@
   <div class="container">
     <div class="footer__inner">
       <a href="index.html" class="brand" aria-label="Kajal &amp; Co. &mdash; home">
-        <img src="assets/img/logo-white.svg" alt="Kajal &amp; Co." width="176" height="40">
+        <img src="assets/img/logo-bold.svg" alt="Kajal &amp; Co." width="188" height="44">
       </a>
-      <p class="footer__blurb">Websites that convert, SEO that compounds, and ads that pay back &mdash; from three specialists and one point of contact.</p>
       <div class="footer__contacts">
-        <a href="mailto:kajalandani.co@gmail.com">kajalandani.co@gmail.com</a>
-        <a href="#">Instagram</a>
-        <a href="#">LinkedIn</a>
+        <a href="mailto:kajalandani.co@gmail.com"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 5L2 7"/></svg> kajalandani.co@gmail.com</a>
+        <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none"/></svg> Instagram</a>
+        <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg> LinkedIn</a>
       </div>
       <p class="footer__copy">
         <span>&copy; <span data-year>2026</span> Kajal &amp; Co. &middot; Working with brands worldwide</span>

@@ -157,6 +157,48 @@
     });
   });
 
+  /* ---------- phone country flag ----------
+     Inline SVG rather than emoji: Windows ships no flag glyphs, so
+     regional-indicator pairs fall back to bare letter boxes there.        */
+  var FLAGS = {
+    '+91': '<rect width="24" height="16" fill="#fff"/><rect width="24" height="5.34" fill="#F93"/><rect y="10.66" width="24" height="5.34" fill="#138808"/><circle cx="12" cy="8" r="2.1" fill="none" stroke="#008" stroke-width=".7"/>',
+    '+1':  '<rect width="24" height="16" fill="#fff"/><g fill="#B22234"><rect width="24" height="1.23"/><rect y="2.46" width="24" height="1.23"/><rect y="4.92" width="24" height="1.23"/><rect y="7.38" width="24" height="1.23"/><rect y="9.85" width="24" height="1.23"/><rect y="12.31" width="24" height="1.23"/><rect y="14.77" width="24" height="1.23"/></g><rect width="10" height="8.61" fill="#3C3B6E"/>',
+    '+44': '<rect width="24" height="16" fill="#012169"/><path d="M0 0 24 16M24 0 0 16" stroke="#fff" stroke-width="3.2"/><path d="M0 0 24 16M24 0 0 16" stroke="#C8102E" stroke-width="1.9"/><path d="M12 0v16M0 8h24" stroke="#fff" stroke-width="5.3"/><path d="M12 0v16M0 8h24" stroke="#C8102E" stroke-width="3.2"/>',
+    '+61': '<rect width="24" height="16" fill="#012169"/><g transform="scale(.5)"><path d="M0 0 24 16M24 0 0 16" stroke="#fff" stroke-width="3.2"/><path d="M0 0 24 16M24 0 0 16" stroke="#C8102E" stroke-width="1.9"/><path d="M12 0v16M0 8h24" stroke="#fff" stroke-width="5.3"/><path d="M12 0v16M0 8h24" stroke="#C8102E" stroke-width="3.2"/></g><g fill="#fff"><circle cx="6" cy="12.4" r=".9"/><circle cx="17.2" cy="3.2" r=".7"/><circle cx="20.2" cy="6.4" r=".7"/><circle cx="17.6" cy="9.8" r=".7"/><circle cx="14.6" cy="7" r=".6"/><circle cx="18.2" cy="6.4" r=".4"/></g>',
+    '+65': '<rect width="24" height="16" fill="#fff"/><rect width="24" height="8" fill="#EF3340"/><circle cx="6" cy="4" r="2.6" fill="#fff"/><circle cx="7.7" cy="4" r="2.6" fill="#EF3340"/><g fill="#fff"><circle cx="8.5" cy="2.3" r=".5"/><circle cx="10" cy="3.4" r=".5"/><circle cx="9.4" cy="5.2" r=".5"/><circle cx="7.6" cy="5.2" r=".5"/><circle cx="7" cy="3.4" r=".5"/></g>',
+    '+971':'<rect width="24" height="5.34" fill="#00732F"/><rect y="5.34" width="24" height="5.33" fill="#fff"/><rect y="10.66" width="24" height="5.34" fill="#000"/><rect width="6" height="16" fill="#F00"/>',
+    '+49': '<rect width="24" height="5.34" fill="#000"/><rect y="5.34" width="24" height="5.33" fill="#D00"/><rect y="10.66" width="24" height="5.34" fill="#FFCE00"/>',
+    '+33': '<rect width="8" height="16" fill="#002395"/><rect x="8" width="8" height="16" fill="#fff"/><rect x="16" width="8" height="16" fill="#ED2939"/>'
+  };
+
+  document.querySelectorAll('[data-phone]').forEach(function (wrap) {
+    var sel = wrap.querySelector('select');
+    var flag = wrap.querySelector('[data-flag]');
+    if (!sel || !flag) return;
+    var paint = function () {
+      var art = FLAGS[sel.value];
+      flag.innerHTML = art
+        ? '<svg viewBox="0 0 24 16" preserveAspectRatio="none" aria-hidden="true">' + art + '</svg>'
+        : '';
+    };
+    paint();
+    sel.addEventListener('change', paint);
+  });
+
+  /* ---------- "pick at least one service" ----------
+     Native validation has no group-required, so mirror `required` across the
+     set and clear it as soon as one is ticked.                             */
+  document.querySelectorAll('[data-check-group]').forEach(function (group) {
+    var boxes = Array.prototype.slice.call(group.querySelectorAll('input[type="checkbox"]'));
+    if (!boxes.length) return;
+    var sync = function () {
+      var any = boxes.some(function (b) { return b.checked; });
+      boxes.forEach(function (b) { b.required = !any; });
+    };
+    sync();
+    boxes.forEach(function (b) { b.addEventListener('change', sync); });
+  });
+
   /* ---------- year stamp ---------- */
   document.querySelectorAll('[data-year]').forEach(function (el) {
     el.textContent = String(new Date().getFullYear());

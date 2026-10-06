@@ -842,8 +842,12 @@ em, .em        { font-style: italic; font-weight: 500; }
   border: 1px solid var(--line); border-radius: var(--r-card); background: var(--mist);
 }
 .faq-aside__card p { font-size: var(--fs-sm); color: var(--text-2); margin-bottom: 1.25rem; }
-.faces { display: flex; margin-bottom: 1rem; }
-.faces .avatar { margin-right: -10px; box-shadow: 0 0 0 3px var(--mist); }
+.faces { display: flex; margin-bottom: 1.25rem; }
+.faces .avatar {
+  width: 44px; height: 44px; margin-right: -12px; padding: 0;
+  overflow: hidden; border: 0; box-shadow: 0 0 0 3px var(--mist);
+}
+.faces .avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
 .acc { display: grid; gap: .6rem; }
 .acc__item {
@@ -933,7 +937,7 @@ em, .em        { font-style: italic; font-weight: 500; }
 /* 560px frame; one rhythm throughout — 2rem between groups, 1rem inside.
    Every input sits on its own row; only the checkboxes run two-up. */
 .quote-form {
-  max-width: 560px;
+  max-width: 600px;
   margin: clamp(2rem, 1rem + 3vw, 3.5rem) auto 0;
   padding: clamp(1.5rem, 1rem + 2vw, 2.5rem);
   background: var(--ink-2); border: 1px solid var(--line-dark);
@@ -946,6 +950,7 @@ em, .em        { font-style: italic; font-weight: 500; }
   font-size: var(--fs-sm); font-weight: 600; color: var(--on-dark);
   padding: 0; line-height: 1.3;
 }
+.req { color: var(--accent); margin-left: .15em; }
 
 /* plain checkboxes — no box container */
 .check-grid {
@@ -994,18 +999,30 @@ em, .em        { font-style: italic; font-weight: 500; }
 }
 .phone:focus-within { border-color: var(--paper); box-shadow: 0 0 0 3px rgba(255,255,255,.1); }
 .phone .field__ico { color: var(--on-dark-3); }
+/* country cell: flag pinned left, native select carrying the code + caret */
+.phone__code { position: relative; display: flex; align-items: stretch; }
+.phone__flag {
+  position: absolute; left: 1rem; top: 50%; transform: translateY(-50%);
+  width: 21px; height: 14px; border-radius: 2px; overflow: hidden;
+  pointer-events: none; z-index: 1;
+  box-shadow: 0 0 0 1px rgba(255,255,255,.14);
+}
+.phone__flag svg { width: 100%; height: 100%; display: block; }
+
 /* both children match the plain inputs exactly: .8rem block padding on a
-   1.6 line box, no border or background of their own */
-.phone select,
-.phone input {
+   1.6 line box, no border or background of their own.
+   Scoped through .field so these out-specify `.on-dark .field select`,
+   whose background shorthand would otherwise wipe the caret image. */
+.field .phone select,
+.field .phone input {
   border: 0; border-radius: 0; background: transparent;
   padding-block: .8rem; line-height: 1.6; font-size: var(--fs-sm);
 }
-.phone select:focus,
-.phone input:focus { outline: none; box-shadow: none; border-color: transparent; }
-.phone select {
+.field .phone select:focus,
+.field .phone input:focus { outline: none; box-shadow: none; border-color: transparent; }
+.field .phone select {
   -webkit-appearance: none; appearance: none;
-  padding-left: 2.9rem; padding-right: 2.1rem;
+  padding-left: 3.05rem; padding-right: 2.1rem;
   border-right: 1px solid var(--line-dark);
   color: var(--on-dark); cursor: pointer;
   font-variant-numeric: tabular-nums;
@@ -1014,33 +1031,31 @@ em, .em        { font-style: italic; font-weight: 500; }
   background-position: right .85rem center;
   background-size: 11px 11px;
 }
-.phone input { padding-inline: 1rem; }
+.field .phone input { padding-inline: 1rem; }
 
 /* --- footer --------------------------------------------------------------
    Minimal: brand column plus three short link columns, closed by an
    oversized watermark.                                                      */
 .footer { padding-top: clamp(3rem, 2rem + 3vw, 5rem); }
-.footer .brand img { height: 40px; }
+.footer .brand img { height: 44px; }
 
-/* one centred column: logo, blurb, contact row, then the legal line */
+/* one centred column: logo, contact row, then the legal line */
 .footer__inner { display: grid; justify-items: center; text-align: center; }
-.footer__blurb {
-  font-size: var(--fs-sm); color: var(--on-dark-2);
-  max-width: 46ch; margin-top: 1.5rem;
-}
 
 /* email, Instagram and LinkedIn share one treatment, laid out in a row */
 .footer__contacts {
   display: flex; flex-wrap: wrap; justify-content: center;
   gap: .75rem clamp(1.25rem, 1rem + 1vw, 2rem);
-  margin-top: 1.75rem;
+  margin-top: 2rem;
 }
 .footer__contacts a {
+  display: inline-flex; align-items: center; gap: .5rem;
   font-size: var(--fs-sm); color: var(--on-dark);
-  border-bottom: 1px solid var(--line-dark-2); padding-bottom: 2px;
-  transition: border-color .16s var(--ease);
+  border-bottom: 1px solid var(--line-dark-2); padding-bottom: 3px;
+  transition: border-color .16s var(--ease), color .16s var(--ease);
 }
-.footer__contacts a:hover { border-color: var(--on-dark); }
+.footer__contacts a svg { width: 16px; height: 16px; flex: none; }
+.footer__contacts a:hover { border-color: var(--accent); color: var(--accent); }
 
 .footer__copy {
   display: flex; flex-wrap: wrap; justify-content: center;
@@ -1053,8 +1068,9 @@ em, .em        { font-style: italic; font-weight: 500; }
 .footer__mark { margin-top: clamp(2.5rem, 1.5rem + 3vw, 4rem); overflow: hidden; }
 .footer__mark span {
   display: block; text-align: center; white-space: nowrap;
-  font-size: clamp(4.375rem, 18.75vw, 15rem); font-weight: 700;
-  letter-spacing: -.05em; line-height: .82;
+  /* 1.5x the previous scale, with the tracking opened up */
+  font-size: clamp(6.5625rem, 28.125vw, 22.5rem); font-weight: 700;
+  letter-spacing: .01em; line-height: .82;
   color: rgba(255,255,255,.055);
   margin-bottom: -.12em;
   user-select: none; -webkit-user-select: none;
