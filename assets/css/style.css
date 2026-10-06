@@ -343,12 +343,21 @@ em, .em        { font-style: italic; font-weight: 500; }
   margin-inline: auto;
   display: grid; grid-template-columns: 1fr auto 1fr;
   align-items: center; gap: 1rem;
+  position: relative;
   padding: 10px 12px 10px 20px;
+  border: 1px solid rgba(255,255,255,.55); border-radius: 18px;
+  box-shadow: var(--shadow-nav);
+}
+/* The glass lives on a pseudo-element, not on .header__inner itself.
+   An element carrying backdrop-filter becomes a backdrop root, and a
+   descendant's own backdrop-filter can then only sample inside it — which
+   left the dropdown, hanging below the pill, with nothing to blur. */
+.header__inner::before {
+  content: ''; position: absolute; inset: 0; z-index: -1;
+  border-radius: inherit;
   background: rgba(255,255,255,.55);
   -webkit-backdrop-filter: blur(28px) saturate(1.9);
           backdrop-filter: blur(28px) saturate(1.9);
-  border: 1px solid rgba(255,255,255,.55); border-radius: 18px;
-  box-shadow: var(--shadow-nav);
 }
 
 /* Logo — 32px tall everywhere; width follows the 369:84 wordmark ratio.
@@ -382,9 +391,9 @@ em, .em        { font-style: italic; font-weight: 500; }
   position: absolute; top: calc(100% + .6rem); left: 50%;
   transform: translateX(-50%) translateY(-6px);
   min-width: 328px; padding: .5rem;
-  background: rgba(255,255,255,.78);
-  -webkit-backdrop-filter: blur(28px) saturate(1.9);
-          backdrop-filter: blur(28px) saturate(1.9);
+  background: rgba(255,255,255,.62);
+  -webkit-backdrop-filter: blur(30px) saturate(1.9);
+          backdrop-filter: blur(30px) saturate(1.9);
   border: 1px solid rgba(255,255,255,.6);
   border-radius: var(--r-card);
   box-shadow: 0 1px 2px rgba(0,0,0,.04), 0 20px 50px -18px rgba(0,0,0,.3);
@@ -406,7 +415,7 @@ em, .em        { font-style: italic; font-weight: 500; }
   font-size: var(--fs-sm); font-weight: 500; color: var(--text-2); white-space: nowrap;
   transition: color .16s var(--ease), background-color .16s var(--ease);
 }
-.nav__drop a:hover { background: rgba(255,255,255,.75); color: var(--text); }
+.nav__drop a:hover { background: rgba(255,255,255,.7); color: var(--accent); }
 
 .nav__drop__ico {
   width: 36px; height: 36px; flex: none; border-radius: 10px;
@@ -1065,15 +1074,16 @@ em, .em        { font-style: italic; font-weight: 500; }
 .footer__copy a { color: var(--on-dark-3); text-decoration: underline; text-underline-offset: .22em; }
 .footer__copy a:hover { color: var(--on-dark-2); }
 
-.footer__mark { margin-top: clamp(2.5rem, 1.5rem + 3vw, 4rem); overflow: hidden; }
-.footer__mark span {
-  display: block; text-align: center; white-space: nowrap;
-  /* 1.5x the previous scale, with the tracking opened up */
-  font-size: clamp(6.5625rem, 28.125vw, 22.5rem); font-weight: 700;
-  letter-spacing: .01em; line-height: .82;
-  color: rgba(255,255,255,.055);
-  margin-bottom: -.12em;
+/* Watermark — the wordmark itself rather than live text, so it scales to the
+   content frame and can never clip at the edges. */
+.footer__mark { margin-top: clamp(2.5rem, 1.5rem + 3vw, 4rem); }
+.footer__mark img {
+  display: block;
+  width: 100%; max-width: var(--container); height: auto;
+  margin-inline: auto;
+  opacity: .055;
   user-select: none; -webkit-user-select: none;
+  pointer-events: none;
 }
 
 /* --------------------------------------------------------------------------
