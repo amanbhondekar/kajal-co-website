@@ -85,38 +85,117 @@
     track.innerHTML += track.innerHTML;
   });
 
-  /* ---------- work rail: dot pagination ---------- */
+  /* ---------- work rail: paged carousel ----------
+     Pages by however many cards are fully visible (three on desktop, one on
+     a phone), so a "slide" is a row rather than a card. Advances on its own
+     every 3.5s, and stops as soon as the visitor takes over.            */
   document.querySelectorAll('[data-rail]').forEach(function (rail) {
     var dots = document.querySelector('[data-rail-dots="' + rail.dataset.rail + '"]');
-    if (!dots) return;
     var cards = Array.prototype.slice.call(rail.children);
+    if (!cards.length) return;
 
-    cards.forEach(function (_, i) {
-      var b = document.createElement('button');
-      b.type = 'button';
-      b.setAttribute('aria-label', 'Go to slide ' + (i + 1));
-      if (i === 0) b.classList.add('is-active');
-      b.addEventListener('click', function () {
-        rail.scrollTo({ left: cards[i].offsetLeft - rail.offsetLeft, behavior: 'smooth' });
-      });
-      dots.appendChild(b);
-    });
+    var DELAY = 3500;
+    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+    var timer = null, page = 0, pages = 1, perPage = 1;
 
-    var sync = function () {
-      var mid = rail.scrollLeft + rail.clientWidth / 2;
-      var best = 0, bestD = Infinity;
-      cards.forEach(function (c, i) {
-        var d = Math.abs((c.offsetLeft - rail.offsetLeft) + c.offsetWidth / 2 - mid);
-        if (d < bestD) { bestD = d; best = i; }
+    var measure = function () {
+      var w = cards[0].offsetWidth + parseFloat(getComputedStyle(rail).columnGap || 0);
+      perPage = Math.max(1, Math.round(rail.clientWidth / w));
+      pages = Math.max(1, Math.ceil(cards.length / perPage));
+      if (page > pages - 1) page = pages - 1;
+    };
+
+    var goto = function (p, smooth) {
+      page = (p + pages) % pages;
+      var card = cards[Math.min(page * perPage, cards.length - 1)];
+      rail.scrollTo({
+        left: card.offsetLeft - rail.offsetLeft,
+        behavior: smooth === false ? 'auto' : 'smooth'
       });
+      paint();
+    };
+
+    var paint = function () {
+      if (!dots) return;
       Array.prototype.forEach.call(dots.children, function (b, i) {
-        b.classList.toggle('is-active', i === best);
+        b.classList.toggle('is-active', i === page);
       });
     };
+
+    var buildDots = function () {
+      if (!dots) return;
+      dots.innerHTML = '';
+      for (var i = 0; i < pages; i++) {
+        (function (i) {
+          var b = document.createElement('button');
+          b.type = 'button';
+          b.setAttribute('aria-label', 'Go to slide ' + (i + 1) + ' of ' + pages);
+          b.addEventListener('click', function () { stop(); goto(i); });
+          dots.appendChild(b);
+        })(i);
+      }
+      paint();
+    };
+
+    var start = function () {
+      if (timer || reduced.matches || pages < 2) return;
+      timer = window.setInterval(function () { goto(page + 1); }, DELAY);
+    };
+    var stop = function () { window.clearInterval(timer); timer = null; };
+
+    /* hand control over the moment the visitor engages, and do not take it
+       back - an item that keeps sliding out from under a cursor is hostile */
+    ['pointerdown', 'wheel', 'touchstart', 'focusin'].forEach(function (ev) {
+      rail.addEventListener(ev, stop, { passive: true });
+    });
+    rail.addEventListener('pointerenter', stop);
+
+    /* keep the dots honest when the rail is scrolled by hand */
     rail.addEventListener('scroll', function () {
       window.clearTimeout(rail._t);
-      rail._t = window.setTimeout(sync, 60);
+      rail._t = window.setTimeout(function () {
+        var mid = rail.scrollLeft + rail.clientWidth / 2;
+        var best = 0, bestD = Infinity;
+        cards.forEach(function (c, i) {
+          var d = Math.abs((c.offsetLeft - rail.offsetLeft) + c.offsetWidth / 2 - mid);
+          if (d < bestD) { bestD = d; best = i; }
+        });
+        page = Math.min(Math.floor(best / perPage), pages - 1);
+        paint();
+      }, 80);
     }, { passive: true });
+
+    /* Autoplay is on by default and IntersectionObserver only pauses it when
+       the rail leaves the viewport. Gating the start on an IO callback meant
+       that if one never arrived - a hidden tab, a browser that defers them -
+       the carousel simply never ran. Failing toward moving is the safer of
+       the two. */
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (e) {
+        if (e[0].isIntersecting) start(); else stop();
+      }, { threshold: 0.25 }).observe(rail);
+    }
+    document.addEventListener('visibilitychange', function () {
+      if (document.hidden) stop(); else start();
+    });
+    if (!document.hidden) start();
+
+    var relayout = function () {
+      var before = pages;
+      measure();
+      if (pages !== before) buildDots();
+      goto(page, false);
+    };
+    measure();
+    buildDots();
+    window.addEventListener('resize', relayout);
+    /* track widths come from the grid, and the first measure can land before
+       layout has settled - re-check once everything is in */
+    window.addEventListener('load', relayout);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(relayout);
+    if (reduced.addEventListener) reduced.addEventListener('change', function () {
+      if (reduced.matches) stop(); else start();
+    });
   });
 
   /* ---------- portfolio filters ---------- */

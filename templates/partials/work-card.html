@@ -1,12 +1,13 @@
       <article class="work-card" data-service="{{service}}" data-reveal>
-        <div class="work-card__media"><div class="work-card__metric"><b>{{{card.metric}}}</b><span>{{card.metricLabel}}</span></div></div>
-        <div class="work-card__body">
-          <div class="work-card__tags">{{#card.tags}}<span>{{.}}</span>{{/card.tags}}</div>
-          <h3 class="h3">{{{headline}}}</h3>
-          <p class="body">{{{card.blurb}}}</p>
-          {{#card.quote}}<blockquote class="quote-inline">&ldquo;{{{.}}}&rdquo;<cite>{{card.cite}}</cite></blockquote>{{/card.quote}}
-          <a class="link-arrow" href="{{base}}work/{{slug}}.html">Read the case study
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-          </a>
-        </div>
+        <a class="work-card__link" href="{{base}}work/{{slug}}.html">
+          <span class="work-card__media" aria-hidden="true"></span>
+          <span class="work-card__body">
+            <span class="work-card__tags"><span>{{serviceLabel}}</span><span>{{industry}}</span></span>
+            <h3 class="h3">{{client}}</h3>
+            <span class="body work-card__sub">{{{card.blurb}}}</span>
+            <span class="link-arrow">View Case Study
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </span>
+          </span>
+        </a>
       </article>

@@ -360,6 +360,7 @@
     {
       "slug": "studio-mehr",
       "service": "website-design",
+      "featured": true,
       "client": "Studio Mehr",
       "industry": "Architecture",
       "headline": "Project enquiries up 2.4&times; after launch",
@@ -450,6 +451,7 @@
     {
       "slug": "kesari-foods",
       "service": "seo",
+      "featured": true,
       "client": "Kesari Foods",
       "industry": "Food &amp; Beverage",
       "headline": "Non-brand search traffic up 5.8&times;",
@@ -538,6 +540,7 @@
     {
       "slug": "lumen-dental",
       "service": "performance-marketing",
+      "featured": true,
       "client": "Lumen Dental",
       "industry": "Healthcare",
       "headline": "Cost per booked consult down to &#8377;640",
@@ -624,6 +627,7 @@
     {
       "slug": "tamara-living",
       "service": "website-design",
+      "featured": true,
       "client": "Tamara Living",
       "industry": "Furniture",
       "headline": "Add-to-cart rate up 2.1&times; on a rebuilt catalogue",
@@ -963,6 +967,7 @@
     {
       "slug": "brij-legal",
       "service": "seo",
+      "featured": true,
       "client": "Brij Legal",
       "industry": "Legal services",
       "headline": "Qualified consultations up 3.3&times; from search",
@@ -1267,6 +1272,7 @@
     {
       "slug": "zafran-kitchens",
       "service": "performance-marketing",
+      "featured": true,
       "client": "Zafran Kitchens",
       "industry": "Home improvement",
       "headline": "Cost per qualified lead down 56%",
