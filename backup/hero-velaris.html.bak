@@ -1,0 +1,44 @@
+<!--
+  BACKUP 2 - the Velaris hero: WebGL gradient backdrop, centred 640px
+  stack, two-line headline, two glass stat cards.
+
+  THIS MARKUP NO LONGER RENDERS. The code behind it was deleted and was
+  never committed, so it is not in git history either:
+
+    assets/js/velaris.js       the WebGL shader + run loop   - gone
+    assets/js/hero-video.js    the gated video loader        - gone
+    style.css section 25       .velaris, .hero--velaris,
+                               .hero__stack, .h1-brk,
+                               the glass stat cards          - gone
+    style.css section 27       .hero__video, .glass-pill     - gone
+
+  Dropping this block back into index.html would render an unstyled, static
+  hero. It is kept as a record of the structure and copy only. Rebuilding
+  the gradient means rewriting the shader.
+-->
+
+<!-- ============================ 1 · HERO ============================ -->
+<!-- Velaris gradient backdrop. The previous collage-only hero is kept at
+     backup/hero-collage.html.bak, with restore notes. -->
+<section class="hero hero--velaris">
+  <div class="velaris"
+       data-velaris
+       data-bg="#ffffff"
+       data-edge="#ffffff"
+       data-colors="#f4f0ff,#e6dcff,#cbb4ff,#742aff"
+       data-speed="0.55"
+       data-grain="0.16"
+       data-intensity="0.42"
+       aria-hidden="true"></div>
+  <div class="container">
+    <div class="hero__stack" data-reveal>
+      <h1>Websites that convert.<br>
+        <span class="hl"><em>Marketing that<br class="h1-brk"> compounds.</em></span></h1>
+      <p class="lead">Kajal &amp; Co. helps brands that sell on trust grow online. Three services, one point of contact.</p>
+      <div class="hero__stats">
+        <div class="hero-stat"><b>&#8377;1 Cr+</b><span>Revenue generated</span></div>
+        <div class="hero-stat"><b>60+</b><span>Brands</span></div>
+      </div>
+    </div>
+  </div>
+</section>

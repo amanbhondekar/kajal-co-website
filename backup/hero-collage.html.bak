@@ -1,0 +1,41 @@
+<!--
+  BACKUP 1 - the original split hero: copy left, drifting device collage
+  right, with the first three-part headline.
+
+  This layout is LIVE again in index.html, so the file is kept only for the
+  original headline copy:
+
+    "Websites that convert. SEO that compounds. Ads that pay back."
+
+  The live hero carries the later headline ("Websites that convert.
+  Marketing that compounds.") and three bare stats instead of two.
+-->
+
+<!-- ============================ 1 · HERO ============================ -->
+<section class="hero">
+  <div class="container">
+    <div class="hero__grid">
+      <div data-reveal>
+        <h1>Websites that convert. <span class="hl">SEO that <em>compounds.</em></span> Ads that pay back.</h1>
+        <p class="lead">Kajal &amp; Co. helps brands that sell on trust grow online. Three services, one point of contact.</p>
+        <div class="stat-row hero__stats">
+          <div><b>&#8377;1 Cr+</b><span>Revenue generated</span></div>
+          <div><b>60+</b><span>Brands</span></div>
+        </div>
+      </div>
+
+      <div class="collage" aria-hidden="true">
+        <div class="collage__col">
+          <div class="tile"></div>
+          <div class="tile tile--wide"></div>
+          <div class="tile"></div>
+        </div>
+        <div class="collage__col collage__col--b">
+          <div class="tile tile--wide"></div>
+          <div class="tile"></div>
+          <div class="tile tile--wide"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

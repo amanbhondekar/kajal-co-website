@@ -561,7 +561,10 @@ em, .em        { font-style: italic; font-weight: 500; }
   display: flex; justify-content: center; text-align: center;
   margin-bottom: 1.75rem;
 }
-.trust__top b { font-size: clamp(1.5rem,1rem + 2vw,2rem); font-weight: 600; letter-spacing: var(--ls-tight); }
+.trust__top b {
+  font-size: clamp(1.5rem,1rem + 2vw,2rem); font-weight: 600;
+  letter-spacing: var(--ls-tight); color: var(--accent);
+}
 
 .marquee {
   overflow: hidden;
@@ -1434,3 +1437,108 @@ em, .em        { font-style: italic; font-weight: 500; }
 .case-pager__item b { font-size: var(--fs-h4); letter-spacing: var(--ls-head); }
 .case-pager__item--next { text-align: right; }
 @media (max-width: 640px) { .case-pager__item--next { text-align: left; } }
+
+/* --------------------------------------------------------------------------
+   25. Client logo marquee — real marks
+   Replaces the text stand-ins in section 8.
+
+   Every SVG was re-cropped to its own ink box (see assets/img/logos), so a
+   height here means the same optical thing for all of them. What is left is
+   the difference a tight crop cannot fix: a 5:1 wordmark and a 1:1 symbol
+   carry very different visual mass at equal height. --logo-h is the per-mark
+   correction, set once below and eyeballed against the row, not calculated.
+   -------------------------------------------------------------------------- */
+.logo-track { align-items: center; }
+
+/* Scoped to .logo-track on purpose: about.html still uses bare .logo-item
+   text cells for the press strip, and those need the fixed width and the
+   divider rule that section 8 gives them. */
+.logo-track .logo-item {
+  /* the stand-ins were fixed-width cells with a divider; real marks want
+     even optical gaps and no rule between them */
+  min-width: 0; border-right: 0;
+  padding-inline: clamp(1.5rem, 1rem + 2vw, 2.75rem);
+  height: 72px;
+}
+
+.logo-track img {
+  height: var(--logo-h, 30px);
+  width: auto; max-width: 168px;
+  display: block; object-fit: contain;
+  /* the supplied marks are already #000000 — shown at full strength */
+  opacity: 1;
+  transition: filter .25s var(--ease);
+}
+
+/* on the dark portfolio section the black marks would disappear */
+.on-dark .logo-track img { filter: invert(1); opacity: .55; }
+.on-dark .marquee:hover .logo-track img { opacity: .8; }
+
+/* --- per-mark optical sizing ---------------------------------------------
+   Single-line wordmarks (aspect ~4.4–5.7) sit at the 30px base. The two
+   exceptions earn their numbers:
+
+   hp        a 1:1 outlined symbol. Equal-area maths wants it tiny, but on
+             screen the thin strokes disappear next to solid wordmarks — 32
+             is where it stops reading as a dot.
+   onecard   a two-row lockup (aspect 1.75) whose type is roughly half the
+             mark's height. At 30px its lettering reads half the size of the
+             wordmarks beside it, so it goes up to 46.
+   ------------------------------------------------------------------------- */
+[data-logo="hp"]           { --logo-h: 32px; }
+[data-logo="onecard"]      { --logo-h: 46px; }
+[data-logo="superprofile"] { --logo-h: 32px; }   /* lowercase, short x-height */
+[data-logo="creatorx"]     { --logo-h: 29px; }
+[data-logo="hostinger"]    { --logo-h: 30px; }
+[data-logo="kommo"]        { --logo-h: 30px; }
+[data-logo="aisensy"]      { --logo-h: 31px; }
+[data-logo="briskpe"]      { --logo-h: 29px; }
+
+@media (max-width: 640px) {
+  .logo-track .logo-item { padding-inline: 1.25rem; height: 60px; }
+  .logo-track img { max-width: 124px; }
+  /* The cap shrinks the wide wordmarks to roughly 26px of actual ink, but
+     the two compact marks are nowhere near it and would keep their full
+     height — re-match them to what the wordmarks now really measure. */
+  [data-logo="onecard"] { --logo-h: 39px; }
+  [data-logo="hp"]      { --logo-h: 28px; }
+}
+
+/* --------------------------------------------------------------------------
+   26. Hero stats
+   Three bare figures under the headline, divided by hairlines rather than
+   boxed. They sit in the split hero's copy column, so the row is left
+   aligned and the first figure starts flush with the h1.
+   -------------------------------------------------------------------------- */
+.hero__stats {
+  width: 100%;
+  display: flex; flex-wrap: wrap; justify-content: flex-start; gap: 0;
+  margin-top: clamp(2.25rem, 1.5rem + 2vw, 3rem);
+}
+.hero-stat {
+  flex: 0 1 auto;
+  padding: 0 clamp(1.25rem, 1rem + 1.5vw, 2.25rem);
+}
+.hero-stat + .hero-stat { border-left: 1px solid var(--line); }
+.hero-stat:first-child { padding-left: 0; }
+
+.hero-stat b {
+  display: block; line-height: 1;
+  font-size: clamp(1.75rem, 1.2rem + 2vw, 2.5rem);
+  font-weight: 600; letter-spacing: var(--ls-tight);
+  color: var(--accent); font-variant-numeric: tabular-nums;
+}
+.hero-stat span {
+  display: block; margin-top: .45rem;
+  font-family: var(--font-mono); font-size: var(--fs-xs); font-weight: 500;
+  letter-spacing: .1em; text-transform: uppercase; color: var(--text-3);
+  white-space: nowrap;
+}
+
+@media (max-width: 560px) {
+  /* three bare figures stacked read as a list, so keep them in a row and
+     bring the type down instead */
+  .hero-stat { flex: 1 1 0; padding-inline: .5rem; }
+  .hero-stat b { font-size: clamp(1.25rem, .9rem + 2.4vw, 1.75rem); }
+  .hero-stat span { font-size: 10px; letter-spacing: .06em; white-space: normal; }
+}

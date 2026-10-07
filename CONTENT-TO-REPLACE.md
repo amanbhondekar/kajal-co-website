@@ -76,10 +76,27 @@ numbers written by hand in the content file.
 Reuse the names from Aarna Jewels, Northline Interiors and Veda Wellness. Same
 warning: fabricated quotes attributed to fabricated people.
 
-## 4. Client logo marquee — seven invented brands
+## 4. Client logo marquee — now real ✅
 
-Northwind, Vertex, Lumen, Arcadia, Meridian, Cobalt, Quill. They sit under a
-heading that reads "Brands I've Worked With".
+The seven invented brands (Northwind, Vertex, Lumen, Arcadia, Meridian,
+Cobalt, Quill) have been replaced with eight supplied client marks: HP,
+Hostinger, OneCard, Kommo, Superprofile, AiSensy, BriskPe and CreatorX.
+
+They live in `assets/img/logos/` and appear in two places — the home-page
+trust strip and the portfolio logo wall. **This is the one item on this list
+that is no longer a launch blocker.**
+
+Two things still worth settling:
+
+- The home-page heading reads **"Brands I've Worked With"** (first person)
+  while the portfolio says "The brands we work with" and the rest of the site
+  uses "we". Pick one voice.
+- Confirm you have permission to display each of these marks. Using a client
+  logo as a credential is normal practice, but some contracts require sign-off
+  and HP in particular has published brand-usage terms.
+
+The press strip on the about page (Mid-Day, YourStory) is still invented and
+still text stand-ins, not real marks.
 
 ## 5. Numbers quoted as fact
 
