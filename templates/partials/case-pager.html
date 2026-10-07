@@ -1,0 +1,23 @@
+<!-- ============================ PAGER ============================ -->
+<section class="section section--tight">
+  <div class="container">
+    <div class="case-pager">
+      {{#prev}}
+      <a class="case-pager__item case-pager__item--prev" href="{{slug}}.html">
+        <span class="eyebrow">Previous</span>
+        <b>{{{headline}}}</b>
+      </a>
+      {{/prev}}
+      {{^prev}}<span></span>{{/prev}}
+      {{#next}}
+      <a class="case-pager__item case-pager__item--next" href="{{slug}}.html">
+        <span class="eyebrow">Next</span>
+        <b>{{{headline}}}</b>
+      </a>
+      {{/next}}
+    </div>
+    <p class="center mt-3"><a class="btn btn--ghost" href="{{base}}portfolio.html#{{service}}">All {{serviceLabel}} work
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+    </a></p>
+  </div>
+</section>

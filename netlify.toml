@@ -1,7 +1,13 @@
-# Static site — no build step, served straight from the repo root.
+# Static site served straight from the repo root.
+#
+# The generated case-study pages are committed, so the site would deploy
+# correctly without this step. Running it anyway means a push that edits
+# data/projects.json but forgets `node build.js` still ships the right pages —
+# and a malformed content file fails the deploy instead of reaching the site.
 
 [build]
   publish = "."
+  command = "node build.js"
 
 [[headers]]
   for = "/*"

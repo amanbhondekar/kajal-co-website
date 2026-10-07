@@ -1,0 +1,195 @@
+{{> head}}
+{{> header}}
+
+{{!
+  PERFORMANCE MARKETING case study
+  Acquisition problem -> Campaign strategy -> Execution -> Optimisation
+  -> Performance -> Before/After -> Business result -> Results -> Takeaway.
+  Target balance: 40% visuals / 60% data and text.
+
+  The before/after table only belongs here when the two periods are genuinely
+  comparable. Leave `beforeAfter` out when they are not.
+}}
+
+<main id="main">
+
+{{> case-hero}}
+
+{{#challenge}}
+<!-- ============================ 01 · THE CHALLENGE ============================ -->
+<section class="section section--tight">
+  <div class="container">
+    <div class="case-split" data-reveal>
+      <div class="case-split__head">
+        <span class="eyebrow">01 &middot; The challenge</span>
+        <h2 class="h2">{{{title}}}</h2>
+      </div>
+      <div class="case-split__body flow">
+        <p class="lead">{{{lead}}}</p>
+        {{#symptoms.0}}
+        <ul class="feat-list mt-2">
+          {{/symptoms.0}}
+          {{#symptoms}}
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 9v4M12 17h.01"/><circle cx="12" cy="12" r="9"/></svg>{{{.}}}</li>
+          {{/symptoms}}
+          {{#symptoms.0}}
+        </ul>
+        {{/symptoms.0}}
+      </div>
+    </div>
+  </div>
+</section>
+{{/challenge}}
+
+{{#campaign}}
+<!-- ============================ 02 · CAMPAIGN STRATEGY ============================ -->
+<section class="section section--tight on-mist">
+  <div class="container">
+    <div class="case-split" data-reveal>
+      <div class="case-split__head">
+        <span class="eyebrow">02 &middot; Campaign strategy</span>
+        <h2 class="h2">{{{title}}}</h2>
+      </div>
+      <div class="case-split__body">
+        <p class="lead">{{{lead}}}</p>
+        <dl class="spec-grid mt-3">
+          {{#audience}}<div><dt>Audience</dt><dd>{{{.}}}</dd></div>{{/audience}}
+          {{#offer}}<div><dt>Offer</dt><dd>{{{.}}}</dd></div>{{/offer}}
+          {{#creative}}<div><dt>Creative</dt><dd>{{{.}}}</dd></div>{{/creative}}
+        </dl>
+        {{#channels.0}}
+        <div class="chip-row mt-3">
+          {{/channels.0}}
+          {{#channels}}<span class="chip">{{{.}}}</span>{{/channels}}
+          {{#channels.0}}
+        </div>
+        {{/channels.0}}
+      </div>
+    </div>
+
+    {{#funnel.0}}
+    <div class="funnel mt-4" data-reveal>
+      {{/funnel.0}}
+      {{#funnel}}
+      <div class="funnel__step">
+        <span class="eyebrow">Step {{_n}}</span>
+        <b>{{{step}}}</b>
+        <p>{{{body}}}</p>
+      </div>
+      {{/funnel}}
+      {{#funnel.0}}
+    </div>
+    {{/funnel.0}}
+  </div>
+</section>
+{{/campaign}}
+
+{{#execution.0}}
+<!-- ============================ 03 · EXECUTION ============================ -->
+<section class="section section--tight">
+  <div class="container">
+    <div class="sec-head" data-reveal>
+      <div>
+        <span class="eyebrow">03 &middot; Execution</span>
+        <h2 class="h2 sec-head__title">What actually <span class="hl"><em>went live.</em></span></h2>
+      </div>
+    </div>
+    <div class="rule-grid" data-reveal>
+      {{/execution.0}}
+      {{#execution}}
+      <div class="rule">
+        <span class="rule__n">{{_n}}</span>
+        <h3 class="h3">{{{title}}}</h3>
+        <p>{{{body}}}</p>
+      </div>
+      {{/execution}}
+      {{#execution.0}}
+    </div>
+  </div>
+</section>
+{{/execution.0}}
+
+{{#optimisations.0}}
+<!-- ============================ 04 · OPTIMISATION ============================ -->
+<section class="section on-dark">
+  <div class="container">
+    <div class="sec-head" data-reveal>
+      <div>
+        <span class="eyebrow">04 &middot; Optimisation</span>
+        <h2 class="h2 sec-head__title">Decision, reason, <span class="hl"><em>outcome.</em></span></h2>
+      </div>
+    </div>
+    <div class="opt" data-reveal>
+      {{/optimisations.0}}
+      {{#optimisations}}
+      <article class="opt__row">
+        <div><span class="eyebrow">Decision</span><p>{{{decision}}}</p></div>
+        <div><span class="eyebrow">Reason</span><p>{{{reason}}}</p></div>
+        <div><span class="eyebrow">Outcome</span><p>{{{outcome}}}</p></div>
+      </article>
+      {{/optimisations}}
+      {{#optimisations.0}}
+    </div>
+  </div>
+</section>
+{{/optimisations.0}}
+
+{{#beforeAfter.0}}
+<!-- ============================ 05 · BEFORE → AFTER ============================ -->
+<section class="section section--tight">
+  <div class="container">
+    <div class="sec-head" data-reveal>
+      <div>
+        <span class="eyebrow">05 &middot; Before &rarr; after</span>
+        <h2 class="h2 sec-head__title">The numbers that <span class="hl"><em>moved.</em></span></h2>
+      </div>
+    </div>
+    <div class="ba-wrap" data-reveal>
+      <table class="ba">
+        <thead>
+          <tr><th scope="col">Metric</th><th scope="col">Before</th><th scope="col">After</th><th scope="col">Change</th></tr>
+        </thead>
+        <tbody>
+          {{/beforeAfter.0}}
+          {{#beforeAfter}}
+          <tr>
+            <th scope="row">{{{metric}}}</th>
+            <td data-label="Before">{{{before}}}</td>
+            <td data-label="After" class="ba__now">{{{after}}}</td>
+            <td data-label="Change" class="ba__delta {{#down}}ba__delta--down{{/down}}">{{{delta}}}</td>
+          </tr>
+          {{/beforeAfter}}
+          {{#beforeAfter.0}}
+        </tbody>
+      </table>
+    </div>
+    {{#beforeAfterNote}}<p class="small muted mt-2">{{{.}}}</p>{{/beforeAfterNote}}
+  </div>
+</section>
+{{/beforeAfter.0}}
+
+{{#businessResult}}
+<!-- ============================ 06 · BUSINESS RESULT ============================ -->
+<section class="section section--tight on-mist">
+  <div class="container">
+    <div class="case-split" data-reveal>
+      <div class="case-split__head">
+        <span class="eyebrow">06 &middot; Business result</span>
+        <h2 class="h2">{{{title}}}</h2>
+      </div>
+      <div class="case-split__body flow">
+        <p class="lead">{{{lead}}}</p>
+        {{#points}}<p class="body">{{{.}}}</p>{{/points}}
+      </div>
+    </div>
+  </div>
+</section>
+{{/businessResult}}
+
+{{> case-results}}
+{{> case-takeaway}}
+{{> case-pager}}
+
+</main>
+
+{{> footer}}

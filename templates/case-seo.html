@@ -1,0 +1,167 @@
+{{> head}}
+{{> header}}
+
+{{!
+  SEO case study
+  Search problem -> SEO strategy -> What we changed -> Search growth
+  -> Business impact -> Results -> Takeaway.   Target balance: 30% visuals / 70% evidence.
+
+  The growth section is the core evidence block. It renders only from measured
+  before/after pairs — leave `growth` out and the section disappears rather
+  than printing an empty chart.
+}}
+
+<main id="main">
+
+{{> case-hero}}
+
+{{#challenge}}
+<!-- ============================ 01 · THE CHALLENGE ============================ -->
+<section class="section section--tight">
+  <div class="container">
+    <div class="case-split" data-reveal>
+      <div class="case-split__head">
+        <span class="eyebrow">01 &middot; The challenge</span>
+        <h2 class="h2">{{{title}}}</h2>
+      </div>
+      <div class="case-split__body flow">
+        <p class="lead">{{{lead}}}</p>
+        {{#symptoms.0}}
+        <ul class="feat-list mt-2">
+          {{/symptoms.0}}
+          {{#symptoms}}
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 9v4M12 17h.01"/><circle cx="12" cy="12" r="9"/></svg>{{{.}}}</li>
+          {{/symptoms}}
+          {{#symptoms.0}}
+        </ul>
+        {{/symptoms.0}}
+      </div>
+    </div>
+  </div>
+</section>
+{{/challenge}}
+
+{{#strategy}}
+<!-- ============================ 02 · SEO STRATEGY ============================ -->
+<section class="section section--tight on-mist">
+  <div class="container">
+    <div class="case-split" data-reveal>
+      <div class="case-split__head">
+        <span class="eyebrow">02 &middot; SEO strategy</span>
+        <h2 class="h2">{{{title}}}</h2>
+      </div>
+      <div class="case-split__body">
+        <p class="lead">{{{lead}}}</p>
+      </div>
+    </div>
+
+    <div class="grid grid--2 mt-4" data-reveal>
+      {{#pillars}}
+      <div class="panel panel--plain">
+        <span class="eyebrow">{{_n}}</span>
+        <h3 class="h3">{{{title}}}</h3>
+        <p>{{{body}}}</p>
+      </div>
+      {{/pillars}}
+    </div>
+
+    {{#keywords.0}}
+    <div class="kw-table mt-4" data-reveal>
+      <div class="kw-table__head">
+        <span>Priority query</span><span>Intent</span><span>Start</span><span>Now</span>
+      </div>
+      {{/keywords.0}}
+      {{#keywords}}
+      <div class="kw-table__row">
+        <span class="kw-table__q">{{{query}}}</span>
+        <span class="mono-tag">{{intent}}</span>
+        <span class="kw-table__n">{{{before}}}</span>
+        <span class="kw-table__n kw-table__n--now">{{{after}}}</span>
+      </div>
+      {{/keywords}}
+      {{#keywords.0}}
+    </div>
+    {{/keywords.0}}
+  </div>
+</section>
+{{/strategy}}
+
+{{#changes.0}}
+<!-- ============================ 03 · WHAT WE CHANGED ============================ -->
+<section class="section section--tight">
+  <div class="container">
+    <div class="sec-head" data-reveal>
+      <div>
+        <span class="eyebrow">03 &middot; What we changed</span>
+        <h2 class="h2 sec-head__title">The work, in <span class="hl"><em>four buckets.</em></span></h2>
+      </div>
+    </div>
+    <div class="rule-grid" data-reveal>
+      {{/changes.0}}
+      {{#changes}}
+      <div class="rule">
+        <span class="rule__n">{{_n}}</span>
+        <h3 class="h3">{{{title}}}</h3>
+        <p>{{{body}}}</p>
+      </div>
+      {{/changes}}
+      {{#changes.0}}
+    </div>
+  </div>
+</section>
+{{/changes.0}}
+
+{{#growth.0}}
+<!-- ============================ 04 · SEARCH GROWTH ============================ -->
+<section class="section on-dark">
+  <div class="container">
+    <div class="sec-head" data-reveal>
+      <div>
+        <span class="eyebrow">04 &middot; Search growth</span>
+        <h2 class="h2 sec-head__title">Before, and <span class="hl"><em>after.</em></span></h2>
+      </div>
+    </div>
+    <div class="growth" data-reveal>
+      {{/growth.0}}
+      {{#growth}}
+      <div class="growth__row">
+        <span class="growth__label">{{{metric}}}</span>
+        <div class="growth__bars">
+          <div class="growth__bar growth__bar--before" style="--w:{{beforePct}}%"><span>{{{before}}}</span></div>
+          <div class="growth__bar growth__bar--after"  style="--w:{{afterPct}}%"><span>{{{after}}}</span></div>
+        </div>
+        <span class="growth__delta">{{{delta}}}</span>
+      </div>
+      {{/growth}}
+      {{#growth.0}}
+    </div>
+    {{#growthNote}}<p class="small muted mt-3">{{{.}}}</p>{{/growthNote}}
+  </div>
+</section>
+{{/growth.0}}
+
+{{#impact}}
+<!-- ============================ 05 · BUSINESS IMPACT ============================ -->
+<section class="section section--tight on-mist">
+  <div class="container">
+    <div class="case-split" data-reveal>
+      <div class="case-split__head">
+        <span class="eyebrow">05 &middot; Business impact</span>
+        <h2 class="h2">{{{title}}}</h2>
+      </div>
+      <div class="case-split__body flow">
+        <p class="lead">{{{lead}}}</p>
+        {{#points}}<p class="body">{{{.}}}</p>{{/points}}
+      </div>
+    </div>
+  </div>
+</section>
+{{/impact}}
+
+{{> case-results}}
+{{> case-takeaway}}
+{{> case-pager}}
+
+</main>
+
+{{> footer}}

@@ -1158,6 +1158,7 @@ em, .em        { font-style: italic; font-weight: 500; }
   border: 1px solid var(--line); background: var(--mist);
   font-size: var(--fs-sm); font-weight: 500; color: var(--text-2);
 }
+.proof-line svg { width: 16px; height: 16px; flex: none; color: var(--accent); }
 .on-dark .proof-line { background: var(--ink-2); border-color: var(--line-dark); color: var(--on-dark-2); }
 
 /* --------------------------------------------------------------------------
@@ -1181,3 +1182,255 @@ em, .em        { font-style: italic; font-weight: 500; }
 .center { text-align: center; }
 .max-50 { max-width: 50ch; }
 .flow > * + * { margin-top: 1.25rem; }
+
+/* --------------------------------------------------------------------------
+   24. Case study pages
+   Built by build.js from data/projects.json. Everything here is shared by the
+   three service templates; only the evidence components differ — growth bars
+   for SEO, the before/after table for performance marketing.
+   -------------------------------------------------------------------------- */
+
+/* --- breadcrumb + hero ---------------------------------------------------- */
+.case-hero { padding-block: var(--header-clear) clamp(2rem, 1rem + 3vw, 3rem); }
+.case-hero h1 {
+  font-size: var(--fs-display); line-height: var(--lh-tight);
+  letter-spacing: var(--ls-tight); max-width: 20ch;
+}
+.case-hero .lead { margin-top: 1.5rem; max-width: 58ch; }
+
+.crumb {
+  display: flex; flex-wrap: wrap; align-items: center; gap: .5rem;
+  margin-bottom: 2rem;
+  font-family: var(--font-mono); font-size: var(--fs-xs);
+  letter-spacing: .06em; text-transform: uppercase; color: var(--text-3);
+}
+.crumb a { border-bottom: 1px solid transparent; transition: border-color .16s var(--ease), color .16s var(--ease); }
+.crumb a:hover { color: var(--accent); border-color: var(--accent); }
+
+/* project details — the framework's "Project Details" block */
+.case-meta {
+  display: grid; grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: var(--gutter);
+  margin-top: clamp(2.5rem, 1.5rem + 3vw, 4rem);
+  padding-top: clamp(1.5rem, 1rem + 1.5vw, 2rem);
+  border-top: 1px solid var(--line);
+}
+@media (max-width: 900px) { .case-meta { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 1.5rem; } }
+@media (max-width: 420px) { .case-meta { grid-template-columns: 1fr; } }
+.case-meta dt {
+  font-family: var(--font-mono); font-size: var(--fs-xs); font-weight: 500;
+  letter-spacing: .1em; text-transform: uppercase; color: var(--text-3);
+}
+.case-meta dd { margin: .5rem 0 0; font-size: var(--fs-sm); font-weight: 500; }
+
+/* --- the recurring two-column section ------------------------------------- */
+.case-split {
+  display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr);
+  gap: clamp(1.5rem, 1rem + 4vw, 4rem); align-items: start;
+}
+@media (max-width: 900px) { .case-split { grid-template-columns: 1fr; } }
+.case-split__head h2 { max-width: 16ch; }
+.case-split__body .lead { max-width: 60ch; }
+.case-split__body .body { max-width: 62ch; font-size: var(--fs-sm); }
+/* the objective carries a full sentence, so it wraps where the service pages'
+   one-line proof never does — a pill radius on a four-line block reads wrong */
+.case-split__body .proof-line {
+  align-items: flex-start; border-radius: var(--r-panel); max-width: 56ch;
+}
+.case-split__body .proof-line svg { margin-top: .2em; }
+
+/* --- visual placeholders -------------------------------------------------- */
+.case-shot { padding-bottom: clamp(1rem, .5rem + 2vw, 2rem); }
+.shot { margin: 0; }
+.shot__frame {
+  position: relative; aspect-ratio: 16 / 10; overflow: hidden;
+  background: var(--mist); border: 1px solid var(--line);
+  border-radius: var(--r-card); display: grid; place-items: center;
+}
+.shot--wide .shot__frame { aspect-ratio: 16 / 7; }
+.shot__frame::before {
+  content: ""; position: absolute; inset: 0;
+  background-image:
+    linear-gradient(to right, rgba(0,0,0,.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0,0,0,.05) 1px, transparent 1px);
+  background-size: 36px 36px;
+}
+.shot__label {
+  position: relative; padding: .5rem 1rem; border-radius: var(--r-pill);
+  background: var(--paper); border: 1px solid var(--line);
+  font-family: var(--font-mono); font-size: var(--fs-xs);
+  letter-spacing: .06em; text-transform: uppercase; color: var(--text-3);
+}
+.shot figcaption { margin-top: .85rem; font-size: var(--fs-sm); color: var(--text-3); }
+.on-dark .shot__frame { background: var(--ink-2); border-color: var(--line-dark); }
+.on-dark .shot__label { background: var(--ink-3); border-color: var(--line-dark); color: var(--on-dark-2); }
+
+/* final showcase grid — an item marked wide spans the row */
+.showcase { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--gutter); }
+.showcase > .shot--wide { grid-column: 1 / -1; }
+@media (max-width: 640px) { .showcase { grid-template-columns: 1fr; } }
+
+/* --- design decisions (website design) ------------------------------------ */
+.decision {
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+  gap: clamp(1.5rem, 1rem + 3vw, 3.5rem); align-items: center;
+  padding-block: clamp(2rem, 1.5rem + 2vw, 3.25rem);
+  border-top: 1px solid var(--line);
+}
+@media (max-width: 860px) { .decision { grid-template-columns: 1fr; } }
+/* alternate the image side so the run of decisions does not read as one column */
+.decision:nth-of-type(even) .decision__copy { order: 2; }
+@media (max-width: 860px) { .decision:nth-of-type(even) .decision__copy { order: 0; } }
+.decision__copy .body { max-width: 52ch; }
+.decision__why { margin-top: 1.5rem; padding-top: 1.25rem; border-top: 1px solid var(--line); }
+.decision__why .eyebrow { margin-bottom: .5rem; }
+.decision__why p { font-size: var(--fs-sm); max-width: 52ch; }
+
+/* --- specification list (design system, campaign strategy) ---------------- */
+.spec-grid { display: grid; gap: 0; border-top: 1px solid var(--line); }
+.spec-grid > div {
+  display: grid; grid-template-columns: minmax(0, 12rem) minmax(0, 1fr);
+  gap: 1rem; padding-block: .9rem; border-bottom: 1px solid var(--line);
+}
+@media (max-width: 560px) { .spec-grid > div { grid-template-columns: 1fr; gap: .3rem; } }
+.spec-grid dt {
+  font-family: var(--font-mono); font-size: var(--fs-xs); font-weight: 500;
+  letter-spacing: .1em; text-transform: uppercase; color: var(--text-3);
+}
+.spec-grid dd { margin: 0; font-size: var(--fs-sm); color: var(--text-2); }
+
+/* --- keyword table (SEO) -------------------------------------------------- */
+.kw-table { border-top: 1px solid var(--line); }
+.kw-table__head, .kw-table__row {
+  display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr);
+  gap: 1rem; align-items: center; padding-block: .9rem;
+  border-bottom: 1px solid var(--line);
+}
+.kw-table__head {
+  font-family: var(--font-mono); font-size: var(--fs-xs); font-weight: 500;
+  letter-spacing: .1em; text-transform: uppercase; color: var(--text-3);
+}
+.kw-table__q { font-size: var(--fs-sm); font-weight: 500; }
+.kw-table__n { font-family: var(--font-mono); font-size: var(--fs-sm); color: var(--text-3); }
+.kw-table__n--now { color: var(--accent); font-weight: 600; }
+@media (max-width: 680px) {
+  .kw-table__head { display: none; }
+  .kw-table__row { grid-template-columns: 1fr auto; row-gap: .35rem; }
+  .kw-table__q { grid-column: 1 / -1; }
+  .kw-table__n::before { content: "was "; color: var(--text-3); }
+  .kw-table__n--now::before { content: "now "; }
+}
+
+/* --- search growth bars (SEO) ---------------------------------------------
+   --w is set per row from the data. The bars start at zero width and grow
+   when the section reveals, so the comparison reads as a movement.          */
+.growth { display: grid; gap: clamp(1.25rem, 1rem + 1vw, 2rem); }
+.growth__row {
+  display: grid; grid-template-columns: minmax(0, 14rem) minmax(0, 1fr) auto;
+  gap: clamp(1rem, .5rem + 1.5vw, 2rem); align-items: center;
+}
+@media (max-width: 760px) {
+  .growth__row { grid-template-columns: 1fr auto; row-gap: .6rem; }
+  .growth__bars { grid-column: 1 / -1; }
+}
+.growth__label { font-size: var(--fs-sm); font-weight: 500; }
+.growth__bars { display: grid; gap: .4rem; min-width: 0; }
+.growth__bar {
+  width: var(--w); min-width: max-content;
+  padding: .45rem .75rem; border-radius: var(--r-sm);
+  font-family: var(--font-mono); font-size: var(--fs-xs); white-space: nowrap;
+  transition: width .8s var(--ease);
+}
+/* the before bar sits on --ink and would otherwise read as a hole rather than
+   a bar, so it carries its own edge */
+.growth__bar--before { background: var(--ink-3); color: var(--on-dark-2); border: 1px solid var(--line-dark-2); }
+.growth__bar--after  { background: var(--accent); color: var(--on-accent); font-weight: 600; }
+.growth__delta {
+  font-family: var(--font-mono); font-size: var(--fs-sm); font-weight: 600;
+  color: var(--accent); text-align: right;
+}
+[data-reveal]:not(.is-in) .growth__bar { width: 0; }
+
+/* --- optimisation rows (performance marketing) ---------------------------- */
+.opt { display: grid; gap: 0; border-top: 1px solid var(--line-dark); }
+.opt__row {
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1rem, .5rem + 2vw, 2.5rem);
+  padding-block: clamp(1.5rem, 1rem + 1.5vw, 2rem);
+  border-bottom: 1px solid var(--line-dark);
+}
+@media (max-width: 800px) { .opt__row { grid-template-columns: 1fr; gap: 1.25rem; } }
+.opt__row .eyebrow { margin-bottom: .5rem; }
+.opt__row p { font-size: var(--fs-sm); color: var(--on-dark-2); }
+
+/* --- funnel (performance marketing) --------------------------------------- */
+.funnel { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--gutter); }
+@media (max-width: 860px) { .funnel { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 480px) { .funnel { grid-template-columns: 1fr; } }
+.funnel__step { padding-top: 1rem; border-top: 2px solid var(--accent); }
+.funnel__step .eyebrow { margin-bottom: .5rem; }
+.funnel__step b { display: block; font-size: var(--fs-h4); letter-spacing: var(--ls-head); }
+.funnel__step p { margin-top: .5rem; font-size: var(--fs-sm); color: var(--text-2); }
+
+/* --- before / after table (performance marketing) ------------------------- */
+.ba-wrap { overflow-x: auto; }
+.ba { width: 100%; border-collapse: collapse; min-width: 34rem; }
+.ba th, .ba td { padding: .95rem 1rem; text-align: right; border-bottom: 1px solid var(--line); }
+.ba thead th {
+  font-family: var(--font-mono); font-size: var(--fs-xs); font-weight: 500;
+  letter-spacing: .1em; text-transform: uppercase; color: var(--text-3);
+  border-bottom-color: var(--line-2);
+}
+.ba th[scope="row"], .ba thead th:first-child { text-align: left; font-size: var(--fs-sm); font-weight: 500; }
+.ba td { font-family: var(--font-mono); font-size: var(--fs-sm); color: var(--text-2); font-variant-numeric: tabular-nums; }
+.ba__now { color: var(--text); font-weight: 600; }
+.ba__delta { color: var(--accent); font-weight: 600; }
+/* a fall is still an improvement for cost metrics — mark it, do not colour it */
+.ba__delta--down { color: var(--text-2); }
+
+/* Below the table's min-width the comparison would sit behind a horizontal
+   scroll, which is the one thing a before/after must never do. Stack each
+   row into a labelled block instead. */
+@media (max-width: 620px) {
+  .ba-wrap { overflow-x: visible; }
+  .ba { min-width: 0; }
+  .ba, .ba tbody, .ba tr, .ba th, .ba td { display: block; }
+  .ba thead { display: none; }
+  .ba tbody tr { padding-block: 1.1rem; border-bottom: 1px solid var(--line); }
+  .ba th[scope="row"] { padding: 0 0 .6rem; border: 0; }
+  .ba td {
+    padding: .25rem 0; border: 0;
+    display: flex; align-items: baseline; justify-content: space-between; gap: 1rem;
+  }
+  .ba td::before {
+    content: attr(data-label);
+    font-family: var(--font-mono); font-size: var(--fs-xs); font-weight: 500;
+    letter-spacing: .1em; text-transform: uppercase; color: var(--text-3);
+  }
+}
+
+/* --- takeaway ------------------------------------------------------------- */
+.takeaway {
+  max-width: 54rem; margin-inline: auto; text-align: center;
+  padding: clamp(1.75rem, 1rem + 2.5vw, 3rem);
+  border: 1px solid var(--line); border-radius: var(--r-card); background: var(--mist);
+}
+.takeaway p {
+  margin-top: .5rem;
+  font-size: clamp(1.25rem, 1rem + 1.1vw, 1.75rem);
+  line-height: 1.35; letter-spacing: var(--ls-head); font-weight: 500;
+}
+
+/* --- prev / next ---------------------------------------------------------- */
+.case-pager { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--gutter); }
+@media (max-width: 640px) { .case-pager { grid-template-columns: 1fr; } }
+.case-pager__item {
+  display: block; padding: clamp(1.25rem, 1rem + 1vw, 1.75rem);
+  border: 1px solid var(--line); border-radius: var(--r-card); background: var(--paper);
+  transition: border-color .2s var(--ease), transform .2s var(--ease);
+}
+.case-pager__item:hover { border-color: var(--accent); transform: translateY(-2px); }
+.case-pager__item .eyebrow { margin-bottom: .6rem; }
+.case-pager__item b { font-size: var(--fs-h4); letter-spacing: var(--ls-head); }
+.case-pager__item--next { text-align: right; }
+@media (max-width: 640px) { .case-pager__item--next { text-align: left; } }

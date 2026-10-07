@@ -1,0 +1,17 @@
+<!-- ============================ RESULTS ============================ -->
+<section class="section section--tight on-dark">
+  <div class="container">
+    <div class="sec-head" data-reveal>
+      <div>
+        <span class="eyebrow">Results</span>
+        <h2 class="h2 sec-head__title">What <span class="hl"><em>changed.</em></span></h2>
+      </div>
+    </div>
+    <div class="grid grid--4" data-reveal>
+      {{#results}}
+      <div class="stat-card"><b class="stat-num">{{{value}}}</b><span>{{label}}</span></div>
+      {{/results}}
+    </div>
+    {{#resultsNote}}<p class="small muted mt-3">{{{.}}}</p>{{/resultsNote}}
+  </div>
+</section>

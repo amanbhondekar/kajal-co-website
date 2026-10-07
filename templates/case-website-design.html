@@ -1,0 +1,165 @@
+{{> head}}
+{{> header}}
+
+{{!
+  WEBSITE DESIGN case study
+  Hero -> Challenge -> Strategy -> Experience -> Design System -> Implementation
+  -> Results -> Showcase -> Takeaway.          Target balance: 60% visuals / 40% text.
+
+  Every block below is wrapped in its own data check, so a project with no
+  design-system work or no development scope simply drops that section.
+}}
+
+<main id="main">
+
+{{> case-hero}}
+
+{{#challenge}}
+<!-- ============================ 01 · THE CHALLENGE ============================ -->
+<section class="section section--tight">
+  <div class="container">
+    <div class="case-split" data-reveal>
+      <div class="case-split__head">
+        <span class="eyebrow">01 &middot; The challenge</span>
+        <h2 class="h2">{{{title}}}</h2>
+      </div>
+      <div class="case-split__body flow">
+        <p class="lead">{{{lead}}}</p>
+        {{#points}}<p class="body">{{{.}}}</p>{{/points}}
+        {{#objective}}
+        <p class="proof-line"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m8.5 12 2.5 2.5 4.5-5"/></svg> {{{.}}}</p>
+        {{/objective}}
+      </div>
+    </div>
+  </div>
+</section>
+{{/challenge}}
+
+{{#strategy}}
+<!-- ============================ 02 · THE STRATEGY ============================ -->
+<section class="section section--tight on-mist">
+  <div class="container">
+    <div class="case-split" data-reveal>
+      <div class="case-split__head">
+        <span class="eyebrow">02 &middot; The strategy</span>
+        <h2 class="h2">{{{title}}}</h2>
+      </div>
+      <div class="case-split__body">
+        <p class="lead">{{{lead}}}</p>
+        <div class="proc-row mt-3">
+          {{#principles}}<div class="proc"><span>{{_n}}</span>{{{.}}}</div>{{/principles}}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{{/strategy}}
+
+{{#decisions.0}}
+<!-- ============================ 03 · THE EXPERIENCE ============================ -->
+<section class="section">
+  <div class="container">
+    <div class="sec-head" data-reveal>
+      <div>
+        <span class="eyebrow">03 &middot; The experience</span>
+        <h2 class="h2 sec-head__title">The decisions that <span class="hl"><em>did the work.</em></span></h2>
+      </div>
+    </div>
+    {{/decisions.0}}
+    {{#decisions}}
+    <article class="decision" data-reveal>
+      <div class="decision__copy">
+        <span class="badge">Decision {{_n}}</span>
+        <h3 class="h3 mt-2">{{{title}}}</h3>
+        <p class="body mt-1">{{{body}}}</p>
+        {{#why}}
+        <div class="decision__why">
+          <span class="eyebrow">Why it mattered</span>
+          <p class="body">{{{.}}}</p>
+        </div>
+        {{/why}}
+      </div>
+      <figure class="shot">
+        <div class="shot__frame"><span class="shot__label">{{{shot}}}</span></div>
+      </figure>
+    </article>
+    {{/decisions}}
+    {{#decisions.0}}
+  </div>
+</section>
+{{/decisions.0}}
+
+{{#designSystem}}
+<!-- ============================ 04 · THE DESIGN SYSTEM ============================ -->
+<section class="section section--tight on-mist">
+  <div class="container">
+    <div class="case-split" data-reveal>
+      <div class="case-split__head">
+        <span class="eyebrow">04 &middot; The design system</span>
+        <h2 class="h2">{{{title}}}</h2>
+      </div>
+      <div class="case-split__body">
+        <p class="lead">{{{lead}}}</p>
+        <dl class="spec-grid mt-3">
+          {{#items}}<div><dt>{{k}}</dt><dd>{{{v}}}</dd></div>{{/items}}
+        </dl>
+      </div>
+    </div>
+  </div>
+</section>
+{{/designSystem}}
+
+{{#implementation}}
+<!-- ============================ 05 · IMPLEMENTATION ============================ -->
+<section class="section section--tight">
+  <div class="container">
+    <div class="case-split" data-reveal>
+      <div class="case-split__head">
+        <span class="eyebrow">05 &middot; Implementation</span>
+        <h2 class="h2">{{{title}}}</h2>
+      </div>
+      <div class="case-split__body">
+        <p class="lead">{{{lead}}}</p>
+        <ul class="feat-list mt-3">
+          {{#points}}
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>{{{.}}}</li>
+          {{/points}}
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+{{/implementation}}
+
+{{> case-results}}
+
+{{#showcase.0}}
+<!-- ============================ 06 · FINAL SHOWCASE ============================ -->
+<section class="section">
+  <div class="container">
+    <div class="sec-head sec-head--center" data-reveal>
+      <div>
+        <span class="eyebrow">The finished site</span>
+        <h2 class="h2 sec-head__title">What <span class="hl">shipped.</span></h2>
+      </div>
+    </div>
+    <div class="showcase">
+      {{/showcase.0}}
+      {{#showcase}}
+      <figure class="shot {{#wide}}shot--wide{{/wide}}" data-reveal>
+        <div class="shot__frame"><span class="shot__label">{{{label}}}</span></div>
+        {{#caption}}<figcaption>{{{.}}}</figcaption>{{/caption}}
+      </figure>
+      {{/showcase}}
+      {{#showcase.0}}
+    </div>
+  </div>
+</section>
+{{/showcase.0}}
+
+{{> case-takeaway}}
+{{> case-pager}}
+
+</main>
+
+{{> footer}}

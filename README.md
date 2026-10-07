@@ -28,13 +28,69 @@ Then open <http://localhost:4477>.
 ├── website-design.html          # Service page
 ├── performance-marketing.html   # Service page
 ├── seo.html                     # Service page
-├── portfolio.html               # Case studies with service filters
+├── portfolio.html               # Case-study grid with service filters (generated)
 ├── contact.html                 # Contact + discovery call
+├── build.js                     # Case-study generator — see below
+├── data/
+│   └── projects.json            # Every case study, as content
+├── templates/
+│   ├── case-website-design.html         # One template per service
+│   ├── case-seo.html
+│   ├── case-performance-marketing.html
+│   └── partials/                # Shared chrome + shared case-study blocks
+├── work/                        # 18 generated case-study pages
 └── assets/
     ├── css/style.css            # Tokens + all components
     ├── js/main.js               # Interactions
     └── img/                     # Logos + collateral icons
 ```
+
+---
+
+## Case studies
+
+Case studies are generated, not hand-written. One content file drives three
+service templates:
+
+```
+data/projects.json  +  templates/*.html   ->   work/<slug>.html
+                                          ->   the card grid in portfolio.html
+                                          ->   the featured rail in index.html
+```
+
+To add, edit or remove a project: change `data/projects.json`, then run
+
+```bash
+node build.js
+```
+
+Nothing else needs touching. The generator writes a page per project, refreshes
+the portfolio grid and the home-page rail, and deletes the page of any project
+you removed. Netlify runs the same command on deploy, so a push that edits the
+content file but forgets the build still ships correctly.
+
+**The three templates are deliberately separate.** Each follows its own
+narrative from the case-study framework, and they do not share section order:
+
+| Service | Narrative | Balance |
+| --- | --- | --- |
+| Website Design | Challenge → Strategy → Experience → Design system → Implementation → Results → Showcase | 60% visual |
+| SEO | Challenge → Strategy → What changed → Search growth → Business impact → Results | 30% visual |
+| Performance Marketing | Challenge → Campaign strategy → Execution → Optimisation → Before/after → Business result → Results | 40% visual |
+
+Every section is conditional on its data. A project with no design-system work
+simply has no `designSystem` key, and that section does not render — rather
+than rendering empty. This is how the framework's "remove sections that have no
+meaningful information" rule is enforced in practice.
+
+`build.js` carries a ~70-line mustache-shaped template engine and no
+dependencies. It validates the content file first: an unknown service or a
+duplicate slug fails the build with a message rather than producing a broken
+page.
+
+Copy in `projects.json` is written as HTML, so it can carry entities
+(`&times;`, `&#8377;`). Page titles and meta descriptions are converted to
+plain text first, so they do not publish a literal `&amp;times;`.
 
 ---
 
@@ -209,9 +265,12 @@ There are **no placeholder markers left** — every slot is filled so the site
 reads as finished. That means nothing on the page tells you what is real.
 
 **`CONTENT-TO-REPLACE.md` is the only record of what is invented**, and almost
-all of the proof is: six case studies, three testimonials, seven client logos,
-every headline number, the pricing, and two of the three team bios. Read it
-before showing this to anyone.
+all of the proof is: eighteen case studies, three testimonials, seven client
+logos, every headline number, the pricing, and two of the three team bios.
+Read it before showing this to anyone.
+
+The case-study copy all lives in `data/projects.json`, which is the one file to
+work through when real client data arrives.
 
 The site is currently indexable, so those invented claims are crawlable.
 
@@ -224,7 +283,7 @@ The site is currently indexable, so those invented claims are crawlable.
 - [ ] **Point the Book Discovery Call CTAs at a real booking link** (Google Calendar / Cal.com). They currently go to the contact form.
 - [ ] **Add the real Instagram and LinkedIn URLs** — both are `#`.
 - [ ] **Swap the initials blocks for real photos** — founder on home, three on about.
-- [ ] **Add project imagery.** `.work-card__media` takes an `<img>` with no layout change; the CSS grid artwork is a stand-in.
+- [ ] **Add project imagery.** `.work-card__media` takes an `<img>` with no layout change; the CSS grid artwork is a stand-in. On case-study pages the same applies to `.shot__frame` — every labelled grey panel is a slot waiting for a real screenshot.
 - [ ] **Add hero collage imagery.** `.tile` elements are CSS-drawn stand-ins for real screenshots.
 - [ ] **Wire the form.** Front-end only — it submits nowhere. Netlify Forms is not enabled on the project.
 - [ ] Update the announcement bar month (home only), or delete the `.announce` block.

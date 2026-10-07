@@ -9,32 +9,79 @@ launch, and right now the site is indexable.
 
 ---
 
-## 1. Case studies — all six are fictional
+## 1. Case studies — all eighteen are fictional
 
 Clients, metrics, quotes and attributions were written to be plausible, not
-true. They appear on the home page slider (first three) and the portfolio grid
-(all six).
+true. They live in **`data/projects.json`**, which is the single file to work
+through when real client data arrives. Each project also has a full case-study
+page under `work/`, generated from that file.
 
-| # | Client | Service | Metric claimed | Quote attributed to |
-| --- | --- | --- | --- | --- |
-| 1 | Aarna Jewels | Website Design | Enquiries up 3.2× in 90 days | Priya Nair, Founder |
-| 2 | Northline Interiors | SEO | Organic enquiries up 4.1× | Rohan Mehta, Director |
-| 3 | Veda Wellness | Performance Marketing | ROAS 4.6× | Ananya Rao, Co-founder |
-| 4 | Studio Mehr | Website Design | Project enquiries up 2.4× | Imran Qureshi, Principal |
-| 5 | Kesari Foods | SEO | Non-brand traffic up 5.8× | Divya Shah, Growth Lead |
-| 6 | Lumen Dental | Performance Marketing | ₹640 cost per booked consult | Dr. Sameer Joshi, Founder |
+The framework this follows is explicit that metrics must never be invented.
+These are, so every one of them is a blocker rather than a nice-to-fix.
 
-## 2. Testimonials — three, all fictional
+### Website Design
 
-Reuse the names from cases 1–3. Same warning: these are fabricated quotes
-attributed to fabricated people.
+| # | Client | Metric claimed | Quote attributed to |
+| --- | --- | --- | --- |
+| 1 | Aarna Jewels | Enquiries up 3.2× in 90 days | Priya Nair, Founder |
+| 2 | Studio Mehr | Project enquiries up 2.4× | Imran Qureshi, Principal |
+| 3 | Tamara Living | Add-to-cart rate up 2.1× | Meera Iyer, Head of Retail |
+| 4 | Sahana Academy | Course applications up 2.8× | Nikhil Raman, Director |
+| 5 | Kavi Press | Direct sales up 3.4× | Aditi Banerjee, Publisher |
+| 6 | Orva Clinics | Online bookings up 4.3× | Dr. Leela Nambiar, Medical Director |
 
-## 3. Client logo marquee — seven invented brands
+### SEO
+
+| # | Client | Metric claimed | Quote attributed to |
+| --- | --- | --- | --- |
+| 7 | Northline Interiors | Organic enquiries up 4.1× | Rohan Mehta, Director |
+| 8 | Kesari Foods | Non-brand traffic up 5.8× | Divya Shah, Growth Lead |
+| 9 | Brij Legal | Consultations up 3.3× from search | Sanjay Puri, Managing Partner |
+| 10 | Udaan Travel | Organic bookings up 3.9× | Farhan Sheikh, Founder |
+| 11 | Nilaya Homes | Site visits up 4.6× | Anjali Deshpande, Marketing Head |
+| 12 | Serai Hotels | Direct bookings up 2.9× | Ritu Malhotra, Commercial Director |
+
+### Performance Marketing
+
+| # | Client | Metric claimed | Quote attributed to |
+| --- | --- | --- | --- |
+| 13 | Veda Wellness | ROAS 4.6× on a doubled budget | Ananya Rao, Co-founder |
+| 14 | Lumen Dental | ₹640 cost per booked consult | Dr. Sameer Joshi, Founder |
+| 15 | Zafran Kitchens | Cost per qualified lead −56% | Vikram Shetty, Director |
+| 16 | Mira Skincare | Repeat-purchase revenue up 3.1× | Tanvi Kulkarni, Founder |
+| 17 | Arka Finserv | Cost per approved application −44% | Deepak Menon, Growth Head |
+| 18 | Patang Toys | Peak-season ROAS 1.9× → 5.2× | Nandini Rao, Co-founder |
+
+Beyond the headline metric, every case-study page also invents: the full
+before/after tables, the search-growth figures, the keyword ranking tables, the
+project detail blocks (platform, timeline, market), and the narrative of what
+was done. Treat the whole of `data/projects.json` as unverified.
+
+The first three (Aarna Jewels, Northline Interiors, Veda Wellness) are flagged
+`"featured": true` and so also appear on the home-page rail.
+
+## 2. Case-study imagery — every visual is a placeholder
+
+Each `.shot__frame` renders a labelled grey panel where a screenshot, chart or
+creative should be. The labels describe what belongs there ("Homepage —
+desktop", "Blended ROAS — weekly"). There are roughly 90 of these across the
+eighteen pages.
+
+The SEO pages in particular lean on charts the framework expects to be real
+evidence. The growth bars currently render from `beforePct` / `afterPct`
+numbers written by hand in the content file.
+
+## 3. Testimonials — three, all fictional
+
+Reuse the names from Aarna Jewels, Northline Interiors and Veda Wellness. Same
+warning: fabricated quotes attributed to fabricated people.
+
+## 4. Client logo marquee — seven invented brands
 
 Northwind, Vertex, Lumen, Arcadia, Meridian, Cobalt, Quill. They sit under a
 heading that reads "Brands I've Worked With".
 
-## 4. Numbers quoted as fact
+## 5. Numbers quoted as fact
 
 - `₹1 Cr+` revenue generated — hero, founder graphic
 - `60+` brands — hero, trust strip
@@ -49,7 +96,7 @@ heading that reads "Brands I've Worked With".
 > **60+ brands** — and they appear on the same page. One of the two is wrong.
 > The graphic is baked artwork, so fixing it means a re-export.
 
-## 5. Pricing and commitments
+## 6. Pricing and commitments
 
 - Websites from ₹1,20,000
 - Retainers from ₹45,000 / month
@@ -57,7 +104,7 @@ heading that reads "Brands I've Worked With".
 - Start window 1–2 weeks; websites 4–8 weeks
 - Reply within two working days
 
-## 6. People
+## 7. People
 
 - Kajal Andani — real; her founder story paragraphs are invented
 - Harsh Vora (SEO) — surname and bio invented
@@ -65,20 +112,30 @@ heading that reads "Brands I've Worked With".
 - Kajal's portrait is an initials block; swap for a real image at
   `.founder__photo` on the home page and `.person__photo` on about
 
-## 7. Dead links
+## 8. Dead links
 
 These render normally but go nowhere (`href="#"`):
 
 - Instagram, LinkedIn
 - Privacy Policy, Terms of Use — **no legal pages exist.** I did not invent
   legal copy; these need writing properly before launch.
-- "Read the case study" on every portfolio card
+
+The "Read the case study" links now all resolve — to the generated pages above,
+which carry the invented content.
+
+## 9. Canonical URL
+
+`templates/partials/head.html` sets `rel="canonical"` to
+`https://kajalandani.co/work/<slug>.html`. **Change that domain** before
+launch, or the canonical tags point somewhere the site does not live.
 
 ---
 
 ## Before this goes public
 
-- [ ] Replace everything above with real client data, or remove the sections
+- [ ] Replace every project in `data/projects.json` with real client data, or cut the ones you cannot evidence
+- [ ] Supply real imagery for the `.shot__frame` placeholders, or delete the sections that only hold them
+- [ ] Set the real domain in `templates/partials/head.html`, then re-run `node build.js`
 - [ ] Write real Privacy Policy and Terms pages
 - [ ] Point the Book Discovery Call CTAs at a real booking link
 - [ ] Wire the form — it currently posts nowhere
