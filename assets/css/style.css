@@ -31,11 +31,14 @@
   --line-dark:  rgba(255,255,255,.12);
   --line-dark-2:rgba(255,255,255,.22);
 
-  /* One accent across every surface. --accent and --on-accent travel
-     together: whatever --accent is, --on-accent is legible on top of it.   */
-  --purple:     #742aff;
-  --accent:     var(--purple);
-  --on-accent:  #ffffff;
+  /* Accent colors per surface:
+     #742AFF on light surfaces, #894BFE on dark surfaces.
+     --accent and --on-accent travel together.                              */
+  --purple:       #742aff;
+  --purple-light: #742aff;
+  --purple-dark:  #894bfe;
+  --accent:       var(--purple-light);
+  --on-accent:    #ffffff;
 
   /* families */
   --font-sans:  'Bricolage Grotesque', system-ui, -apple-system, 'Segoe UI', sans-serif;
@@ -223,7 +226,11 @@ em, .em        { font-style: italic; font-weight: 500; }
 .section { padding-block: var(--section); position: relative; }
 .section--tight { padding-block: calc(var(--section) * .68); }
 
-.on-dark { background: var(--ink); color: var(--on-dark); }
+.on-dark {
+  --accent: var(--purple-dark);
+  background: var(--ink);
+  color: var(--on-dark);
+}
 .on-mist { background: var(--mist); }
 
 /* Section background treatment — the graph-paper grid was removed; a new
@@ -630,10 +637,178 @@ em, .em        { font-style: italic; font-weight: 500; }
 }
 .on-dark .svc-card__num { color: var(--on-dark-3); }
 
-/* Bare icons — no tile. */
+/* Bare icons — process cards with fluid vector animation. */
 .svc-card__icon { display: block; margin-bottom: 1.25rem; }
-.svc-card__icon img { width: 64px; height: 64px; display: block; }
-.svc-card__icon svg { width: 28px; height: 28px; }
+.svc-card__icon img,
+.svc-card__icon .process-icon {
+  width: 64px; height: 64px; display: block; overflow: visible;
+  transition: transform .35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Polished Enter & Exit Animation (Jakub Krehel materializing recipe) */
+.svc-card[data-reveal]:not(.is-in) .process-icon {
+  opacity: 0;
+  transform: translateY(12px) scale(0.92);
+  filter: blur(4px);
+}
+.svc-card[data-reveal].is-in .process-icon {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  filter: blur(0px);
+  transition: opacity .55s var(--ease),
+              transform .65s cubic-bezier(0.16, 1, 0.3, 1),
+              filter .5s ease-out;
+}
+.grid--2 .svc-card:nth-child(1) .process-icon { transition-delay: .08s; }
+.grid--2 .svc-card:nth-child(2) .process-icon { transition-delay: .18s; }
+.grid--2 .svc-card:nth-child(3) .process-icon { transition-delay: .28s; }
+.grid--2 .svc-card:nth-child(4) .process-icon { transition-delay: .38s; }
+
+/* Interactive Hover Elevation */
+.svc-card:hover .svc-card__icon .process-icon {
+  transform: scale(1.06);
+}
+
+/* Icon 1: Pinwheel continuous subtle linear spin & harmonic blade loop */
+.pinwheel-spin {
+  transform-origin: 60px 60px;
+  animation: iconPinwheelLinear 18s linear infinite;
+  will-change: transform;
+}
+.svc-card:hover .pinwheel-spin {
+  animation-duration: 7s;
+}
+.blade {
+  transform-origin: 60px 60px;
+  transition: transform .35s var(--ease);
+}
+.blade--1, .blade--2 {
+  animation: iconBladePulse 4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+.blade--3, .blade--4 {
+  animation: iconBladePulse 4s cubic-bezier(0.4, 0, 0.2, 1) infinite -2s;
+}
+
+@keyframes iconPinwheelLinear {
+  0%   { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+@keyframes iconBladePulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%      { opacity: 0.86; transform: scale(1.035); }
+}
+
+/* Icon 2: Strategy continuous linear orbit & loop circulation */
+.strategy-group {
+  transform-origin: 60px 60px;
+  animation: iconStrategyLinear 24s linear infinite;
+  will-change: transform;
+}
+.svc-card:hover .strategy-group {
+  animation-duration: 6s;
+}
+.seg {
+  will-change: transform;
+  transition: transform .35s var(--ease);
+}
+.seg--top    { animation: iconSegFlowTop 4s cubic-bezier(0.4, 0, 0.2, 1) infinite; }
+.seg--right  { animation: iconSegFlowRight 4s cubic-bezier(0.4, 0, 0.2, 1) infinite -3s; }
+.seg--bottom { animation: iconSegFlowBottom 4s cubic-bezier(0.4, 0, 0.2, 1) infinite -2s; }
+.seg--left   { animation: iconSegFlowLeft 4s cubic-bezier(0.4, 0, 0.2, 1) infinite -1s; }
+
+@keyframes iconStrategyLinear {
+  0%   { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+@keyframes iconSegFlowTop {
+  0%, 100% { transform: translate(0, 0); }
+  50%      { transform: translate(1.8px, 1.2px); }
+}
+@keyframes iconSegFlowRight {
+  0%, 100% { transform: translate(0, 0); }
+  50%      { transform: translate(-1.2px, 1.8px); }
+}
+@keyframes iconSegFlowBottom {
+  0%, 100% { transform: translate(0, 0); }
+  50%      { transform: translate(-1.8px, -1.2px); }
+}
+@keyframes iconSegFlowLeft {
+  0%, 100% { transform: translate(0, 0); }
+  50%      { transform: translate(1.2px, -1.8px); }
+}
+
+/* Icon 3: Alignment harmonic convergence loop */
+.agree-group {
+  transform-origin: 60px 60px;
+  will-change: transform;
+}
+.arch {
+  will-change: transform, opacity;
+  transition: transform .4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.arch--top {
+  transform-origin: 60px 38px;
+  animation: iconAgreeLoopTop 3.8s cubic-bezier(0.45, 0, 0.25, 1) infinite;
+}
+.arch--bottom {
+  transform-origin: 60px 82px;
+  animation: iconAgreeLoopBottom 3.8s cubic-bezier(0.45, 0, 0.25, 1) infinite;
+}
+.svc-card:hover .arch--top    { transform: translateY(3.2px); }
+.svc-card:hover .arch--bottom { transform: translateY(-3.2px); }
+
+@keyframes iconAgreeLoopTop {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(2.6px) scaleY(0.97); }
+}
+@keyframes iconAgreeLoopBottom {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-2.6px) scaleY(0.97); }
+}
+
+/* Icon 4: Signal broadcast linear wave & ripple pulse loop */
+.broadcast-group {
+  transform-origin: 20px 60px;
+  will-change: transform;
+}
+.wave {
+  will-change: transform, opacity;
+  transition: transform .35s var(--ease);
+}
+.wave--inner {
+  transform-origin: 32px 60px;
+  animation: iconWaveLoopInner 3.2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+.wave--outer {
+  transform-origin: 77px 60px;
+  animation: iconWaveLoopOuter 3.2s cubic-bezier(0.4, 0, 0.2, 1) infinite .48s;
+}
+.svc-card:hover .wave--inner { animation-duration: 1.6s; }
+.svc-card:hover .wave--outer { animation-duration: 1.6s; animation-delay: .24s; }
+
+@keyframes iconWaveLoopInner {
+  0%, 100% { transform: translateX(0) scale(1); opacity: 0.92; }
+  50%      { transform: translateX(2.2px) scale(1.035); opacity: 1; }
+}
+@keyframes iconWaveLoopOuter {
+  0%, 100% { transform: translateX(0) scale(1); opacity: 0.72; }
+  50%      { transform: translateX(4px) scale(1.06); opacity: 1; }
+}
+
+/* Motion Accessibility Gate */
+@media (prefers-reduced-motion: reduce) {
+  .svc-card[data-reveal]:not(.is-in) .process-icon,
+  .svc-card[data-reveal].is-in .process-icon {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+    transition: none !important;
+  }
+  .pinwheel-spin, .blade, .strategy-group, .seg, .arch, .wave {
+    animation: none !important;
+    transform: none !important;
+  }
+}
 
 .svc-card h3 { margin-bottom: .75rem; }
 .svc-card .body { font-size: var(--fs-sm); }
@@ -739,26 +914,27 @@ em, .em        { font-style: italic; font-weight: 500; }
    11. Testimonials
    -------------------------------------------------------------------------- */
 .tst-card {
-  width: clamp(300px, 32vw, 400px); margin-right: var(--gutter);
-  /* 12px tighter than the other card surfaces: 12px → 20px */
-  padding: clamp(.75rem,.5rem + 1.2vw,1.25rem);
+  width: clamp(320px, 34vw, 420px); margin-right: var(--gutter);
+  padding: clamp(1.15rem, .85rem + 1.2vw, 1.6rem);
   border-radius: var(--r-card); border: 1px solid var(--line); background: var(--paper);
   display: flex; flex-direction: column; gap: 1.25rem; white-space: normal;
+  transition: transform .25s var(--ease), border-color .25s var(--ease);
 }
-.tst-card__outcome { font-size: var(--fs-h3); font-weight: 600; letter-spacing: var(--ls-head); }
-.tst-card p { font-size: var(--fs-sm); color: var(--text-2); flex: 1; }
+.tst-card:hover { transform: translateY(-2px); border-color: var(--line-2); }
+.tst-card p { font-size: var(--fs-sm); color: var(--text-2); line-height: var(--lh-body); flex: 1; margin: 0; }
 .tst-card p strong { color: var(--text); font-weight: 600; }
-.tst-card__who { display: flex; align-items: center; gap: .75rem; padding-top: 1.25rem; border-top: 1px solid var(--line); }
+.tst-card__who { display: flex; align-items: center; gap: .75rem; padding-top: 1.25rem; border-top: 1px solid var(--line); margin-top: auto; }
 .avatar {
-  width: 40px; height: 40px; border-radius: var(--r-pill); flex: none;
-  background: var(--mist); border: 1px solid var(--line);
+  width: 44px; height: 44px; border-radius: var(--r-pill); flex: none;
+  background: var(--mist-2); border: 1px solid var(--line);
   display: grid; place-items: center;
-  font-size: var(--fs-sm); font-weight: 600; color: var(--text-3);
+  font-size: 1.05rem; font-weight: 700; line-height: 1; color: var(--accent);
+  letter-spacing: -.02em; user-select: none;
 }
-.tst-card__who b { display: block; font-size: var(--fs-sm); font-weight: 600; }
+.tst-card__who b { display: block; font-size: var(--fs-sm); font-weight: 600; color: var(--text); }
 .tst-card__who span { font-size: var(--fs-xs); color: var(--text-3); }
 
-.on-dark .avatar { background: var(--ink-3); border-color: var(--line-dark); color: var(--on-dark-2); }
+.on-dark .avatar { background: var(--ink-3); border-color: var(--line-dark); color: var(--accent); }
 
 /* --------------------------------------------------------------------------
    12. Process — sticky stacked phase cards
@@ -1081,9 +1257,9 @@ em, .em        { font-style: italic; font-weight: 500; }
 .field .phone input { padding-inline: 1rem; }
 
 /* --- footer --------------------------------------------------------------
-   Minimal: brand column plus three short link columns, closed by an
-   oversized watermark.                                                      */
-.footer { padding-top: clamp(3rem, 2rem + 3vw, 5rem); }
+   A clean dark slab at the base of every page: centred logo, inline contacts,
+   and legal line. */
+.footer { padding: clamp(3.5rem, 2.5rem + 3vw, 5.5rem) 0; }
 .footer .brand img { height: 44px; }
 
 /* one centred column: logo, contact row, then the legal line */
@@ -1111,18 +1287,6 @@ em, .em        { font-style: italic; font-weight: 500; }
 }
 .footer__copy a { color: var(--on-dark-3); text-decoration: underline; text-underline-offset: .22em; }
 .footer__copy a:hover { color: var(--on-dark-2); }
-
-/* Watermark — the wordmark itself rather than live text, so it scales to the
-   content frame and can never clip at the edges. */
-.footer__mark { margin-top: clamp(2.5rem, 1.5rem + 3vw, 4rem); }
-.footer__mark img {
-  display: block;
-  width: 100%; max-width: var(--container); height: auto;
-  margin-inline: auto;
-  opacity: .055;
-  user-select: none; -webkit-user-select: none;
-  pointer-events: none;
-}
 
 /* --------------------------------------------------------------------------
    20. Filters (portfolio)
@@ -1466,11 +1630,10 @@ em, .em        { font-style: italic; font-weight: 500; }
    25. Client logo marquee — real marks
    Replaces the text stand-ins in section 8.
 
-   Every SVG was re-cropped to its own ink box (see assets/img/logos), so a
-   height here means the same optical thing for all of them. What is left is
-   the difference a tight crop cannot fix: a 5:1 wordmark and a 1:1 symbol
-   carry very different visual mass at equal height. --logo-h is the per-mark
-   correction, set once below and eyeballed against the row, not calculated.
+   Every SVG has its natural viewBox, but a 5:1 wordmark, a lockup with an
+   icon, and a 1:1 circle carry vastly different visual masses and text heights
+   at equal bounding box heights. --logo-h is the per-mark optical calibration
+   so all brand marks achieve visual harmony in weight, height, and alignment.
    -------------------------------------------------------------------------- */
 .logo-track { align-items: center; }
 
@@ -1478,20 +1641,18 @@ em, .em        { font-style: italic; font-weight: 500; }
    text cells for the press strip, and those need the fixed width and the
    divider rule that section 8 gives them. */
 .logo-track .logo-item {
-  /* the stand-ins were fixed-width cells with a divider; real marks want
-     even optical gaps and no rule between them */
   min-width: 0; border-right: 0;
-  padding-inline: clamp(1.5rem, 1rem + 2vw, 2.75rem);
-  height: 72px;
+  padding-inline: clamp(1.75rem, 1.25rem + 1.5vw, 3rem);
+  height: 80px;
+  display: inline-flex; align-items: center; justify-content: center;
 }
 
 .logo-track img {
-  height: var(--logo-h, 30px);
-  width: auto; max-width: 168px;
+  height: var(--logo-h, 28px);
+  width: auto; max-width: 220px;
   display: block; object-fit: contain;
-  /* the supplied marks are already #000000 — shown at full strength */
   opacity: 1;
-  transition: filter .25s var(--ease);
+  transition: filter .25s var(--ease), opacity .25s var(--ease);
 }
 
 /* on the dark portfolio section the black marks would disappear */
@@ -1499,33 +1660,36 @@ em, .em        { font-style: italic; font-weight: 500; }
 .on-dark .marquee:hover .logo-track img { opacity: .8; }
 
 /* --- per-mark optical sizing ---------------------------------------------
-   Single-line wordmarks (aspect ~4.4–5.7) sit at the 30px base. The two
-   exceptions earn their numbers:
-
-   hp        a 1:1 outlined symbol. Equal-area maths wants it tiny, but on
-             screen the thin strokes disappear next to solid wordmarks — 32
-             is where it stops reading as a dot.
-   onecard   a two-row lockup (aspect 1.75) whose type is roughly half the
-             mark's height. At 30px its lettering reads half the size of the
-             wordmarks beside it, so it goes up to 46.
+   Optical calibrations balancing letter cap-heights, icon scales, and visual mass:
+   - hp: 1:1 outlined circular emblem, requires ~48px to balance wide wordmarks
+   - superprofile: icon+wordmark where text only spans 40% of height, requires ~46px
+   - hostinger: geometric icon + uppercase wordmark, scaled to 40px
+   - aisensy: lightning bolt + wordmark, scaled to 35px
+   - onecard: stacked 2-tier wordmark, scaled to 46px
+   - kommo: lowercase wordmark with tall K ascender, calibrated at 27px
+   - briskpe: bold italic all-caps heavy wordmark, calibrated at 23px
+   - creatorx: solid bold grotesque wordmark, calibrated at 23px
    ------------------------------------------------------------------------- */
-[data-logo="hp"]           { --logo-h: 32px; }
+[data-logo="hp"]           { --logo-h: 48px; }
 [data-logo="onecard"]      { --logo-h: 46px; }
-[data-logo="superprofile"] { --logo-h: 32px; }   /* lowercase, short x-height */
-[data-logo="creatorx"]     { --logo-h: 29px; }
-[data-logo="hostinger"]    { --logo-h: 30px; }
-[data-logo="kommo"]        { --logo-h: 30px; }
-[data-logo="aisensy"]      { --logo-h: 31px; }
-[data-logo="briskpe"]      { --logo-h: 29px; }
+[data-logo="superprofile"] { --logo-h: 46px; }
+[data-logo="hostinger"]    { --logo-h: 40px; }
+[data-logo="aisensy"]      { --logo-h: 35px; }
+[data-logo="kommo"]        { --logo-h: 27px; }
+[data-logo="briskpe"]      { --logo-h: 23px; }
+[data-logo="creatorx"]     { --logo-h: 23px; }
 
 @media (max-width: 640px) {
-  .logo-track .logo-item { padding-inline: 1.25rem; height: 60px; }
-  .logo-track img { max-width: 124px; }
-  /* The cap shrinks the wide wordmarks to roughly 26px of actual ink, but
-     the two compact marks are nowhere near it and would keep their full
-     height — re-match them to what the wordmarks now really measure. */
-  [data-logo="onecard"] { --logo-h: 39px; }
-  [data-logo="hp"]      { --logo-h: 28px; }
+  .logo-track .logo-item { padding-inline: 1.25rem; height: 64px; }
+  .logo-track img { max-width: 170px; }
+  [data-logo="hp"]           { --logo-h: 38px; }
+  [data-logo="onecard"]      { --logo-h: 38px; }
+  [data-logo="superprofile"] { --logo-h: 37px; }
+  [data-logo="hostinger"]    { --logo-h: 32px; }
+  [data-logo="aisensy"]      { --logo-h: 28px; }
+  [data-logo="kommo"]        { --logo-h: 22px; }
+  [data-logo="briskpe"]      { --logo-h: 19px; }
+  [data-logo="creatorx"]     { --logo-h: 19px; }
 }
 
 /* --------------------------------------------------------------------------
