@@ -672,21 +672,21 @@ em, .em        { font-style: italic; font-weight: 500; }
 /* Icon 1: Pinwheel continuous subtle linear spin & harmonic blade loop */
 .pinwheel-spin {
   transform-origin: 60px 60px;
-  animation: iconPinwheelLinear 18s linear infinite;
+  animation: iconPinwheelLinear 7s linear infinite;
   will-change: transform;
 }
 .svc-card:hover .pinwheel-spin {
-  animation-duration: 7s;
+  animation-duration: 3.2s;
 }
 .blade {
   transform-origin: 60px 60px;
   transition: transform .35s var(--ease);
 }
 .blade--1, .blade--2 {
-  animation: iconBladePulse 4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  animation: iconBladePulse 1.8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
 }
 .blade--3, .blade--4 {
-  animation: iconBladePulse 4s cubic-bezier(0.4, 0, 0.2, 1) infinite -2s;
+  animation: iconBladePulse 1.8s cubic-bezier(0.4, 0, 0.2, 1) infinite -0.9s;
 }
 
 @keyframes iconPinwheelLinear {
@@ -698,43 +698,74 @@ em, .em        { font-style: italic; font-weight: 500; }
   50%      { opacity: 0.86; transform: scale(1.035); }
 }
 
-/* Icon 2: Strategy continuous linear orbit & loop circulation */
-.strategy-group {
-  transform-origin: 60px 60px;
-  animation: iconStrategyLinear 24s linear infinite;
-  will-change: transform;
-}
-.svc-card:hover .strategy-group {
-  animation-duration: 6s;
-}
-.seg {
-  will-change: transform;
-  transition: transform .35s var(--ease);
-}
-.seg--top    { animation: iconSegFlowTop 4s cubic-bezier(0.4, 0, 0.2, 1) infinite; }
-.seg--right  { animation: iconSegFlowRight 4s cubic-bezier(0.4, 0, 0.2, 1) infinite -3s; }
-.seg--bottom { animation: iconSegFlowBottom 4s cubic-bezier(0.4, 0, 0.2, 1) infinite -2s; }
-.seg--left   { animation: iconSegFlowLeft 4s cubic-bezier(0.4, 0, 0.2, 1) infinite -1s; }
+/* Icon 2: Strategy — each semicircle slides out from behind its own flat
+   edge, so the mark assembles rather than spins. No rotation here.
 
-@keyframes iconStrategyLinear {
-  0%   { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+   Every segment is clipped (see the clipPaths in the markup) to the half
+   plane on its dome side, and its flat edge is exactly 27.5 units from the
+   dome's outer rim — so a 27.5 translate toward that edge hides it
+   completely and 0 lands it home.
+
+     top    flat edge y=43.5, dome above  -> slides up
+     bottom flat edge y=76,   dome below  -> slides down
+     left   flat edge x=43.5, dome left   -> slides left
+     right  flat edge x=76,   dome right  -> slides right
+
+   The four share one timeline and are staggered 0.16s apart, so they
+   assemble in sequence, hold complete for most of the loop, then clear in
+   the same order.                                                          */
+.strategy-group { transform-origin: 60px 60px; }
+.seg { will-change: transform, opacity; }
+
+/* The fill mode rides in each shorthand below rather than on .seg - the
+   animation shorthand resets fill-mode to none, so setting it separately
+   would be silently overridden.
+
+   `backwards` holds the 0% keyframe through the stagger delay, so a segment
+   waits off-stage instead of flashing in fully drawn and then snapping away.
+   Deliberately NOT `forwards`: prefers-reduced-motion collapses these to one
+   .001ms run, and holding the 100% frame would leave the icon permanently
+   blank for those users. With `backwards` they land on the base state, which
+   is the complete mark. */
+
+.seg--top    { animation: iconSegSlideTop    3.6s cubic-bezier(0.16, 1, 0.3, 1) 0s infinite normal backwards; }
+.seg--left   { animation: iconSegSlideLeft   3.6s cubic-bezier(0.16, 1, 0.3, 1) .16s infinite normal backwards; }
+.seg--bottom { animation: iconSegSlideBottom 3.6s cubic-bezier(0.16, 1, 0.3, 1) .32s infinite normal backwards; }
+.seg--right  { animation: iconSegSlideRight  3.6s cubic-bezier(0.16, 1, 0.3, 1) .48s infinite normal backwards; }
+
+.svc-card:hover .seg--top    { animation-duration: 1.8s; }
+.svc-card:hover .seg--left   { animation-duration: 1.8s; animation-delay: .08s; }
+.svc-card:hover .seg--bottom { animation-duration: 1.8s; animation-delay: .16s; }
+.svc-card:hover .seg--right  { animation-duration: 1.8s; animation-delay: .24s; }
+
+/* The global reduced-motion rule squashes animation-duration and iteration
+   count, but it does not touch animation-delay - so with `backwards` fill
+   the staggered segments would sit on their hidden 0% frame for the first
+   half second before popping in. Drop the animation entirely instead, and
+   the mark is simply drawn complete from the start. */
+@media (prefers-reduced-motion: reduce) {
+  .seg { animation: none !important; }
 }
-@keyframes iconSegFlowTop {
-  0%, 100% { transform: translate(0, 0); }
-  50%      { transform: translate(1.8px, 1.2px); }
+
+@keyframes iconSegSlideTop {
+  0%        { transform: translateY(27.5px); opacity: 0; }
+  14%, 78%  { transform: translateY(0);      opacity: 1; }
+  92%, 100% { transform: translateY(27.5px); opacity: 0; }
 }
-@keyframes iconSegFlowRight {
-  0%, 100% { transform: translate(0, 0); }
-  50%      { transform: translate(-1.2px, 1.8px); }
+@keyframes iconSegSlideBottom {
+  0%        { transform: translateY(-27.5px); opacity: 0; }
+  14%, 78%  { transform: translateY(0);       opacity: 1; }
+  92%, 100% { transform: translateY(-27.5px); opacity: 0; }
 }
-@keyframes iconSegFlowBottom {
-  0%, 100% { transform: translate(0, 0); }
-  50%      { transform: translate(-1.8px, -1.2px); }
+@keyframes iconSegSlideLeft {
+  0%        { transform: translateX(27.5px); opacity: 0; }
+  14%, 78%  { transform: translateX(0);      opacity: 1; }
+  92%, 100% { transform: translateX(27.5px); opacity: 0; }
 }
-@keyframes iconSegFlowLeft {
-  0%, 100% { transform: translate(0, 0); }
-  50%      { transform: translate(1.2px, -1.8px); }
+@keyframes iconSegSlideRight {
+  0%        { transform: translateX(-27.5px); opacity: 0; }
+  14%, 78%  { transform: translateX(0);       opacity: 1; }
+  92%, 100% { transform: translateX(-27.5px); opacity: 0; }
 }
 
 /* Icon 3: Alignment harmonic convergence loop */
@@ -748,11 +779,11 @@ em, .em        { font-style: italic; font-weight: 500; }
 }
 .arch--top {
   transform-origin: 60px 38px;
-  animation: iconAgreeLoopTop 3.8s cubic-bezier(0.45, 0, 0.25, 1) infinite;
+  animation: iconAgreeLoopTop 1.7s cubic-bezier(0.45, 0, 0.25, 1) infinite;
 }
 .arch--bottom {
   transform-origin: 60px 82px;
-  animation: iconAgreeLoopBottom 3.8s cubic-bezier(0.45, 0, 0.25, 1) infinite;
+  animation: iconAgreeLoopBottom 1.7s cubic-bezier(0.45, 0, 0.25, 1) infinite;
 }
 .svc-card:hover .arch--top    { transform: translateY(3.2px); }
 .svc-card:hover .arch--bottom { transform: translateY(-3.2px); }
@@ -777,14 +808,14 @@ em, .em        { font-style: italic; font-weight: 500; }
 }
 .wave--inner {
   transform-origin: 32px 60px;
-  animation: iconWaveLoopInner 3.2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  animation: iconWaveLoopInner 1.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
 }
 .wave--outer {
   transform-origin: 77px 60px;
-  animation: iconWaveLoopOuter 3.2s cubic-bezier(0.4, 0, 0.2, 1) infinite .48s;
+  animation: iconWaveLoopOuter 1.5s cubic-bezier(0.4, 0, 0.2, 1) infinite .22s;
 }
-.svc-card:hover .wave--inner { animation-duration: 1.6s; }
-.svc-card:hover .wave--outer { animation-duration: 1.6s; animation-delay: .24s; }
+.svc-card:hover .wave--inner { animation-duration: .85s; }
+.svc-card:hover .wave--outer { animation-duration: .85s; animation-delay: .12s; }
 
 @keyframes iconWaveLoopInner {
   0%, 100% { transform: translateX(0) scale(1); opacity: 0.92; }
