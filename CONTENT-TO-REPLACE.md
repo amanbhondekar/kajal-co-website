@@ -113,13 +113,9 @@ still text stand-ins, not real marks.
 > **60+ brands** — and they appear on the same page. One of the two is wrong.
 > The graphic is baked artwork, so fixing it means a re-export.
 
-## 6. Pricing and commitments
+## 6. Pricing and commitments — now real ✅
 
-- Websites from ₹1,20,000
-- Retainers from ₹45,000 / month
-- Suggested ad budget floor ₹75,000 / month
-- Start window 1–2 weeks; websites 4–8 weeks
-- Reply within two working days
+The general FAQs across index.html and contact.html have been populated from the official Google Sheet ('FAQs' tab). Invented price floors (₹1,20,000 / ₹45,000) have been replaced with the real scope-based pricing model and transparent audit walkthrough terms.
 
 ## 7. People
 
