@@ -25,3 +25,7 @@ npm-debug.log*
 # Env
 .env
 .env.local
+
+# One-off scripts. scratch/update_projects.js seeded data/projects.json and
+# is superseded by it; the data file is the source of truth now.
+scratch/

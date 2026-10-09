@@ -38,7 +38,7 @@ Then open <http://localhost:4477>.
 │   ├── case-seo.html
 │   ├── case-performance-marketing.html
 │   └── partials/                # Shared chrome + shared case-study blocks
-├── work/                        # 18 generated case-study pages
+├── work/                        # generated case-study pages, one per project
 └── assets/
     ├── css/style.css            # Tokens + all components
     ├── js/main.js               # Interactions
@@ -264,15 +264,17 @@ All animation respects `prefers-reduced-motion`.
 There are **no placeholder markers left** — every slot is filled so the site
 reads as finished. That means nothing on the page tells you what is real.
 
-**`CONTENT-TO-REPLACE.md` is the only record of what is invented**, and almost
-all of the proof is: eighteen case studies, three testimonials, seven client
-logos, every headline number, the pricing, and two of the three team bios.
-Read it before showing this to anyone.
+**`CONTENT-TO-REPLACE.md` is the only record of what is sourced and what is
+not.** Read it before showing this to anyone.
 
-The case-study copy all lives in `data/projects.json`, which is the one file to
-work through when real client data arrives.
+The case studies and the client logos are real now. What is still unsourced is
+the headline numbers (`₹1 Cr+`, `60+` brands, `400+` trained, `38` sites,
+`₹68 lakh`), the pricing, the press strip, and two of the three team bios.
 
-The site is currently indexable, so those invented claims are crawlable.
+The case-study copy lives in `data/projects.json`, with working notes in
+`case-studies/`. That is the one file to edit; `node build.js` does the rest.
+
+The site is currently indexable, so anything still unsourced is crawlable.
 
 ---
 

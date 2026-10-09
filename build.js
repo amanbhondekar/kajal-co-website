@@ -84,11 +84,16 @@ function render(tpl, stack) {
     if (kind === '^') {
       if (empty(val)) out = render(body, stack);
     } else if (Array.isArray(val)) {
-      out = val.map((item, i) => render(body, stack.concat([
-        item !== null && typeof item === 'object'
-          ? Object.assign({ _i: i + 1, _n: String(i + 1).padStart(2, '0') }, item)
-          : item,
-      ]))).join('');
+      out = val.map((item, i) => {
+        let scope = item;
+        if (typeof item === 'string' || typeof item === 'number') {
+          scope = new String(item);
+        }
+        if (scope !== null && typeof scope === 'object') {
+          scope = Object.assign(scope, { _i: i + 1, _n: String(i + 1).padStart(2, '0') });
+        }
+        return render(body, stack.concat([scope]));
+      }).join('');
     } else if (!empty(val)) {
       out = render(body, stack.concat([val]));
     }

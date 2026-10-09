@@ -1,155 +1,122 @@
-# Content that is still invented
+# Content that is still unverified
 
-The site now carries **no visible placeholder markers** — every slot is filled
-with mock copy so it reads as a finished page. That makes this file the only
-record of what is real and what is not.
+The site carries **no visible placeholder markers** — every slot is filled so
+it reads as finished. That makes this file the only record of what is sourced
+and what is not.
 
-**Everything listed below is invented.** None of it should survive a public
-launch, and right now the site is indexable.
+The eighteen invented case studies this file used to list are **gone**. They
+were replaced with sixteen real client engagements in `data/projects.json`,
+and the fictional names (Aarna Jewels, Northline Interiors, Veda Wellness and
+the rest) no longer appear anywhere in the HTML.
+
+What follows is what has **not** been sourced yet.
 
 ---
 
-## 1. Case studies — all eighteen are fictional
+## 1. Case studies — real ✅
 
-Clients, metrics, quotes and attributions were written to be plausible, not
-true. They live in **`data/projects.json`**, which is the single file to work
-through when real client data arrives. Each project also has a full case-study
-page under `work/`, generated from that file.
+Sixteen engagements across the three services: 6 website design,
+5 performance marketing, 5 SEO. They live in `data/projects.json`, with
+working notes in `case-studies/`, and generate the pages under `work/`.
 
-The framework this follows is explicit that metrics must never be invented.
-These are, so every one of them is a blocker rather than a nice-to-fix.
+Six are flagged `"featured": true` and appear in the home-page carousel —
+two full slides of three, all six distinct clients.
 
-### Website Design
+**Still worth a pass:** the numbers in each case study came from the client
+engagements, but only two SEO cases (Blythe Living, KishKin Digital) carry
+GA4-verified figures. The rest lead with scope rather than outcome
+("12 Months", "LocalBusiness schema", "3 Rooms"). That is honest, but it
+means the portfolio shows comparatively little hard evidence of results.
 
-| # | Client | Metric claimed | Quote attributed to |
-| --- | --- | --- | --- |
-| 1 | Aarna Jewels | Enquiries up 3.2× in 90 days | Priya Nair, Founder |
-| 2 | Studio Mehr | Project enquiries up 2.4× | Imran Qureshi, Principal |
-| 3 | Tamara Living | Add-to-cart rate up 2.1× | Meera Iyer, Head of Retail |
-| 4 | Sahana Academy | Course applications up 2.8× | Nikhil Raman, Director |
-| 5 | Kavi Press | Direct sales up 3.4× | Aditi Banerjee, Publisher |
-| 6 | Orva Clinics | Online bookings up 4.3× | Dr. Leela Nambiar, Medical Director |
+## 2. Testimonials — real names, unverified quotes
 
-### SEO
+Muhilan Nalarajah, Ajmal Najath, Saleem Nadaf, Ravi Ranjan, Shikha Agrawal,
+Shubham Agrawal. Confirm each person is happy with the wording attributed to
+them, and that they are content to be named publicly.
 
-| # | Client | Metric claimed | Quote attributed to |
-| --- | --- | --- | --- |
-| 7 | Northline Interiors | Organic enquiries up 4.1× | Rohan Mehta, Director |
-| 8 | Kesari Foods | Non-brand traffic up 5.8× | Divya Shah, Growth Lead |
-| 9 | Brij Legal | Consultations up 3.3× from search | Sanjay Puri, Managing Partner |
-| 10 | Udaan Travel | Organic bookings up 3.9× | Farhan Sheikh, Founder |
-| 11 | Nilaya Homes | Site visits up 4.6× | Anjali Deshpande, Marketing Head |
-| 12 | Serai Hotels | Direct bookings up 2.9× | Ritu Malhotra, Commercial Director |
+## 3. Client logo marquee — real ✅
 
-### Performance Marketing
+HP, Hostinger, OneCard, Kommo, Superprofile, AiSensy, BriskPe, CreatorX, in
+`assets/img/logos/`. Shown in the home trust strip and the portfolio wall.
 
-| # | Client | Metric claimed | Quote attributed to |
-| --- | --- | --- | --- |
-| 13 | Veda Wellness | ROAS 4.6× on a doubled budget | Ananya Rao, Co-founder |
-| 14 | Lumen Dental | ₹640 cost per booked consult | Dr. Sameer Joshi, Founder |
-| 15 | Zafran Kitchens | Cost per qualified lead −56% | Vikram Shetty, Director |
-| 16 | Mira Skincare | Repeat-purchase revenue up 3.1× | Tanvi Kulkarni, Founder |
-| 17 | Arka Finserv | Cost per approved application −44% | Deepak Menon, Growth Head |
-| 18 | Patang Toys | Peak-season ROAS 1.9× → 5.2× | Nandini Rao, Co-founder |
+**Open:** permission to display each mark. Using a client logo as a
+credential is normal practice, but some contracts require sign-off and HP
+publishes brand-usage terms.
 
-Beyond the headline metric, every case-study page also invents: the full
-before/after tables, the search-growth figures, the keyword ranking tables, the
-project detail blocks (platform, timeline, market), and the narrative of what
-was done. Treat the whole of `data/projects.json` as unverified.
+## 4. Numbers quoted as fact — still unsourced
 
-The first three (Aarna Jewels, Northline Interiors, Veda Wellness) are flagged
-`"featured": true` and so also appear on the home-page rail.
+| Where | Claim |
+| --- | --- |
+| Home hero, founder graphic | `₹1 Cr+` client revenue |
+| Home hero, trust strip | `60+` brands |
+| About, home stats | `400+` people trained |
+| `website-design.html`, `services.html` | `38` sites shipped, median load `1.8s` |
+| `performance-marketing.html`, `services.html` | `₹68 lakh` tracked paid revenue |
+| Founder graphic | `37K+` Instagram followers |
 
-## 2. Case-study imagery — every visual is a placeholder
+The SEO proof line on `seo.html` and `services.html` was the one fabricated
+claim tied to a deleted client; it now quotes KishKin Digital's real GA4
+figures instead. **The website-design and performance-marketing proof lines
+above have had no such treatment and remain invented.**
 
-Each `.shot__frame` renders a labelled grey panel where a screenshot, chart or
-creative should be. The labels describe what belongs there ("Homepage —
-desktop", "Blended ROAS — weekly"). There are roughly 90 of these across the
-eighteen pages.
-
-The SEO pages in particular lean on charts the framework expects to be real
-evidence. The growth bars currently render from `beforePct` / `afterPct`
-numbers written by hand in the content file.
-
-## 3. Testimonials — three, all fictional
-
-Reuse the names from Aarna Jewels, Northline Interiors and Veda Wellness. Same
-warning: fabricated quotes attributed to fabricated people.
-
-## 4. Client logo marquee — now real ✅
-
-The seven invented brands (Northwind, Vertex, Lumen, Arcadia, Meridian,
-Cobalt, Quill) have been replaced with eight supplied client marks: HP,
-Hostinger, OneCard, Kommo, Superprofile, AiSensy, BriskPe and CreatorX.
-
-They live in `assets/img/logos/` and appear in two places — the home-page
-trust strip and the portfolio logo wall. **This is the one item on this list
-that is no longer a launch blocker.**
-
-Two things still worth settling:
-
-- The home-page heading reads **"Brands I've Worked With"** (first person)
-  while the portfolio says "The brands we work with" and the rest of the site
-  uses "we". Pick one voice.
-- Confirm you have permission to display each of these marks. Using a client
-  logo as a credential is normal practice, but some contracts require sign-off
-  and HP in particular has published brand-usage terms.
-
-The press strip on the about page (Mid-Day, YourStory) is still invented and
-still text stand-ins, not real marks.
-
-## 5. Numbers quoted as fact
-
-- `₹1 Cr+` revenue generated — hero, founder graphic
-- `60+` brands — hero, trust strip
-- `400+` people trained — about page
-- `38` sites shipped, median load `1.8s` — website design page
-- `₹68 lakh` tracked paid revenue — performance marketing page
-- `37K+` Instagram followers — founder graphic
-- Press logos: Mid-Day, YourStory
-
-> **Conflict to resolve.** The supplied `about-graphic.webp` says
-> **20+ trusted brands**, but the hero stat and the trust strip both say
-> **60+ brands** — and they appear on the same page. One of the two is wrong.
+> **Conflict still open.** `about-graphic.webp` says **20+ trusted brands**,
+> while the hero stat and trust strip say **60+ brands**, on the same page.
 > The graphic is baked artwork, so fixing it means a re-export.
 
-## 6. Pricing and commitments — now real ✅
+## 5. Press — unverified
 
-The general FAQs across index.html and contact.html have been populated from the official Google Sheet ('FAQs' tab). Invented price floors (₹1,20,000 / ₹45,000) have been replaced with the real scope-based pricing model and transparent audit walkthrough terms.
+Mid-Day and YourStory appear as press logos on the about page. They are text
+stand-ins, not real marks, and the coverage has not been linked.
+
+## 6. Pricing and commitments
+
+- Websites from ₹1,20,000
+- Retainers from ₹45,000 / month
+- Suggested ad budget floor ₹75,000 / month
+- Start window 1–2 weeks; websites 4–8 weeks
+- Reply within two working days
 
 ## 7. People
 
-- Kajal Andani — real; her founder story paragraphs are invented
+- Kajal Andani — real; the founder story paragraphs are still invented
 - Harsh Vora (SEO) — surname and bio invented
 - Aman Shetty (Website Design) — surname and bio invented
-- Kajal's portrait is an initials block; swap for a real image at
-  `.founder__photo` on the home page and `.person__photo` on about
+- Kajal's portrait is now the real photo, used for the favicon as well
 
 ## 8. Dead links
 
-These render normally but go nowhere (`href="#"`):
+Four `href="#"` on each of index, about and contact:
 
 - Instagram, LinkedIn
-- Privacy Policy, Terms of Use — **no legal pages exist.** I did not invent
-  legal copy; these need writing properly before launch.
-
-The "Read the case study" links now all resolve — to the generated pages above,
-which carry the invented content.
+- Privacy Policy, Terms of Use — **no legal pages exist.** No legal copy has
+  been drafted, deliberately.
 
 ## 9. Canonical URL
 
 `templates/partials/head.html` sets `rel="canonical"` to
-`https://kajalandani.co/work/<slug>.html`. **Change that domain** before
-launch, or the canonical tags point somewhere the site does not live.
+`https://kajalandani.co/work/<slug>.html`. **Confirm that domain** before
+launch, then re-run `node build.js`, or every case-study page points its
+canonical somewhere the site does not live.
+
+## 10. Repo hygiene
+
+`scratch/` and `case-studies/` are untracked and not in `.gitignore`. Netlify
+publishes from the repo root, so committing them makes the working notes
+publicly fetchable. Decide whether the markdown sources belong in the repo
+before adding them.
 
 ---
 
 ## Before this goes public
 
-- [ ] Replace every project in `data/projects.json` with real client data, or cut the ones you cannot evidence
-- [ ] Supply real imagery for the `.shot__frame` placeholders, or delete the sections that only hold them
-- [ ] Set the real domain in `templates/partials/head.html`, then re-run `node build.js`
+- [ ] Source or cut the headline numbers in §4, including the two remaining invented proof lines
+- [ ] Re-export `about-graphic.webp`, or change the hero stat, so 20+ and 60+ agree
+- [ ] Confirm testimonial wording and naming with each person
+- [ ] Confirm logo display permission, HP especially
+- [ ] Replace or remove the Mid-Day / YourStory press strip
 - [ ] Write real Privacy Policy and Terms pages
 - [ ] Point the Book Discovery Call CTAs at a real booking link
+- [ ] Add the real Instagram and LinkedIn URLs
+- [ ] Set the real domain in `templates/partials/head.html`, then rebuild
 - [ ] Wire the form — it currently posts nowhere
-- [ ] Consider re-adding `noindex` until the mock content is gone
+- [ ] Decide on `scratch/` and `case-studies/` before committing them

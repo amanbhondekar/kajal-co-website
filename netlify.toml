@@ -23,3 +23,12 @@
   for = "/assets/img/*"
   [headers.values]
     Cache-Control = "public, max-age=3600, must-revalidate"
+
+# case-studies/*.md is the working source for data/projects.json. It is in the
+# repo on purpose, but publish = "." would serve it as a second, raw copy of
+# every page under work/ — duplicate public content on a site that sells SEO.
+[[redirects]]
+  from = "/case-studies/*"
+  to = "/"
+  status = 404
+  force = true
