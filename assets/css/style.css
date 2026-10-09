@@ -1761,3 +1761,593 @@ em, .em        { font-style: italic; font-weight: 500; }
   .hero-stat b { font-size: clamp(1.25rem, .9rem + 2.4vw, 1.75rem); }
   .hero-stat span { font-size: 10px; letter-spacing: .06em; white-space: normal; }
 }
+
+/* --------------------------------------------------------------------------
+   29. Website Design card — motion graphic
+   Fills the reserved .step__panel column on service card 01. Seven second
+   loop in three acts: the layout is wireframed, a selection snaps around
+   two elements and styles them, then the markup types itself in and the
+   page is built.
+
+   Timing: every element runs the same 7s cycle so nothing can drift. The
+   .wd-stage wrapper owns the fade-out, which is what closes the loop on an
+   empty canvas and hides the restart.
+
+   Reveals use scaleX/scaleY from an edge rather than opacity alone - a
+   block that grows out of its own left edge reads as being drawn, where a
+   fade just reads as a fade. transform-box: fill-box puts the origin on the
+   shape instead of the SVG viewport.
+
+   Strokes are non-scaling, so they hold their weight at any panel size.
+   -------------------------------------------------------------------------- */
+/* Scoped to the breakpoint where the panel column actually exists. A bare
+   .step__panel rule here would land after the `display: none` in section 12
+   and, at equal specificity, source order would win - putting the graphics
+   back on phones where the column was deliberately dropped. */
+@media (min-width: 861px) {
+  .step__panel { display: block; position: relative; }
+}
+
+/* One padded box per card, so all three graphics sit on the same inset and
+   line up across the stack.
+
+   Pinned with inset rather than height: 100%. The panel is a grid item whose
+   row is sized by its own content, so a percentage height on the child has
+   nothing definite to resolve against - it fell back to auto, the box grew
+   to fit the artwork plus its padding, and overflowed the panel by 20px.
+   inset: 0 gives the box the panel's real box, and the 40px then comes out
+   of that rather than adding to it. */
+/* The card sits on --ink-2; the box drops to --ink so it reads as its own
+   panel rather than a hole in the card. Rounded to match, because a square
+   black box inside a 20px-radius card reads as a mistake. */
+.svc-motion__box {
+  position: absolute; inset: 0;
+  background: var(--ink);
+  border: 1px solid var(--line-dark);
+  border-radius: var(--r-panel);
+  overflow: hidden;
+}
+
+/* The 40px is an inset on the SVG itself rather than padding on the box.
+   An inline <svg> carrying a viewBox has an intrinsic aspect ratio, and it
+   kept resolving height from its own width instead of taking the box - as
+   padding it overshot by 60px however the box was sized. Positioned with
+   inset, the element's box is stated outright and preserveAspectRatio
+   centres the artwork inside it. */
+.svc-motion {
+  /* An <svg> carrying a viewBox is a replaced element with an intrinsic
+     aspect ratio, so with height:auto it ignores the bottom inset and sizes
+     itself from its own width - which is why 40px as padding, as a stretched
+     grid item, and as a plain inset all overshot the box by 60px. Stating
+     the height outright is the only form it does not override. */
+  position: absolute; top: 40px; left: 40px;
+  width: calc(100% - 80px);
+  height: calc(100% - 80px);
+  overflow: visible;
+}
+.svc-motion rect,
+.svc-motion line,
+.svc-motion circle,
+.svc-motion path { vector-effect: non-scaling-stroke; }
+
+/* The draw-on elements are the exception. non-scaling-stroke resolves the
+   dash pattern in device pixels, which defeats pathLength="100" - the dash
+   then covers 100 screen px of a path the browser still measures in user
+   units, so the tail of the stroke stays visible instead of being hidden.
+   These three keep a scaling stroke so dasharray and pathLength agree. */
+.svc-motion .wd-board,
+.svc-motion .seo-bar,
+.svc-motion .seo-curve { vector-effect: none; }
+
+/* --- resting appearance --------------------------------------------------- */
+.wd-board {
+  fill: none; stroke: rgba(255, 255, 255, .13); stroke-width: 1;
+  stroke-dasharray: 100; stroke-dashoffset: 100;
+}
+.wd-guide {
+  stroke: rgba(116, 42, 255, .34); stroke-width: 1;
+  stroke-dasharray: 3 5; opacity: 0;
+}
+
+/* the wireframe itself: brighter and a touch heavier than a hairline, so it
+   holds its own against the card's chips and body copy */
+.wd-el {
+  fill: none; stroke: rgba(255, 255, 255, .30); stroke-width: 1.3;
+  transform-box: fill-box;
+}
+.wd-x { transform-origin: left center; }
+.wd-y { transform-origin: center top; }
+
+/* The two elements the selection styles. Each keeps its plain wireframe
+   stroke underneath and gains a styled copy on top, rather than animating
+   stroke colour on the original - one element, one animation, no shorthand
+   fighting the stagger delay. */
+.wd-heroFill   { fill: rgba(116, 42, 255, .18); stroke: none; opacity: 0; }
+.wd-heroStroke { fill: none; stroke: var(--accent); stroke-width: 1.9; opacity: 0; }
+.wd-cardFill   { fill: rgba(255, 255, 255, .09); stroke: none; opacity: 0; }
+.wd-cardStroke { fill: none; stroke: rgba(255, 255, 255, .62); stroke-width: 1.6; opacity: 0; }
+
+.wd-sel { opacity: 0; }
+.wd-sel > rect {
+  fill: none; stroke: var(--accent); stroke-width: 1.1;
+  stroke-dasharray: 4 4;
+}
+.wd-sel .wd-h { fill: var(--accent); stroke: none; stroke-dasharray: none; }
+
+.wd-codeFrame {
+  fill: none; stroke: rgba(255, 255, 255, .15); stroke-width: 1;
+  transform-box: fill-box; transform-origin: center;
+  opacity: 0;
+}
+.wd-ln {
+  fill: rgba(255, 255, 255, .34); stroke: none;
+  transform-box: fill-box; transform-origin: left center;
+  transform: scaleX(0);
+}
+.wd-lnAccent { fill: var(--accent); }
+.wd-caret { fill: var(--accent); opacity: 0; }
+
+/* --- the loop -------------------------------------------------------------- */
+.wd-stage { animation: wdStage 7s ease infinite; }
+
+.wd-board { animation: wdBoard 7s cubic-bezier(.4, 0, .2, 1) infinite; }
+.wd-g1 { animation: wdG1 7s ease infinite; }
+.wd-g2 { animation: wdG2 7s ease infinite; }
+.wd-g3 { animation: wdG3 7s ease infinite; }
+
+.wd-s1  { animation: wdS1  7s cubic-bezier(.16, 1, .3, 1) infinite; }
+.wd-s2  { animation: wdS2  7s cubic-bezier(.16, 1, .3, 1) infinite; }
+.wd-s3  { animation: wdS3  7s cubic-bezier(.16, 1, .3, 1) infinite; }
+.wd-s4  { animation: wdS4  7s cubic-bezier(.16, 1, .3, 1) infinite; }
+.wd-s4b { animation: wdS4b 7s cubic-bezier(.16, 1, .3, 1) infinite; }
+.wd-s5  { animation: wdS5  7s cubic-bezier(.16, 1, .3, 1) infinite; }
+.wd-s5b { animation: wdS5b 7s cubic-bezier(.16, 1, .3, 1) infinite; }
+.wd-s6  { animation: wdS6  7s cubic-bezier(.16, 1, .3, 1) infinite; }
+
+.wd-selA     { animation: wdSelA     7s cubic-bezier(.16, 1, .3, 1) infinite; }
+.wd-heroFill   { animation: wdHeroFill 7s cubic-bezier(.4, 0, .2, 1) infinite; }
+.wd-heroStroke { animation: wdHeroFill 7s cubic-bezier(.4, 0, .2, 1) infinite; }
+.wd-selB     { animation: wdSelB     7s cubic-bezier(.16, 1, .3, 1) infinite; }
+.wd-cardFill   { animation: wdCardFill 7s cubic-bezier(.4, 0, .2, 1) infinite; }
+.wd-cardStroke { animation: wdCardFill 7s cubic-bezier(.4, 0, .2, 1) infinite; }
+
+.wd-codeFrame { animation: wdCodeIn 7s cubic-bezier(.16, 1, .3, 1) infinite; }
+.wd-l1  { animation: wdL1 7s cubic-bezier(.22, 1, .36, 1) infinite; }
+.wd-l2  { animation: wdL2 7s cubic-bezier(.22, 1, .36, 1) infinite; }
+.wd-l3  { animation: wdL3 7s cubic-bezier(.22, 1, .36, 1) infinite; }
+.wd-l4  { animation: wdL4 7s cubic-bezier(.22, 1, .36, 1) infinite; }
+.wd-caret { animation: wdCaret 7s steps(1, end) infinite; }
+
+@keyframes wdStage {
+  0%, 90%   { opacity: 1; }
+  98%, 100% { opacity: 0; }
+}
+@keyframes wdBoard {
+  0%, 2.86% { stroke-dashoffset: 100; }
+  11.86%, 100% { stroke-dashoffset: 0; }
+}
+@keyframes wdG1 {
+  0%, 8.57% { opacity: 0; }
+  12.57%, 100% { opacity: 1; }
+}
+@keyframes wdG2 {
+  0%, 10.29% { opacity: 0; }
+  14.29%, 100% { opacity: 1; }
+}
+@keyframes wdG3 {
+  0%, 12% { opacity: 0; }
+  16%, 100% { opacity: 1; }
+}
+@keyframes wdS1 {
+  0%, 13.57% { opacity: 0; transform: scale(0); }
+  20.57%, 100% { opacity: 1; transform: scale(1); }
+}
+@keyframes wdS2 {
+  0%, 15.43% { opacity: 0; transform: scale(0); }
+  22.43%, 100% { opacity: 1; transform: scale(1); }
+}
+@keyframes wdS3 {
+  0%, 18% { opacity: 0; transform: scale(0); }
+  25%, 100% { opacity: 1; transform: scale(1); }
+}
+@keyframes wdS4 {
+  0%, 21.71% { opacity: 0; transform: scale(0); }
+  28.71%, 100% { opacity: 1; transform: scale(1); }
+}
+@keyframes wdS4b {
+  0%, 23.14% { opacity: 0; transform: scale(0); }
+  30.14%, 100% { opacity: 1; transform: scale(1); }
+}
+@keyframes wdS5 {
+  0%, 25.71% { opacity: 0; transform: scale(0); }
+  32.71%, 100% { opacity: 1; transform: scale(1); }
+}
+@keyframes wdS5b {
+  0%, 27.43% { opacity: 0; transform: scale(0); }
+  34.43%, 100% { opacity: 1; transform: scale(1); }
+}
+@keyframes wdS6 {
+  0%, 30.29% { opacity: 0; transform: scale(0); }
+  37.29%, 100% { opacity: 1; transform: scale(1); }
+}
+@keyframes wdL1 {
+  0%, 60.71% { transform: scaleX(0); }
+  64.71%, 100% { transform: scaleX(1); }
+}
+@keyframes wdL2 {
+  0%, 64.57% { transform: scaleX(0); }
+  68.57%, 100% { transform: scaleX(1); }
+}
+@keyframes wdL3 {
+  0%, 68.43% { transform: scaleX(0); }
+  72.43%, 100% { transform: scaleX(1); }
+}
+@keyframes wdL4 {
+  0%, 72.29% { transform: scaleX(0); }
+  76.29%, 100% { transform: scaleX(1); }
+}
+@keyframes wdGrow {
+  0%        { opacity: 0; transform: scale(0); }
+  7%        { opacity: 1; transform: scale(1); }
+  100%      { opacity: 1; transform: scale(1); }
+}
+
+/* act two: the selection lands on the hero, styles it, then moves on */
+@keyframes wdSelA {
+  0%, 33%   { opacity: 0; }
+  37%, 48%  { opacity: 1; }
+  52%, 100% { opacity: 0; }
+}
+@keyframes wdHeroFill {
+  0%, 40%   { opacity: 0; }
+  46%, 100% { opacity: 1; }
+}
+@keyframes wdSelB {
+  0%, 50%   { opacity: 0; }
+  54%, 63%  { opacity: 1; }
+  67%, 100% { opacity: 0; }
+}
+@keyframes wdCardFill {
+  0%, 56%   { opacity: 0; }
+  62%, 100% { opacity: 1; }
+}
+
+/* act three: the markup types in */
+@keyframes wdCodeIn {
+  0%, 56%   { opacity: 0; transform: scale(.94); }
+  62%, 100% { opacity: 1; transform: scale(1); }
+}
+/* the caret steps down the lines as each one lands, then clears */
+@keyframes wdCaret {
+  0%, 59%   { opacity: 0; transform: translateY(0); }
+  60%       { opacity: 1; transform: translateY(0); }
+  64%       { opacity: 1; transform: translateY(16px); }
+  68%       { opacity: 1; transform: translateY(32px); }
+  72%       { opacity: 1; transform: translateY(48px); }
+  78%, 100% { opacity: 0; transform: translateY(48px); }
+}
+
+/* The global reduce rule collapses duration but leaves delay alone, which
+   would strand most of this mid-build. Drop the animation and render the
+   finished composition instead. !important on the stroke and transform
+   resets because the resting rules that set them are more specific. */
+@media (prefers-reduced-motion: reduce) {
+  .wd-stage, .wd-stage * { animation: none !important; }
+  .wd-board, .wd-guide, .wd-el, .wd-heroFill, .wd-heroStroke,
+  .wd-cardFill, .wd-cardStroke, .wd-codeFrame, .wd-ln { opacity: 1 !important; }
+  .wd-el, .wd-ln, .wd-codeFrame { transform: none !important; }
+  .wd-board { stroke-dashoffset: 0 !important; }
+  .wd-sel, .wd-caret { opacity: 0 !important; }
+}
+
+/* --------------------------------------------------------------------------
+   30. SEO card — motion graphic
+   Card 02's reserved panel. Seven second loop on the same clock as card 01,
+   so the two read as one family: a query is typed, results land, the page
+   we built climbs to the top, and the gain compounds into a curve.
+
+   The rows nest two transforms on purpose - the outer <g> carries the climb
+   while the rects inside carry their own entrance. One animation per
+   element, so the stagger delays never fight the move.
+   -------------------------------------------------------------------------- */
+.seo-bar {
+  fill: none; stroke: rgba(255, 255, 255, .22); stroke-width: 1.2;
+  stroke-dasharray: 100; stroke-dashoffset: 100;
+}
+.seo-glass {
+  fill: none; stroke: rgba(255, 255, 255, .42); stroke-width: 1.4;
+  stroke-linecap: round; opacity: 0;
+}
+.seo-q {
+  fill: rgba(255, 255, 255, .34); stroke: none;
+  transform-box: fill-box; transform-origin: left center; transform: scaleX(0);
+}
+
+.seo-t { fill: rgba(255, 255, 255, .30); }
+.seo-m { fill: rgba(255, 255, 255, .17); }
+.seo-t, .seo-m {
+  stroke: none;
+  transform-box: fill-box; transform-origin: left center;
+  transform: scaleX(0); opacity: 0;
+}
+
+/* the winner's styled state sits on top of its plain state, same approach
+   as the hero on card 01 */
+.seo-tint { fill: rgba(116, 42, 255, .14); stroke: var(--accent); stroke-width: 1.1; opacity: 0; }
+.seo-winT { fill: var(--accent); stroke: none; opacity: 0; }
+.seo-winM { fill: rgba(116, 42, 255, .60); stroke: none; opacity: 0; }
+.seo-pos  { fill: var(--accent); stroke: none; opacity: 0; }
+
+.seo-axis  { stroke: rgba(255, 255, 255, .16); stroke-width: 1; opacity: 0; }
+.seo-curve {
+  fill: none; stroke: var(--accent); stroke-width: 1.9;
+  stroke-linecap: round; stroke-linejoin: round;
+  stroke-dasharray: 100; stroke-dashoffset: 100;
+}
+.seo-dot {
+  fill: var(--accent); stroke: none; opacity: 0;
+  transform-box: fill-box; transform-origin: center;
+}
+
+/* --- the loop -------------------------------------------------------------- */
+.seo-stage { animation: seoStage 7s ease infinite; }
+
+.seo-bar   { animation: seoBar   7s cubic-bezier(.4, 0, .2, 1) infinite; }
+.seo-glass { animation: seoGlass 7s ease infinite; }
+.seo-q     { animation: seoQ     7s cubic-bezier(.22, 1, .36, 1) infinite; }
+
+.seo-e1 { animation: seoE1 7s cubic-bezier(.16, 1, .3, 1) infinite; }
+.seo-e2 { animation: seoE2 7s cubic-bezier(.16, 1, .3, 1) infinite; }
+.seo-e3 { animation: seoE3 7s cubic-bezier(.16, 1, .3, 1) infinite; }
+.seo-e4 { animation: seoE4 7s cubic-bezier(.16, 1, .3, 1) infinite; }
+.seo-e5 { animation: seoE5 7s cubic-bezier(.16, 1, .3, 1) infinite; }
+
+.seo-tint { animation: seoPick 7s cubic-bezier(.4, 0, .2, 1) infinite; }
+.seo-winT { animation: seoPick 7s cubic-bezier(.4, 0, .2, 1) infinite; }
+.seo-winM { animation: seoPick 7s cubic-bezier(.4, 0, .2, 1) infinite; }
+
+/* the climb: the picked page rises four places, the rest step down one */
+.seo-win { animation: seoClimb 7s cubic-bezier(.65, 0, .25, 1) infinite; }
+.seo-s0, .seo-s1, .seo-s2, .seo-s3 { animation: seoShift 7s cubic-bezier(.65, 0, .25, 1) infinite; }
+.seo-pos { animation: seoPos 7s cubic-bezier(.16, 1, .3, 1) infinite; }
+
+.seo-axis  { animation: seoAxis  7s ease infinite; }
+.seo-curve { animation: seoCurve 7s cubic-bezier(.33, 0, .2, 1) infinite; }
+.seo-k1 { animation: seoK1 7s cubic-bezier(.16, 1, .3, 1) infinite; }
+.seo-k2 { animation: seoK2 7s cubic-bezier(.16, 1, .3, 1) infinite; }
+.seo-k3 { animation: seoK3 7s cubic-bezier(.16, 1, .3, 1) infinite; }
+.seo-k4 { animation: seoK4 7s cubic-bezier(.16, 1, .3, 1) infinite; }
+
+@keyframes seoStage {
+  0%, 90%   { opacity: 1; }
+  98%, 100% { opacity: 0; }
+}
+@keyframes seoBar {
+  0%, 2.86% { stroke-dashoffset: 100; }
+  13.86%, 100% { stroke-dashoffset: 0; }
+}
+@keyframes seoGlass {
+  0%, 8.29% { opacity: 0; }
+  12.29%, 100% { opacity: 1; }
+}
+@keyframes seoQ {
+  0%, 12.14% { transform: scaleX(0); }
+  18.14%, 100% { transform: scaleX(1); }
+}
+@keyframes seoE1 {
+  0%, 22.14% { opacity: 0; transform: scaleX(0); }
+  27.14%, 100% { opacity: 1; transform: scaleX(1); }
+}
+@keyframes seoE2 {
+  0%, 24.29% { opacity: 0; transform: scaleX(0); }
+  29.29%, 100% { opacity: 1; transform: scaleX(1); }
+}
+@keyframes seoE3 {
+  0%, 26.43% { opacity: 0; transform: scaleX(0); }
+  31.43%, 100% { opacity: 1; transform: scaleX(1); }
+}
+@keyframes seoE4 {
+  0%, 28.57% { opacity: 0; transform: scaleX(0); }
+  33.57%, 100% { opacity: 1; transform: scaleX(1); }
+}
+@keyframes seoE5 {
+  0%, 30.71% { opacity: 0; transform: scaleX(0); }
+  35.71%, 100% { opacity: 1; transform: scaleX(1); }
+}
+@keyframes seoAxis {
+  0%, 67.86% { opacity: 0; }
+  71.86%, 100% { opacity: 1; }
+}
+@keyframes seoCurve {
+  0%, 70% { stroke-dashoffset: 100; }
+  81%, 100% { stroke-dashoffset: 0; }
+}
+@keyframes seoK1 {
+  0%, 76.43% { opacity: 0; transform: scale(0); }
+  80.43%, 100% { opacity: 1; transform: scale(1); }
+}
+@keyframes seoK2 {
+  0%, 79.29% { opacity: 0; transform: scale(0); }
+  83.29%, 100% { opacity: 1; transform: scale(1); }
+}
+@keyframes seoK3 {
+  0%, 82.14% { opacity: 0; transform: scale(0); }
+  86.14%, 100% { opacity: 1; transform: scale(1); }
+}
+@keyframes seoK4 {
+  0%, 85% { opacity: 0; transform: scale(0); }
+  89%, 100% { opacity: 1; transform: scale(1); }
+}
+@keyframes seoRowIn {
+  0%        { opacity: 0; transform: scaleX(0); }
+  5%        { opacity: 1; transform: scaleX(1); }
+  100%      { opacity: 1; transform: scaleX(1); }
+}
+@keyframes seoPick {
+  0%, 43%   { opacity: 0; }
+  49%, 100% { opacity: 1; }
+}
+@keyframes seoClimb {
+  0%, 53%   { transform: translateY(0); }
+  67%, 100% { transform: translateY(-120px); }
+}
+@keyframes seoShift {
+  0%, 53%   { transform: translateY(0); }
+  67%, 100% { transform: translateY(30px); }
+}
+@keyframes seoPos {
+  0%, 68%   { opacity: 0; }
+  73%, 100% { opacity: 1; }
+}
+@keyframes seoPop {
+  0%        { opacity: 0; transform: scale(0); }
+  4%        { opacity: 1; transform: scale(1); }
+  100%      { opacity: 1; transform: scale(1); }
+}
+
+/* Same reasoning as card 01: the global reduce rule drops duration but not
+   delay, which would strand this mid-climb. Render the settled result -
+   page at number one, curve drawn. */
+@media (prefers-reduced-motion: reduce) {
+  .seo-stage, .seo-stage * { animation: none !important; }
+  .seo-glass, .seo-q, .seo-t, .seo-m, .seo-tint, .seo-winT, .seo-winM,
+  .seo-pos, .seo-axis, .seo-dot { opacity: 1 !important; }
+  .seo-q, .seo-t, .seo-m, .seo-dot { transform: none !important; }
+  .seo-bar, .seo-curve { stroke-dashoffset: 0 !important; }
+  .seo-win { transform: translateY(-120px) !important; }
+  .seo-s0, .seo-s1, .seo-s2, .seo-s3 { transform: translateY(30px) !important; }
+}
+
+/* --------------------------------------------------------------------------
+   31. Performance Marketing card — motion graphic
+   Card 03's panel, on the same 7s clock as the other two. Three creatives
+   run, every one of them is tracked back to a single point, the numbers
+   back one of them, and the return comes in well above the spend.
+
+   No delays anywhere: the staggers live in the keyframe percentages so all
+   three cards stay locked to their stage for every loop, not just the first.
+   -------------------------------------------------------------------------- */
+.pm-frame { fill: none; stroke: rgba(255, 255, 255, .26); stroke-width: 1.2; }
+.pm-thumb { fill: rgba(255, 255, 255, .10); stroke: none; }
+.pm-line  { fill: rgba(255, 255, 255, .22); stroke: none; }
+
+.pm-card {
+  transform-box: fill-box; transform-origin: center;
+  opacity: 0;
+}
+.pm-win {
+  fill: rgba(116, 42, 255, .12);
+  stroke: var(--accent); stroke-width: 1.8;
+  opacity: 0;
+}
+
+.pm-link, .pm-feed {
+  fill: none; stroke: rgba(255, 255, 255, .28); stroke-width: 1.2;
+  stroke-linecap: round;
+  stroke-dasharray: 100; stroke-dashoffset: 100;
+}
+.pm-hub {
+  fill: rgba(116, 42, 255, .18); stroke: var(--accent); stroke-width: 1.5;
+  transform-box: fill-box; transform-origin: center;
+  opacity: 0;
+}
+
+.pm-base { stroke: rgba(255, 255, 255, .16); stroke-width: 1; opacity: 0; }
+/* the bars rise off the baseline, so the origin sits on their own bottom edge */
+.pm-spend, .pm-return {
+  stroke: none;
+  transform-box: fill-box; transform-origin: center bottom;
+  transform: scaleY(0);
+}
+.pm-spend  { fill: rgba(255, 255, 255, .20); }
+.pm-return { fill: var(--accent); }
+
+/* --- the loop -------------------------------------------------------------- */
+.pm-stage { animation: pmStage 7s ease infinite; }
+
+.pm-c1 { animation: pmCardDim 7s cubic-bezier(.16, 1, .3, 1) infinite; }
+.pm-c2 { animation: pmCardWin 7s cubic-bezier(.16, 1, .3, 1) infinite; }
+.pm-c3 { animation: pmCardDim3 7s cubic-bezier(.16, 1, .3, 1) infinite; }
+.pm-win { animation: pmWin 7s cubic-bezier(.4, 0, .2, 1) infinite; }
+
+.pm-k1 { animation: pmK1 7s cubic-bezier(.4, 0, .2, 1) infinite; }
+.pm-k2 { animation: pmK2 7s cubic-bezier(.4, 0, .2, 1) infinite; }
+.pm-k3 { animation: pmK3 7s cubic-bezier(.4, 0, .2, 1) infinite; }
+.pm-hub  { animation: pmHub  7s cubic-bezier(.16, 1, .3, 1) infinite; }
+.pm-feed { animation: pmFeed 7s cubic-bezier(.4, 0, .2, 1) infinite; }
+
+.pm-base   { animation: pmBase   7s ease infinite; }
+.pm-spend  { animation: pmSpend  7s cubic-bezier(.22, 1, .36, 1) infinite; }
+.pm-return { animation: pmReturn 7s cubic-bezier(.22, 1, .36, 1) infinite; }
+
+@keyframes pmStage {
+  0%, 90%   { opacity: 1; }
+  98%, 100% { opacity: 0; }
+}
+
+/* the two that lose keep running, they just stop getting the budget */
+@keyframes pmCardDim {
+  0%, 3%    { opacity: 0; transform: scale(.94); }
+  9%, 44%   { opacity: 1; transform: scale(1); }
+  50%, 100% { opacity: .32; transform: scale(1); }
+}
+@keyframes pmCardDim3 {
+  0%, 11%   { opacity: 0; transform: scale(.94); }
+  17%, 44%  { opacity: 1; transform: scale(1); }
+  50%, 100% { opacity: .32; transform: scale(1); }
+}
+@keyframes pmCardWin {
+  0%, 7%    { opacity: 0; transform: scale(.94); }
+  13%, 100% { opacity: 1; transform: scale(1); }
+}
+@keyframes pmWin {
+  0%, 44%   { opacity: 0; }
+  50%, 100% { opacity: 1; }
+}
+
+@keyframes pmK1 {
+  0%, 22%   { stroke-dashoffset: 100; }
+  32%, 100% { stroke-dashoffset: 0; }
+}
+@keyframes pmK2 {
+  0%, 25%   { stroke-dashoffset: 100; }
+  35%, 100% { stroke-dashoffset: 0; }
+}
+@keyframes pmK3 {
+  0%, 28%   { stroke-dashoffset: 100; }
+  38%, 100% { stroke-dashoffset: 0; }
+}
+@keyframes pmHub {
+  0%, 36%   { opacity: 0; transform: scale(0); }
+  41%, 100% { opacity: 1; transform: scale(1); }
+}
+@keyframes pmFeed {
+  0%, 50%   { stroke-dashoffset: 100; }
+  58%, 100% { stroke-dashoffset: 0; }
+}
+
+@keyframes pmBase {
+  0%, 54%   { opacity: 0; }
+  58%, 100% { opacity: 1; }
+}
+/* return starts later and finishes later, so the gap opens up on screen
+   rather than both bars arriving together */
+@keyframes pmSpend {
+  0%, 57%   { transform: scaleY(0); }
+  70%, 100% { transform: scaleY(1); }
+}
+@keyframes pmReturn {
+  0%, 61%   { transform: scaleY(0); }
+  82%, 100% { transform: scaleY(1); }
+}
+
+/* Same reasoning as the other two cards: the global reduce rule drops
+   duration but not delay, so render the settled result instead. */
+@media (prefers-reduced-motion: reduce) {
+  .pm-stage, .pm-stage * { animation: none !important; }
+  .pm-c2, .pm-win, .pm-hub, .pm-base { opacity: 1 !important; }
+  .pm-c1, .pm-c3 { opacity: .32 !important; }
+  .pm-card, .pm-hub { transform: none !important; }
+  .pm-link, .pm-feed { stroke-dashoffset: 0 !important; }
+  .pm-spend, .pm-return { transform: scaleY(1) !important; }
+}

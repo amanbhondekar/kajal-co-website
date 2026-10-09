@@ -154,8 +154,67 @@
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
             </a>
           </div>
-          <!-- reserved for motion graphics -->
-            <div class="step__panel" aria-hidden="true"></div>
+          <div class="step__panel" aria-hidden="true">
+            <div class="svc-motion__box">
+  <svg class="svc-motion" viewBox="0 0 360 300" fill="none" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+                <g class="wd-stage">
+
+                  <!-- artboard + layout guides -->
+                  <rect class="wd-board" x="26" y="34" width="186" height="214" rx="10" pathLength="100"/>
+                  <line class="wd-guide wd-g1" x1="94" y1="44" x2="94" y2="238"/>
+                  <line class="wd-guide wd-g2" x1="144" y1="44" x2="144" y2="238"/>
+                  <line class="wd-guide wd-g3" x1="36" y1="132" x2="202" y2="132"/>
+
+                  <!-- wireframe, drawn on in order -->
+                  <rect class="wd-el wd-x wd-s1" x="44"  y="56"  width="60"  height="9"  rx="4.5"/>
+                  <rect class="wd-el wd-x wd-s2" x="134" y="58"  width="14"  height="4"  rx="2"/>
+                  <rect class="wd-el wd-x wd-s2" x="156" y="58"  width="14"  height="4"  rx="2"/>
+                  <rect class="wd-el wd-x wd-s2" x="178" y="58"  width="14"  height="4"  rx="2"/>
+
+                  <rect class="wd-el wd-y wd-s3" x="44" y="80" width="150" height="46" rx="6"/>
+                  <rect class="wd-heroFill"   x="44" y="80" width="150" height="46" rx="6"/>
+                  <rect class="wd-heroStroke" x="44" y="80" width="150" height="46" rx="6"/>
+
+                  <rect class="wd-el wd-x wd-s4" x="44" y="140" width="110" height="5" rx="2.5"/>
+                  <rect class="wd-el wd-x wd-s4b" x="44" y="153" width="78" height="5" rx="2.5"/>
+
+                  <rect class="wd-el wd-x wd-s5"  x="44"  y="172" width="70" height="34" rx="6"/>
+                  <rect class="wd-cardFill"       x="44"  y="172" width="70" height="34" rx="6"/>
+                  <rect class="wd-cardStroke"     x="44"  y="172" width="70" height="34" rx="6"/>
+                  <rect class="wd-el wd-x wd-s5b" x="124" y="172" width="70" height="34" rx="6"/>
+
+                  <rect class="wd-el wd-x wd-s6" x="44" y="220" width="150" height="10" rx="5"/>
+
+                  <!-- design pass: selection snaps to the hero, then to a card -->
+                  <g class="wd-sel wd-selA">
+                    <rect x="40" y="76" width="158" height="54" rx="7"/>
+                    <rect class="wd-h" x="37" y="73"  width="6" height="6"/>
+                    <rect class="wd-h" x="195" y="73" width="6" height="6"/>
+                    <rect class="wd-h" x="37" y="127" width="6" height="6"/>
+                    <rect class="wd-h" x="195" y="127" width="6" height="6"/>
+                  </g>
+                  <g class="wd-sel wd-selB">
+                    <rect x="40" y="168" width="78" height="42" rx="7"/>
+                    <rect class="wd-h" x="37" y="165"  width="6" height="6"/>
+                    <rect class="wd-h" x="115" y="165" width="6" height="6"/>
+                    <rect class="wd-h" x="37" y="207"  width="6" height="6"/>
+                    <rect class="wd-h" x="115" y="207" width="6" height="6"/>
+                  </g>
+
+                  <!-- build pass: the markup that renders it -->
+                  <g class="wd-code">
+                    <rect class="wd-codeFrame" x="236" y="92" width="100" height="116" rx="8"/>
+                    <rect class="wd-ln wd-l1" x="250" y="112" width="54" height="4" rx="2"/>
+                    <rect class="wd-ln wd-l2" x="258" y="128" width="42" height="4" rx="2"/>
+                    <rect class="wd-ln wd-l3 wd-lnAccent" x="258" y="144" width="58" height="4" rx="2"/>
+                    <rect class="wd-ln wd-l4" x="250" y="160" width="34" height="4" rx="2"/>
+                    <rect class="wd-caret" x="250" y="108" width="2" height="12" rx="1"/>
+                  </g>
+
+                </g>
+              </svg>
+            </div>
+          </div>
         </div>
       </article>
 
@@ -178,7 +237,49 @@
             </a>
           </div>
           <!-- reserved for motion graphics -->
-            <div class="step__panel" aria-hidden="true"></div>
+            <div class="step__panel" aria-hidden="true">
+              <div class="svc-motion__box">
+  <svg class="svc-motion" viewBox="0 0 360 300" fill="none" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+                  <g class="seo-stage">
+            
+                    <!-- the query -->
+                    <rect class="seo-bar" x="26" y="32" width="196" height="28" rx="14" pathLength="100"/>
+                    <g class="seo-glass">
+                      <circle cx="45" cy="46" r="5.5"/>
+                      <path d="M49.4 50.4 L54 55"/>
+                    </g>
+                    <rect class="seo-q" x="62" y="43.5" width="118" height="4.5" rx="2.25"/>
+            
+                    <!-- the rank this page lands on -->
+                    <rect class="seo-pos" x="16" y="76" width="3" height="22" rx="1.5"/>
+            
+                    <!-- results. The outer g carries the climb, the rects their own entrance. -->
+                    <g class="seo-slot seo-s0"><rect class="seo-t seo-e1" x="26" y="80"  width="130" height="6" rx="3"/><rect class="seo-m seo-e1" x="26" y="93"  width="86" height="4" rx="2"/></g>
+                    <g class="seo-slot seo-s1"><rect class="seo-t seo-e2" x="26" y="110" width="110" height="6" rx="3"/><rect class="seo-m seo-e2" x="26" y="123" width="70" height="4" rx="2"/></g>
+                    <g class="seo-slot seo-s2"><rect class="seo-t seo-e3" x="26" y="140" width="142" height="6" rx="3"/><rect class="seo-m seo-e3" x="26" y="153" width="94" height="4" rx="2"/></g>
+                    <g class="seo-slot seo-s3"><rect class="seo-t seo-e4" x="26" y="170" width="120" height="6" rx="3"/><rect class="seo-m seo-e4" x="26" y="183" width="78" height="4" rx="2"/></g>
+            
+                    <!-- the page that climbs -->
+                    <g class="seo-slot seo-win">
+                      <rect class="seo-tint" x="18" y="193" width="212" height="30" rx="7"/>
+                      <rect class="seo-t seo-e5" x="26" y="200" width="136" height="6" rx="3"/>
+                      <rect class="seo-m seo-e5" x="26" y="213" width="90"  height="4" rx="2"/>
+                      <rect class="seo-winT" x="26" y="200" width="136" height="6" rx="3"/>
+                      <rect class="seo-winM" x="26" y="213" width="90"  height="4" rx="2"/>
+                    </g>
+            
+                    <!-- and the curve it compounds into -->
+                    <line class="seo-axis" x1="248" y1="238" x2="340" y2="238"/>
+                    <path class="seo-curve" pathLength="100" d="M252 230 L 274 221 L 296 203 L 318 174 L 338 138"/>
+                    <circle class="seo-dot seo-k1" cx="274" cy="221" r="2.6"/>
+                    <circle class="seo-dot seo-k2" cx="296" cy="203" r="2.6"/>
+                    <circle class="seo-dot seo-k3" cx="318" cy="174" r="2.6"/>
+                    <circle class="seo-dot seo-k4" cx="338" cy="138" r="2.6"/>
+            
+                  </g>
+                </svg>
+              </div>
+            </div>
         </div>
       </article>
 
@@ -201,7 +302,50 @@
             </a>
           </div>
           <!-- reserved for motion graphics -->
-            <div class="step__panel" aria-hidden="true"></div>
+            <div class="step__panel" aria-hidden="true">
+              <div class="svc-motion__box">
+                <svg class="svc-motion" viewBox="0 0 360 300" fill="none" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+                  <g class="pm-stage">
+            
+                    <!-- three creatives in test -->
+                    <g class="pm-card pm-c1">
+                      <rect class="pm-frame" x="26" y="40" width="86" height="54" rx="7"/>
+                      <rect class="pm-thumb" x="34" y="48" width="70" height="24" rx="4"/>
+                      <rect class="pm-line"  x="34" y="78" width="54" height="3.5" rx="1.75"/>
+                      <rect class="pm-line"  x="34" y="86" width="38" height="3.5" rx="1.75"/>
+                    </g>
+                    <g class="pm-card pm-c2">
+                      <rect class="pm-frame" x="26" y="110" width="86" height="54" rx="7"/>
+                      <rect class="pm-thumb" x="34" y="118" width="70" height="24" rx="4"/>
+                      <rect class="pm-line"  x="34" y="148" width="54" height="3.5" rx="1.75"/>
+                      <rect class="pm-line"  x="34" y="156" width="38" height="3.5" rx="1.75"/>
+                    </g>
+                    <g class="pm-card pm-c3">
+                      <rect class="pm-frame" x="26" y="180" width="86" height="54" rx="7"/>
+                      <rect class="pm-thumb" x="34" y="188" width="70" height="24" rx="4"/>
+                      <rect class="pm-line"  x="34" y="218" width="54" height="3.5" rx="1.75"/>
+                      <rect class="pm-line"  x="34" y="226" width="38" height="3.5" rx="1.75"/>
+                    </g>
+            
+                    <!-- the one the numbers back -->
+                    <rect class="pm-win" x="26" y="110" width="86" height="54" rx="7"/>
+            
+                    <!-- everything is tracked back to one place -->
+                    <path class="pm-link pm-k1" pathLength="100" d="M112 67 C 140 67, 142 137, 160 137"/>
+                    <path class="pm-link pm-k2" pathLength="100" d="M112 137 H 160"/>
+                    <path class="pm-link pm-k3" pathLength="100" d="M112 207 C 140 207, 142 137, 160 137"/>
+                    <circle class="pm-hub" cx="167" cy="137" r="6"/>
+                    <path class="pm-feed" pathLength="100" d="M174 137 H 214"/>
+            
+                    <!-- spend against what it returned -->
+                    <line class="pm-base" x1="224" y1="238" x2="334" y2="238"/>
+                    <rect class="pm-spend"  x="238" y="190" width="30" height="48" rx="4"/>
+                    <rect class="pm-return" x="290" y="110" width="30" height="128" rx="4"/>
+            
+                  </g>
+                </svg>
+              </div>
+            </div>
         </div>
       </article>
 
