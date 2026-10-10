@@ -47,28 +47,20 @@
       },
       "meta": [
         {
-          "k": "Client",
-          "v": "Aarshaveda"
-        },
-        {
           "k": "Industry",
           "v": "Ayurveda &amp; Wellness"
         },
         {
-          "k": "Services",
-          "v": "Website Development, UX/UI Design"
-        },
-        {
-          "k": "Platform",
-          "v": "Shopify"
-        },
-        {
-          "k": "Duration",
-          "v": "7 months"
+          "k": "Service",
+          "v": "UX/UI Design &amp; Shopify Development"
         },
         {
           "k": "Location",
           "v": "Kerala, India"
+        },
+        {
+          "k": "Duration",
+          "v": "7 months"
         }
       ],
       "hero": {
@@ -202,28 +194,20 @@
       },
       "meta": [
         {
-          "k": "Client",
-          "v": "Sacred Lotus Retreat"
-        },
-        {
           "k": "Industry",
           "v": "Wellness &amp; Retreats"
         },
         {
-          "k": "Services",
-          "v": "UX/UI Design, Website Development"
-        },
-        {
-          "k": "Platform",
-          "v": "WordPress, Figma"
-        },
-        {
-          "k": "Duration",
-          "v": "4 months"
+          "k": "Service",
+          "v": "UX/UI Design &amp; WordPress Development"
         },
         {
           "k": "Location",
           "v": "Kerala, India"
+        },
+        {
+          "k": "Duration",
+          "v": "4 months"
         }
       ],
       "hero": {
@@ -357,28 +341,20 @@
       },
       "meta": [
         {
-          "k": "Client",
-          "v": "DeAge"
-        },
-        {
           "k": "Industry",
           "v": "Health &amp; Wellness"
         },
         {
-          "k": "Services",
-          "v": "UX/UI Design, Website Development"
-        },
-        {
-          "k": "Platform",
-          "v": "Figma, Shopify"
-        },
-        {
-          "k": "Duration",
-          "v": "3 months"
+          "k": "Service",
+          "v": "UX/UI Design &amp; Shopify Development"
         },
         {
           "k": "Location",
           "v": "Mumbai, India"
+        },
+        {
+          "k": "Duration",
+          "v": "3 months"
         }
       ],
       "hero": {
@@ -515,28 +491,20 @@
       },
       "meta": [
         {
-          "k": "Client",
-          "v": "MKPS &amp; Associates LLP"
-        },
-        {
           "k": "Industry",
           "v": "Accounting &amp; Finance"
         },
         {
-          "k": "Services",
-          "v": "Website Development"
-        },
-        {
-          "k": "Platform",
-          "v": "Figma, Wix"
-        },
-        {
-          "k": "Duration",
-          "v": "7 months"
+          "k": "Service",
+          "v": "Website Development &amp; Wix Architecture"
         },
         {
           "k": "Location",
           "v": "Mumbai, India"
+        },
+        {
+          "k": "Duration",
+          "v": "7 months"
         }
       ],
       "hero": {
@@ -672,28 +640,20 @@
       },
       "meta": [
         {
-          "k": "Client",
-          "v": "Shap Infotech"
-        },
-        {
           "k": "Industry",
           "v": "IT &amp; Software Services"
         },
         {
-          "k": "Services",
-          "v": "UX/UI Design, Website Development"
-        },
-        {
-          "k": "Platform",
-          "v": "Figma, WordPress"
-        },
-        {
-          "k": "Duration",
-          "v": "5 months"
+          "k": "Service",
+          "v": "UX/UI Design &amp; WordPress Development"
         },
         {
           "k": "Location",
           "v": "Bangalore, India"
+        },
+        {
+          "k": "Duration",
+          "v": "5 months"
         }
       ],
       "hero": {
@@ -827,28 +787,20 @@
       },
       "meta": [
         {
-          "k": "Client",
-          "v": "Swastha Healthcare"
-        },
-        {
           "k": "Industry",
           "v": "Healthcare"
         },
         {
-          "k": "Services",
-          "v": "UX/UI Design, Website Development"
-        },
-        {
-          "k": "Platform",
-          "v": "Figma, WordPress"
-        },
-        {
-          "k": "Duration",
-          "v": "5 months"
+          "k": "Service",
+          "v": "UX/UI Design &amp; WordPress Development"
         },
         {
           "k": "Location",
           "v": "Bangalore, India"
+        },
+        {
+          "k": "Duration",
+          "v": "5 months"
         }
       ],
       "hero": {
@@ -985,28 +937,20 @@
       },
       "meta": [
         {
-          "k": "Client",
-          "v": "Blythe Living"
-        },
-        {
           "k": "Industry",
           "v": "Outdoor Furniture &amp; Home Living"
         },
         {
-          "k": "Channels",
-          "v": "Meta Ads, Google Analytics, Shopify"
+          "k": "Service",
+          "v": "Paid Social (Meta Ads) &amp; E-Commerce Analytics"
+        },
+        {
+          "k": "Market",
+          "v": "United Kingdom"
         },
         {
           "k": "Duration",
           "v": "12 months"
-        },
-        {
-          "k": "Objective",
-          "v": "Scale UK outdoor living sales &amp; optimize acquisition efficiency"
-        },
-        {
-          "k": "Location",
-          "v": "United Kingdom"
         }
       ],
       "hero": {
@@ -1141,28 +1085,20 @@
       },
       "meta": [
         {
-          "k": "Client",
-          "v": "M.D. Cargo &amp; Movers"
-        },
-        {
           "k": "Industry",
           "v": "Logistics &amp; Moving Services"
         },
         {
-          "k": "Channels",
-          "v": "Meta Ads"
+          "k": "Service",
+          "v": "Paid Social &amp; Lead Generation (Meta Ads)"
+        },
+        {
+          "k": "Market",
+          "v": "Delhi NCR, India"
         },
         {
           "k": "Duration",
           "v": "6 months"
-        },
-        {
-          "k": "Objective",
-          "v": "Generate qualified residential and commercial moving inquiries"
-        },
-        {
-          "k": "Location",
-          "v": "Delhi NCR, India"
         }
       ],
       "hero": {
@@ -1296,28 +1232,20 @@
       },
       "meta": [
         {
-          "k": "Client",
-          "v": "4S Realty Ventures"
-        },
-        {
           "k": "Industry",
           "v": "Real Estate"
         },
         {
-          "k": "Channels",
-          "v": "Meta Ads"
+          "k": "Service",
+          "v": "High-Intent Lead Gen &amp; Meta Ads Funnels"
+        },
+        {
+          "k": "Market",
+          "v": "India"
         },
         {
           "k": "Duration",
           "v": "4 months"
-        },
-        {
-          "k": "Objective",
-          "v": "Generate verified inquiries for premium residential & commercial projects"
-        },
-        {
-          "k": "Location",
-          "v": "India"
         }
       ],
       "hero": {
@@ -1449,28 +1377,20 @@
       },
       "meta": [
         {
-          "k": "Client",
-          "v": "KishKin"
-        },
-        {
           "k": "Industry",
           "v": "Beauty &amp; Personal Care"
         },
         {
-          "k": "Channels",
-          "v": "Meta Ads, Shopify, Google Analytics"
+          "k": "Service",
+          "v": "D2C Paid Social, Meta Ads &amp; GA4 Tracking"
+        },
+        {
+          "k": "Market",
+          "v": "India"
         },
         {
           "k": "Duration",
           "v": "8 months"
-        },
-        {
-          "k": "Objective",
-          "v": "Scale D2C beauty orders and maximize customer lifetime value"
-        },
-        {
-          "k": "Location",
-          "v": "India"
         }
       ],
       "hero": {
@@ -1604,28 +1524,20 @@
       },
       "meta": [
         {
-          "k": "Client",
-          "v": "AK Followers"
-        },
-        {
           "k": "Industry",
           "v": "Digital Marketing &amp; Social Media"
         },
         {
-          "k": "Channels",
-          "v": "Meta Ads, Google Analytics"
+          "k": "Service",
+          "v": "Paid Social, Meta Ads &amp; GA4 Analytics"
+        },
+        {
+          "k": "Market",
+          "v": "India"
         },
         {
           "k": "Duration",
           "v": "5 months"
-        },
-        {
-          "k": "Objective",
-          "v": "Acquire qualified digital growth service inquiries and client orders"
-        },
-        {
-          "k": "Location",
-          "v": "India"
         }
       ],
       "hero": {
@@ -1758,10 +1670,6 @@
       },
       "meta": [
         {
-          "k": "Client",
-          "v": "Jungle World"
-        },
-        {
           "k": "Industry",
           "v": "Kids Entertainment &amp; Indoor Play"
         },
@@ -1885,10 +1793,6 @@
         "cite": "Amardeep Gill, Founder @ Blythe Living"
       },
       "meta": [
-        {
-          "k": "Client",
-          "v": "Blythe Living"
-        },
         {
           "k": "Industry",
           "v": "Outdoor Furniture &amp; Home Living"
@@ -2047,10 +1951,6 @@
       },
       "meta": [
         {
-          "k": "Client",
-          "v": "Little Mowgli Nursery"
-        },
-        {
           "k": "Industry",
           "v": "Education &amp; Childcare"
         },
@@ -2174,10 +2074,6 @@
       },
       "meta": [
         {
-          "k": "Client",
-          "v": "South Ribble Taxis"
-        },
-        {
           "k": "Industry",
           "v": "Transportation &amp; Taxi Services"
         },
@@ -2187,7 +2083,7 @@
         },
         {
           "k": "Market",
-          "v": "South Ribble, Leyland &amp; Preston, UK"
+          "v": "South Ribble, Leyland & Preston, UK"
         },
         {
           "k": "Duration",
@@ -2299,10 +2195,6 @@
         "blurb": "Technical SEO cleanup, catalog optimization, and verified GA4 organic scaling for an e-commerce platform."
       },
       "meta": [
-        {
-          "k": "Client",
-          "v": "KishKin Digital"
-        },
         {
           "k": "Industry",
           "v": "Digital Marketing &amp; Technology"

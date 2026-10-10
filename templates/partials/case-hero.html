@@ -1,30 +1,30 @@
 <!-- ============================ 01 · HERO ============================ -->
 <section class="case-hero">
   <div class="container">
-    <nav class="crumb" aria-label="Breadcrumb">
-      <a href="{{base}}portfolio.html">Our Works</a>
-      <span aria-hidden="true">/</span>
-      <a href="{{base}}portfolio.html#{{service}}">{{serviceLabel}}</a>
-      <span aria-hidden="true">/</span>
-      <span aria-current="page">{{client}}</span>
-    </nav>
+    <div class="case-hero__grid">
+      <div class="case-hero__content">
+        <nav class="crumb" aria-label="Breadcrumb">
+          <a href="{{base}}portfolio.html">Our Works</a>
+          <span aria-hidden="true">/</span>
+          <a href="{{base}}portfolio.html#{{service}}">{{serviceLabel}}</a>
+          <span aria-hidden="true">/</span>
+          <span aria-current="page">{{client}}</span>
+        </nav>
 
-    <span class="eyebrow">{{industry}} &middot; {{serviceLabel}}</span>
-    <h1>{{{headline}}}</h1>
-    <p class="lead">{{{statement}}}</p>
+        <h1>{{{headline}}}</h1>
+        <p class="lead">{{{statement}}}</p>
+      </div>
+
+      <div class="case-hero__visual">
+        <figure class="shot" data-reveal>
+          <div class="shot__frame"><span class="shot__label">{{{hero.label}}}</span></div>
+          {{#hero.caption}}<figcaption>{{{.}}}</figcaption>{{/hero.caption}}
+        </figure>
+      </div>
+    </div>
 
     <dl class="case-meta">
       {{#meta}}<div><dt>{{k}}</dt><dd>{{{v}}}</dd></div>{{/meta}}
     </dl>
-  </div>
-</section>
-
-<!-- hero visual -->
-<section class="case-shot">
-  <div class="container">
-    <figure class="shot shot--wide" data-reveal>
-      <div class="shot__frame"><span class="shot__label">{{{hero.label}}}</span></div>
-      {{#hero.caption}}<figcaption>{{{.}}}</figcaption>{{/hero.caption}}
-    </figure>
   </div>
 </section>

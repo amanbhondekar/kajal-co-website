@@ -137,6 +137,7 @@ const problems = [];
 projects.forEach((p, i) => {
   if (!p.slug) problems.push(`project #${i + 1} has no slug`);
   if (!services[p.service]) problems.push(`${p.slug}: unknown service "${p.service}"`);
+  if (!Array.isArray(p.meta) || p.meta.length !== 4) problems.push(p.slug + ": must contain EXACTLY 4 meta blocks (got " + (p.meta ? p.meta.length : 0) + ")");
 });
 const slugs = projects.map(p => p.slug);
 slugs.forEach((s, i) => {
@@ -164,7 +165,12 @@ for (const p of projects) {
   const siblings = byService[p.service];
   const at = siblings.indexOf(p);
 
+  // Enforce structural requirement: EXACTLY 4 blocks in project metadata
+  const metaBlocks = (p.meta || []).slice(0, 4);
+  if (metaBlocks.length !== 4) throw new Error(p.slug + " must have exactly 4 meta blocks!");
+
   const scope = Object.assign({}, p, {
+    meta: metaBlocks,
     base: '../',
     serviceLabel: svc.label,
     serviceShort: svc.short || svc.label,

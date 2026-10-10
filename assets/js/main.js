@@ -282,4 +282,231 @@
   document.querySelectorAll('[data-year]').forEach(function (el) {
     el.textContent = String(new Date().getFullYear());
   });
+
+  /* ---------- hero dot grid with shimmering accent dots ---------- */
+  (function () {
+    var hero = document.querySelector('.hero');
+    if (!hero) return;
+    var canvas = hero.querySelector('.hero__dots-canvas');
+    if (!canvas) return;
+
+    var ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+    var GRID = 28; // 28px grid spacing
+    var DOT_RADIUS = 1.25; // crisp base dot radius
+    var BASE_COLOR = 'rgba(11, 11, 11, 0.075)'; // subtle neutral on light surface
+    var ACCENT_RGB = '116, 42, 255'; // #742AFF accent on light surfaces
+
+    var width = 0;
+    var height = 0;
+    var dpr = 1;
+    var cols = 0;
+    var rows = 0;
+    var offsetX = 0;
+    var offsetY = 0;
+
+    var baseCanvas = document.createElement('canvas');
+    var baseCtx = baseCanvas.getContext('2d');
+
+    // Pool of active shimmering dots
+    var activeDots = [];
+    var MAX_SHIMMER_DOTS = 16; // multiple random dots shimmering at a time
+    var animFrame = null;
+    var isVisible = true;
+
+    function rand(min, max) {
+      return min + Math.random() * (max - min);
+    }
+
+    function randInt(min, max) {
+      return Math.floor(min + Math.random() * (max - min + 1));
+    }
+
+    function createShimmerDot(initialDelay) {
+      var col = randInt(1, Math.max(1, cols - 2));
+      var row = randInt(1, Math.max(1, rows - 2));
+      var duration = rand(2200, 3800); // 2.2s - 3.8s gentle breathing duration
+      var peakOpacity = rand(0.5, 0.82); // subtle glow
+      var maxRadius = rand(1.7, 2.15); // subtle size swell
+
+      return {
+        col: col,
+        row: row,
+        startTime: performance.now() + (initialDelay || 0),
+        duration: duration,
+        peakOpacity: peakOpacity,
+        maxRadius: maxRadius
+      };
+    }
+
+    function initShimmerPool() {
+      activeDots = [];
+      if (cols <= 0 || rows <= 0) return;
+      for (var i = 0; i < MAX_SHIMMER_DOTS; i++) {
+        var stagger = rand(0, 3200);
+        activeDots.push(createShimmerDot(stagger));
+      }
+    }
+
+    function resize() {
+      var rect = hero.getBoundingClientRect();
+      width = rect.width;
+      height = rect.height;
+      if (width === 0 || height === 0) return;
+
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+      canvas.width = Math.round(width * dpr);
+      canvas.height = Math.round(height * dpr);
+      canvas.style.width = width + 'px';
+      canvas.style.height = height + 'px';
+
+      baseCanvas.width = canvas.width;
+      baseCanvas.height = canvas.height;
+
+      cols = Math.floor(width / GRID) + 1;
+      rows = Math.floor(height / GRID) + 1;
+      offsetX = (width % GRID) / 2;
+      offsetY = (height % GRID) / 2;
+
+      // Render static neutral dot grid to offscreen baseCanvas
+      baseCtx.save();
+      baseCtx.scale(dpr, dpr);
+      baseCtx.clearRect(0, 0, width, height);
+
+      baseCtx.fillStyle = BASE_COLOR;
+      baseCtx.beginPath();
+      for (var r = 0; r <= rows; r++) {
+        var y = offsetY + r * GRID;
+        for (var c = 0; c <= cols; c++) {
+          var x = offsetX + c * GRID;
+          baseCtx.moveTo(x + DOT_RADIUS, y);
+          baseCtx.arc(x, y, DOT_RADIUS, 0, Math.PI * 2);
+        }
+      }
+      baseCtx.fill();
+      baseCtx.restore();
+
+      initShimmerPool();
+      renderFrame(performance.now());
+    }
+
+    function renderFrame(now) {
+      if (!ctx || width === 0 || height === 0) return;
+
+      // 1. Draw pre-rendered static dot grid
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.drawImage(baseCanvas, 0, 0);
+
+      // Stop dynamic shimmer loop if user prefers reduced motion
+      if (reduced.matches) return;
+
+      ctx.save();
+      ctx.scale(dpr, dpr);
+
+      // 2. Animate and draw shimmering dots
+      for (var i = 0; i < activeDots.length; i++) {
+        var dot = activeDots[i];
+        var elapsed = now - dot.startTime;
+
+        if (elapsed < 0) continue;
+
+        var progress = elapsed / dot.duration;
+
+        if (progress >= 1) {
+          activeDots[i] = createShimmerDot(rand(100, 1600));
+          continue;
+        }
+
+        // Smooth sine breathing curve
+        var intensity = Math.sin(progress * Math.PI);
+        intensity = Math.pow(intensity, 1.4); // soft feathering at ends
+
+        if (intensity <= 0.005) continue;
+
+        var x = offsetX + dot.col * GRID;
+        var y = offsetY + dot.row * GRID;
+        var currentAlpha = dot.peakOpacity * intensity;
+        var currentRadius = DOT_RADIUS + (dot.maxRadius - DOT_RADIUS) * intensity;
+
+        // Subtle soft radial glow behind the dot
+        var glowRadius = currentRadius * 3.5;
+        var glowGrad = ctx.createRadialGradient(x, y, 0, x, y, glowRadius);
+        glowGrad.addColorStop(0, 'rgba(' + ACCENT_RGB + ', ' + (currentAlpha * 0.38) + ')');
+        glowGrad.addColorStop(0.5, 'rgba(' + ACCENT_RGB + ', ' + (currentAlpha * 0.12) + ')');
+        glowGrad.addColorStop(1, 'rgba(' + ACCENT_RGB + ', 0)');
+
+        ctx.fillStyle = glowGrad;
+        ctx.beginPath();
+        ctx.arc(x, y, glowRadius, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Shimmering accent dot core
+        ctx.fillStyle = 'rgba(' + ACCENT_RGB + ', ' + currentAlpha + ')';
+        ctx.beginPath();
+        ctx.arc(x, y, currentRadius, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      ctx.restore();
+
+      if (isVisible) {
+        animFrame = requestAnimationFrame(renderFrame);
+      }
+    }
+
+    function start() {
+      if (animFrame || reduced.matches) return;
+      animFrame = requestAnimationFrame(renderFrame);
+    }
+
+    function stop() {
+      if (animFrame) {
+        cancelAnimationFrame(animFrame);
+        animFrame = null;
+      }
+    }
+
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (entries) {
+        isVisible = entries[0].isIntersecting;
+        if (isVisible && !document.hidden) {
+          start();
+        } else {
+          stop();
+        }
+      }, { threshold: 0.05 }).observe(hero);
+    }
+
+    document.addEventListener('visibilitychange', function () {
+      if (document.hidden) {
+        stop();
+      } else if (isVisible) {
+        start();
+      }
+    });
+
+    var resizeTimer = null;
+    window.addEventListener('resize', function () {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(resize, 100);
+    }, { passive: true });
+
+    if (reduced.addEventListener) {
+      reduced.addEventListener('change', function () {
+        if (reduced.matches) {
+          stop();
+          renderFrame(performance.now());
+        } else if (isVisible && !document.hidden) {
+          start();
+        }
+      });
+    }
+
+    resize();
+    start();
+  })();
 })();
