@@ -921,7 +921,7 @@ em, .em        { font-style: italic; font-weight: 500; }
 /* Cover image slot. Takes an <img> with no layout change; the grid texture
    is the stand-in until real project art lands. */
 .work-card__media {
-  position: relative; aspect-ratio: 16 / 10; background: var(--mist);
+  position: relative; aspect-ratio: 16 / 9; background: var(--mist);
   border-bottom: 1px solid var(--line); display: block; overflow: hidden;
 }
 .work-card__media::before {
@@ -931,7 +931,9 @@ em, .em        { font-style: italic; font-weight: 500; }
     linear-gradient(to bottom, rgba(0,0,0,.05) 1px, transparent 1px);
   background-size: 36px 36px;
 }
-.work-card__media img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.work-card__media img {
+  position: relative; width: 100%; height: 100%; object-fit: cover; display: block;
+}
 
 .work-card__body { padding: clamp(1.25rem,1rem + 1vw,1.75rem); display: flex; flex-direction: column; flex: 1; }
 .work-card__tags { display: flex; flex-wrap: wrap; gap: .5rem; margin-bottom: 1rem; }
@@ -1534,6 +1536,12 @@ em, .em        { font-style: italic; font-weight: 500; }
   letter-spacing: .06em; text-transform: uppercase; color: var(--text-3);
 }
 .shot figcaption { margin-top: .85rem; font-size: var(--fs-sm); color: var(--text-3); }
+/* real project art in place of the placeholder frame — same box, same radius */
+.shot__img {
+  display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover;
+  background: var(--mist); border: 1px solid var(--line); border-radius: var(--r-card);
+}
+.on-dark .shot__img { border-color: var(--line-dark); }
 .on-dark .shot__frame { background: var(--ink-2); border-color: var(--line-dark); }
 .on-dark .shot__label { background: var(--ink-3); border-color: var(--line-dark); color: var(--on-dark-2); }
 

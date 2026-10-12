@@ -29,3 +29,7 @@ npm-debug.log*
 # One-off scripts. scratch/update_projects.js seeded data/projects.json and
 # is superseded by it; the data file is the source of truth now.
 scratch/
+
+# Design masters (33MB of full-res exports). The web-sized copies that the
+# site actually serves live in assets/img/work/ and are committed.
+Visual Assets/

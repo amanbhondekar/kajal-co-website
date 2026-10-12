@@ -18,8 +18,13 @@
 
       <div class="case-hero__visual">
         <figure class="shot" data-reveal>
+          {{#thumb}}
+          <img class="shot__img" src="{{base}}{{thumb}}" alt="{{thumbAlt}}" width="1600" height="900" decoding="async">
+          {{/thumb}}
+          {{^thumb}}
           <div class="shot__frame"><span class="shot__label">{{{hero.label}}}</span></div>
           {{#hero.caption}}<figcaption>{{{.}}}</figcaption>{{/hero.caption}}
+          {{/thumb}}
         </figure>
       </div>
     </div>

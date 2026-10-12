@@ -1,6 +1,8 @@
       <article class="work-card" data-service="{{service}}" data-reveal>
         <a class="work-card__link" href="{{base}}work/{{slug}}.html">
-          <span class="work-card__media" aria-hidden="true"></span>
+          <span class="work-card__media">
+            {{#thumb}}<img src="{{base}}{{thumb}}" alt="{{thumbAlt}}" width="1600" height="900" loading="lazy" decoding="async">{{/thumb}}
+          </span>
           <span class="work-card__body">
             <span class="work-card__tags"><span>{{serviceLabel}}</span><span>{{industry}}</span></span>
             <h3 class="h3">{{client}}</h3>
