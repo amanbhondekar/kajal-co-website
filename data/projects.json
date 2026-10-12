@@ -156,14 +156,18 @@
       "resultsNote": "Deployed on production Shopify architecture with fully verified mobile responsiveness and modular content controls.",
       "showcase": [
         {
-          "label": "Aarshaveda Storefront &mdash; Full Desktop Scroll",
+          "src": "assets/img/work/aarshaveda-desktop.webp",
+          "alt": "Aarshaveda storefront on desktop",
+          "w": 1600,
+          "h": 1039,
           "wide": true
         },
         {
-          "label": "Product Detail Page &mdash; Mobile View"
-        },
-        {
-          "label": "Wellness Regimen &amp; Bundle Builder"
+          "src": "assets/img/work/aarshaveda-mobile.webp",
+          "alt": "Aarshaveda product browsing on mobile",
+          "w": 720,
+          "h": 1565,
+          "phone": true
         }
       ],
       "takeaway": "Honouring heritage authenticity builds deeper commercial trust than copying generic direct-to-consumer fads. Structuring product pages around clear wellness concerns gave customers the confidence to buy.",
@@ -297,14 +301,18 @@
       "resultsNote": "Delivered complete responsive CMS and design system with structured guest intake workflows.",
       "showcase": [
         {
-          "label": "Sacred Lotus Homepage &mdash; Hero Scroll",
+          "src": "assets/img/work/sacred-lotus-retreat-desktop.webp",
+          "alt": "Sacred Lotus Retreat site on desktop",
+          "w": 1600,
+          "h": 1039,
           "wide": true
         },
         {
-          "label": "Wellness Program &amp; Therapy Itinerary"
-        },
-        {
-          "label": "Eco-Cottage Accommodation Gallery"
+          "src": "assets/img/work/sacred-lotus-retreat-mobile.webp",
+          "alt": "Sacred Lotus Retreat booking flow on mobile",
+          "w": 720,
+          "h": 1565,
+          "phone": true
         }
       ],
       "takeaway": "For luxury wellness retreats, web design must embody the psychological benefit of the experience. Designing for tranquility while structuring the inquiry path turns daydreamers into booked guests.",
@@ -438,14 +446,18 @@
       "resultsNote": "Deployed with custom consultation routing and physician-curated formulation e-commerce capabilities.",
       "showcase": [
         {
-          "label": "DeAge Flagship Homepage &mdash; Desktop",
+          "src": "assets/img/work/deage-desktop.webp",
+          "alt": "DeAge storefront on desktop",
+          "w": 1600,
+          "h": 1039,
           "wide": true
         },
         {
-          "label": "Treatment Protocol &amp; Downtime Guide"
-        },
-        {
-          "label": "Curated Formulations &mdash; Product Grid"
+          "src": "assets/img/work/deage-mobile.webp",
+          "alt": "DeAge longevity range on mobile",
+          "w": 720,
+          "h": 1565,
+          "phone": true
         }
       ],
       "takeaway": "In high-end aesthetics and anti-aging, clarity is the greatest luxury. Giving patients transparent facts on procedures and downtime removes hesitation faster than glossy lifestyle imagery alone.",
@@ -582,14 +594,18 @@
       "resultsNote": "Deployed on production domain with validated corporate inquiry routing and partner directory verification.",
       "showcase": [
         {
-          "label": "MKPS Corporate Homepage &mdash; Desktop",
+          "src": "assets/img/work/mkps-associates-desktop.webp",
+          "alt": "MKPS & Associates corporate site on desktop",
+          "w": 1600,
+          "h": 1039,
           "wide": true
         },
         {
-          "label": "Practice Pillar &mdash; Tax &amp; Corporate Advisory"
-        },
-        {
-          "label": "Partner Leadership Directory"
+          "src": "assets/img/work/mkps-associates-mobile.webp",
+          "alt": "MKPS & Associates practice areas on mobile",
+          "w": 720,
+          "h": 1565,
+          "phone": true
         }
       ],
       "takeaway": "For professional financial services, digital authority is built on clarity and structure. Organizing complex practice areas into logical corporate pillars transformed how prospective corporate clients engage.",
@@ -725,14 +741,18 @@
       "resultsNote": "Deployed with interactive tech stack matrices and enterprise inquiry routing.",
       "showcase": [
         {
-          "label": "Shap Infotech Homepage &mdash; Desktop",
+          "src": "assets/img/work/shap-infotech-desktop.webp",
+          "alt": "Shap Infotech site on desktop",
+          "w": 1600,
+          "h": 1039,
           "wide": true
         },
         {
-          "label": "Cloud &amp; DevOps Service Hub"
-        },
-        {
-          "label": "Engagement Models &amp; Delivery Framework"
+          "src": "assets/img/work/shap-infotech-mobile.webp",
+          "alt": "Shap Infotech service hub on mobile",
+          "w": 720,
+          "h": 1565,
+          "phone": true
         }
       ],
       "takeaway": "Enterprise software buyers value technical specificity over marketing hyperbole. Presenting exact capabilities, frameworks, and engagement models converted casual website visits into qualified RFP conversations.",
@@ -866,14 +886,18 @@
       "resultsNote": "Deployed with branch-level doctor directories and diagnostic package booking paths.",
       "showcase": [
         {
-          "label": "Swastha Healthcare Homepage &mdash; Desktop",
+          "src": "assets/img/work/swastha-healthcare-desktop.webp",
+          "alt": "Swastha Healthcare site on desktop",
+          "w": 1600,
+          "h": 1039,
           "wide": true
         },
         {
-          "label": "Doctor Profile &amp; Branch Visiting Hours"
-        },
-        {
-          "label": "Preventative Health Check Packages"
+          "src": "assets/img/work/swastha-healthcare-mobile.webp",
+          "alt": "Swastha Healthcare appointment flow on mobile",
+          "w": 720,
+          "h": 1565,
+          "phone": true
         }
       ],
       "takeaway": "In healthcare digital design, empathy is ergonomics. Removing clutter and making doctor schedules, branch details, and booking actions immediately visible brings comfort to patients when they need it most.",

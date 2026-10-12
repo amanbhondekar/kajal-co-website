@@ -143,12 +143,12 @@
         <h2 class="h2 sec-head__title">What <span class="hl">shipped.</span></h2>
       </div>
     </div>
-    <div class="showcase">
+    <div class="showcase{{#showcasePair}} showcase--pair{{/showcasePair}}">
       {{/showcase.0}}
       {{#showcase}}
-      <figure class="shot {{#wide}}shot--wide{{/wide}}" data-reveal>
-        <div class="shot__frame"><span class="shot__label">{{{label}}}</span></div>
-        {{#caption}}<figcaption>{{{.}}}</figcaption>{{/caption}}
+      <figure class="shot {{#wide}}shot--wide{{/wide}}{{#phone}} shot--phone{{/phone}}" data-reveal>
+        {{#src}}<img class="shot__art" src="{{base}}{{src}}" alt="{{alt}}" width="{{w}}" height="{{h}}" loading="lazy" decoding="async">{{/src}}
+        {{^src}}<div class="shot__frame"><span class="shot__label">{{{label}}}</span></div>{{/src}}
       </figure>
       {{/showcase}}
       {{#showcase.0}}

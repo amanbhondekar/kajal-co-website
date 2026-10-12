@@ -177,6 +177,7 @@ for (const p of projects) {
 
   const scope = Object.assign({}, p, {
     meta: metaBlocks,
+    showcasePair: Array.isArray(p.showcase) && p.showcase.length > 0 && p.showcase.every(s => s.src),
     base: '../',
     serviceLabel: svc.label,
     serviceShort: svc.short || svc.label,

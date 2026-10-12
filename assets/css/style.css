@@ -1542,6 +1542,15 @@ em, .em        { font-style: italic; font-weight: 500; }
   background: var(--mist); border: 1px solid var(--line); border-radius: var(--r-card);
 }
 .on-dark .shot__img { border-color: var(--line-dark); }
+/* A capture shown whole, at its own aspect — no crop, no fixed ratio. The
+   hairline is an outline rather than a border: it draws inside the box without
+   taking layout width, so the paired shots stay exactly the same height. */
+.shot__art {
+  display: block; width: 100%; height: auto;
+  background: var(--mist); border-radius: var(--r-card);
+  outline: 1px solid var(--line); outline-offset: -1px;
+}
+.on-dark .shot__art { outline-color: var(--line-dark); }
 .on-dark .shot__frame { background: var(--ink-2); border-color: var(--line-dark); }
 .on-dark .shot__label { background: var(--ink-3); border-color: var(--line-dark); color: var(--on-dark-2); }
 
@@ -1552,6 +1561,17 @@ em, .em        { font-style: italic; font-weight: 500; }
   .showcase { grid-template-columns: 1fr; }
   /* stacked, the wide block has no row to span — match the others */
   .showcase > .shot--wide .shot__frame { aspect-ratio: 16 / 10; }
+}
+
+/* Desktop capture beside its phone capture. The columns are split in the same
+   proportion as the two aspect ratios (3024/1964 : 1206/2622), so whatever the
+   gutter costs comes off both sides evenly and the pair lands the same height. */
+.showcase--pair { grid-template-columns: 77fr 23fr; align-items: start; }
+.showcase--pair > .shot--wide { grid-column: auto; }
+@media (max-width: 640px) {
+  .showcase--pair { grid-template-columns: 1fr; justify-items: center; }
+  /* full-bleed, the phone would run over twice the viewport height */
+  .showcase--pair > .shot--phone { width: min(190px, 60%); }
 }
 
 /* --- design decisions (website design) ------------------------------------ */
