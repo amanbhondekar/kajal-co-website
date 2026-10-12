@@ -7,9 +7,9 @@
         <h2 class="h2 sec-head__title">What <span class="hl"><em>changed.</em></span></h2>
       </div>
     </div>
-    <div class="grid grid--4" data-reveal>
+    <div class="grid grid--3 stat-grid" data-reveal>
       {{#results}}
-      <div class="stat-card"><b class="stat-num">{{{value}}}</b><span>{{label}}</span></div>
+      <div class="stat-card"><b class="stat-num stat-num--sm">{{{value}}}</b><span>{{label}}</span></div>
       {{/results}}
     </div>
     {{#resultsNote}}<p class="small muted mt-3">{{{.}}}</p>{{/resultsNote}}

@@ -123,9 +123,10 @@
       {{/optimisations.0}}
       {{#optimisations}}
       <article class="opt__row">
-        <div><span class="eyebrow">Decision</span><p>{{{decision}}}</p></div>
-        <div><span class="eyebrow">Reason</span><p>{{{reason}}}</p></div>
-        <div><span class="eyebrow">Outcome</span><p>{{{outcome}}}</p></div>
+        <span class="opt__n" aria-hidden="true">{{_n}}</span>
+        <div class="opt__cell"><span class="eyebrow">Decision</span><p>{{{decision}}}</p></div>
+        <div class="opt__cell"><span class="eyebrow">Reason</span><p>{{{reason}}}</p></div>
+        <div class="opt__cell opt__cell--out"><span class="eyebrow">Outcome</span><p>{{{outcome}}}</p></div>
       </article>
       {{/optimisations}}
       {{#optimisations.0}}

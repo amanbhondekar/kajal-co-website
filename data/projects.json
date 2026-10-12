@@ -141,37 +141,29 @@
       },
       "results": [
         {
-          "value": "7 Months",
-          "label": "Full project delivery"
+          "value": "Sub-2s",
+          "label": "Mobile load on 4G"
         },
         {
-          "value": "Shopify",
-          "label": "Custom liquid theme"
+          "value": "3 Goal Hubs",
+          "label": "Catalog by health concern"
         },
         {
-          "value": "100%",
-          "label": "Responsive cross-device"
-        },
-        {
-          "value": "Regimen-Led",
-          "label": "Product UX architecture"
+          "value": "In-House",
+          "label": "Merchandising edits without a developer"
         }
       ],
       "resultsNote": "Deployed on production Shopify architecture with fully verified mobile responsiveness and modular content controls.",
       "showcase": [
         {
           "label": "Aarshaveda Storefront &mdash; Full Desktop Scroll",
-          "wide": true,
-          "caption": "Brand narrative and flagship formulations."
+          "wide": true
         },
         {
           "label": "Product Detail Page &mdash; Mobile View"
         },
         {
           "label": "Wellness Regimen &amp; Bundle Builder"
-        },
-        {
-          "label": "Safety &amp; AYUSH Certification Panel"
         }
       ],
       "takeaway": "Honouring heritage authenticity builds deeper commercial trust than copying generic direct-to-consumer fads. Structuring product pages around clear wellness concerns gave customers the confidence to buy."
@@ -288,37 +280,29 @@
       },
       "results": [
         {
-          "value": "4 Months",
-          "label": "Delivery timeline"
+          "value": "Zero Bloat",
+          "label": "Built without page-builder overhead"
         },
         {
-          "value": "WordPress",
-          "label": "Custom CMS build"
+          "value": "Direct Routing",
+          "label": "Inquiries into guest relations"
         },
         {
-          "value": "100%",
-          "label": "Mobile-first UX"
-        },
-        {
-          "value": "Inquiry-Led",
-          "label": "Booking funnel"
+          "value": "Full Viewport",
+          "label": "Adapted for mobile booking"
         }
       ],
       "resultsNote": "Delivered complete responsive CMS and design system with structured guest intake workflows.",
       "showcase": [
         {
           "label": "Sacred Lotus Homepage &mdash; Hero Scroll",
-          "wide": true,
-          "caption": "Tranquil sanctuary introduction."
+          "wide": true
         },
         {
           "label": "Wellness Program &amp; Therapy Itinerary"
         },
         {
           "label": "Eco-Cottage Accommodation Gallery"
-        },
-        {
-          "label": "Guest Intake Consultation Flow"
         }
       ],
       "takeaway": "For luxury wellness retreats, web design must embody the psychological benefit of the experience. Designing for tranquility while structuring the inquiry path turns daydreamers into booked guests."
@@ -435,37 +419,29 @@
       },
       "results": [
         {
-          "value": "3 Months",
-          "label": "Delivery timeline"
+          "value": "Sub-2s",
+          "label": "Mobile load across 4G and broadband"
         },
         {
-          "value": "Shopify",
-          "label": "Hybrid CMS & Shop"
+          "value": "Dual Funnel",
+          "label": "Consultations and checkout in one build"
         },
         {
-          "value": "Figma",
-          "label": "Full UI design system"
-        },
-        {
-          "value": "Dual-Funnel",
-          "label": "Services + Skincare"
+          "value": "Component Library",
+          "label": "Clinical dark and light states"
         }
       ],
       "resultsNote": "Deployed with custom consultation routing and physician-curated formulation e-commerce capabilities.",
       "showcase": [
         {
           "label": "DeAge Flagship Homepage &mdash; Desktop",
-          "wide": true,
-          "caption": "Medical precision and luxury aesthetics."
+          "wide": true
         },
         {
           "label": "Treatment Protocol &amp; Downtime Guide"
         },
         {
           "label": "Curated Formulations &mdash; Product Grid"
-        },
-        {
-          "label": "Consultation Booking Workflow"
         }
       ],
       "takeaway": "In high-end aesthetics and anti-aging, clarity is the greatest luxury. Giving patients transparent facts on procedures and downtime removes hesitation faster than glossy lifestyle imagery alone."
@@ -585,37 +561,29 @@
       },
       "results": [
         {
-          "value": "7 Months",
-          "label": "Engagement duration"
-        },
-        {
-          "value": "Figma & Wix",
-          "label": "Design & build stack"
-        },
-        {
           "value": "4 Pillars",
-          "label": "Restructured practice areas"
+          "label": "Practice areas restructured"
         },
         {
-          "value": "100%",
-          "label": "Mobile responsiveness"
+          "value": "4 Breakpoints",
+          "label": "Desktop, laptop, tablet, mobile"
+        },
+        {
+          "value": "Auto-Routing",
+          "label": "Enquiries to practice leads"
         }
       ],
       "resultsNote": "Deployed on production domain with validated corporate inquiry routing and partner directory verification.",
       "showcase": [
         {
           "label": "MKPS Corporate Homepage &mdash; Desktop",
-          "wide": true,
-          "caption": "Institutional authority and practice areas."
+          "wide": true
         },
         {
           "label": "Practice Pillar &mdash; Tax &amp; Corporate Advisory"
         },
         {
           "label": "Partner Leadership Directory"
-        },
-        {
-          "label": "Corporate Engagement Intake Panel"
         }
       ],
       "takeaway": "For professional financial services, digital authority is built on clarity and structure. Organizing complex practice areas into logical corporate pillars transformed how prospective corporate clients engage."
@@ -734,37 +702,29 @@
       },
       "results": [
         {
-          "value": "5 Months",
-          "label": "Delivery cycle"
+          "value": "Sub-1.8s",
+          "label": "Load time across global test nodes"
         },
         {
-          "value": "WordPress",
-          "label": "Custom block build"
+          "value": "Modular Blocks",
+          "label": "Marketing ships pages unaided"
         },
         {
-          "value": "Figma",
-          "label": "Enterprise UI system"
-        },
-        {
-          "value": "RFP-Ready",
-          "label": "Technical intake"
+          "value": "Routed RFPs",
+          "label": "Straight to sales and technical leads"
         }
       ],
       "resultsNote": "Deployed with interactive tech stack matrices and enterprise inquiry routing.",
       "showcase": [
         {
           "label": "Shap Infotech Homepage &mdash; Desktop",
-          "wide": true,
-          "caption": "Engineering capabilities and solution architecture."
+          "wide": true
         },
         {
           "label": "Cloud &amp; DevOps Service Hub"
         },
         {
           "label": "Engagement Models &amp; Delivery Framework"
-        },
-        {
-          "label": "Enterprise RFP Submission Workflow"
         }
       ],
       "takeaway": "Enterprise software buyers value technical specificity over marketing hyperbole. Presenting exact capabilities, frameworks, and engagement models converted casual website visits into qualified RFP conversations."
@@ -881,37 +841,29 @@
       },
       "results": [
         {
-          "value": "5 Months",
-          "label": "Delivery timeline"
+          "value": "4 Post Types",
+          "label": "Doctors, departments, branches, tests"
         },
         {
-          "value": "WordPress",
-          "label": "Custom medical CMS"
+          "value": "Zero Plugins",
+          "label": "No third-party bloat in the stack"
         },
         {
-          "value": "Figma",
-          "label": "Accessible UI system"
-        },
-        {
-          "value": "100%",
-          "label": "Mobile responsiveness"
+          "value": "Core Web Vitals",
+          "label": "Passing on mobile connections"
         }
       ],
       "resultsNote": "Deployed with branch-level doctor directories and diagnostic package booking paths.",
       "showcase": [
         {
           "label": "Swastha Healthcare Homepage &mdash; Desktop",
-          "wide": true,
-          "caption": "Patient-centric navigation and specialty finder."
+          "wide": true
         },
         {
           "label": "Doctor Profile &amp; Branch Visiting Hours"
         },
         {
           "label": "Preventative Health Check Packages"
-        },
-        {
-          "label": "Mobile Appointment Booking Flow"
         }
       ],
       "takeaway": "In healthcare digital design, empathy is ergonomics. Removing clutter and making doctor schedules, branch details, and booking actions immediately visible brings comfort to patients when they need it most."
@@ -1047,20 +999,16 @@
       },
       "results": [
         {
-          "value": "12 Months",
-          "label": "Full campaign window"
+          "value": "Zero Overlap",
+          "label": "Clean cold, warm and hot exclusions"
         },
         {
-          "value": "Meta Ads",
-          "label": "Multi-stage funnel"
+          "value": "Agile Creative",
+          "label": "Refreshed before frequency fatigue"
         },
         {
-          "value": "UK",
-          "label": "National reach"
-        },
-        {
-          "value": "Shopify DPA",
-          "label": "Dynamic catalog feed"
+          "value": "Seasonal Pipeline",
+          "label": "Predictable demand capture"
         }
       ],
       "resultsNote": "Managed continuously across four seasonal quarters with dedicated creative rotation and catalog feed optimization.",
@@ -1195,20 +1143,16 @@
       },
       "results": [
         {
-          "value": "6 Months",
-          "label": "Campaign duration"
-        },
-        {
-          "value": "Meta Ads",
-          "label": "Lead generation & WhatsApp"
-        },
-        {
-          "value": "Delhi NCR",
-          "label": "Target geography"
-        },
-        {
           "value": "Pre-Qualified",
-          "label": "Move size & date filters"
+          "label": "Move size and date filters in-form"
+        },
+        {
+          "value": "Spam Filtered",
+          "label": "WhatsApp verification on every lead"
+        },
+        {
+          "value": "3 Zones",
+          "label": "Steady volume across Delhi, Gurgaon, Noida"
         }
       ],
       "resultsNote": "Deployed with structured Instant Lead Forms and direct WhatsApp dispatch integration.",
@@ -1340,20 +1284,16 @@
       },
       "results": [
         {
-          "value": "4 Months",
-          "label": "Campaign duration"
+          "value": "Budget-Qualified",
+          "label": "Price brackets stated in the form"
         },
         {
-          "value": "Meta Ads",
-          "label": "Higher-intent forms"
+          "value": "Verified Numbers",
+          "label": "Invalid contacts eliminated"
         },
         {
-          "value": "NCR",
-          "label": "Target geography"
-        },
-        {
-          "value": "Pre-Filtered",
-          "label": "Budget-qualified leads"
+          "value": "Booked Walkthroughs",
+          "label": "Steady calendar of private site visits"
         }
       ],
       "resultsNote": "Configured with Higher-Intent review forms and explicit budget bracket qualifications.",
@@ -1487,20 +1427,16 @@
       },
       "results": [
         {
-          "value": "8 Months",
-          "label": "Campaign duration"
+          "value": "Fortnightly Creative",
+          "label": "New concepts every two weeks"
         },
         {
-          "value": "Meta Ads",
-          "label": "Prospecting & DPA"
+          "value": "Catalog Ads",
+          "label": "Highest-converting remarketing channel"
         },
         {
-          "value": "Shopify",
-          "label": "Catalog feed sync"
-        },
-        {
-          "value": "Multi-Tier",
-          "label": "Full-funnel remarketing"
+          "value": "Hero-Led",
+          "label": "Cold spend held to proven SKUs"
         }
       ],
       "resultsNote": "Executed with Shopify product feed synchronization and multi-tier audience segmentation.",
@@ -1632,20 +1568,16 @@
       },
       "results": [
         {
-          "value": "5 Months",
-          "label": "Campaign duration"
-        },
-        {
-          "value": "Meta Ads",
-          "label": "Compliant direct response"
-        },
-        {
-          "value": "Niche",
-          "label": "Creator & business segments"
+          "value": "100%",
+          "label": "Ad account policy compliance"
         },
         {
           "value": "Trust-Led",
-          "label": "Security-first messaging"
+          "label": "Security objections answered upfront"
+        },
+        {
+          "value": "Automated Inquiries",
+          "label": "Steady flow into operations"
         }
       ],
       "resultsNote": "Executed with strict compliance adherence and transparent service package tiering.",
@@ -1755,20 +1687,16 @@
       },
       "results": [
         {
-          "value": "12 Months",
-          "label": "Campaign duration"
+          "value": "Organic-Led",
+          "label": "Primary source of party inquiries"
         },
         {
-          "value": "Blackpool",
-          "label": "Local market focus"
+          "value": "Holiday Peaks",
+          "label": "Visible for rainy-day and school-break searches"
         },
         {
-          "value": "LocalBusiness",
-          "label": "Schema implementation"
-        },
-        {
-          "value": "Party Hubs",
-          "label": "Dedicated booking pages"
+          "value": "Active Inquiries",
+          "label": "From a static brochure site"
         }
       ],
       "resultsNote": "Executed with comprehensive LocalBusiness schema markup and multi-page attraction architecture.",
@@ -1915,19 +1843,15 @@
       "results": [
         {
           "value": "4.4K",
-          "label": "GA4 Tracked Users"
+          "label": "GA4 tracked users"
         },
         {
           "value": "789",
-          "label": "Organic Search Sessions"
+          "label": "Organic search sessions"
         },
         {
           "value": "46",
-          "label": "Online Purchases"
-        },
-        {
-          "value": "12 Months",
-          "label": "Campaign Duration"
+          "label": "Online purchases"
         }
       ],
       "resultsNote": "Directly verified from GA4 analytics export and Shopify e-commerce tracking.",
@@ -2036,20 +1960,16 @@
       },
       "results": [
         {
-          "value": "10 Months",
-          "label": "Campaign duration"
+          "value": "Top Rankings",
+          "label": "&ldquo;Nursery in Leyland&rdquo; commercial queries"
         },
         {
-          "value": "Leyland",
-          "label": "Lancashire market"
+          "value": "3 Age Rooms",
+          "label": "Dedicated stage hubs ranking"
         },
         {
-          "value": "ChildCare",
-          "label": "Schema implementation"
-        },
-        {
-          "value": "3 Rooms",
-          "label": "Dedicated age-stage hubs"
+          "value": "Funded Hours",
+          "label": "Eligibility cleared before the visit"
         }
       ],
       "resultsNote": "Delivered with full ChildCare schema, funded childcare guides, and visit booking pathways.",
@@ -2159,20 +2079,16 @@
       },
       "results": [
         {
-          "value": "8 Months",
-          "label": "Campaign duration"
-        },
-        {
-          "value": "South Ribble",
-          "label": "Borough coverage"
-        },
-        {
-          "value": "TaxiService",
-          "label": "Schema markup"
-        },
-        {
           "value": "Sub-1.5s",
-          "label": "Mobile load speed"
+          "label": "Mobile load at the point of need"
+        },
+        {
+          "value": "Click-to-Call",
+          "label": "Calls from transit hubs and centres"
+        },
+        {
+          "value": "Advance Transfers",
+          "label": "Airport runs booked days ahead"
         }
       ],
       "resultsNote": "Engineered with TaxiService schema, persistent click-to-call actions, and regional route hubs.",
@@ -2317,19 +2233,15 @@
       "results": [
         {
           "value": "17K",
-          "label": "GA4 Tracked Users"
+          "label": "GA4 tracked users"
         },
         {
           "value": "3.0K",
-          "label": "Organic Search Sessions"
+          "label": "Organic search sessions"
         },
         {
           "value": "28",
-          "label": "Online Purchases"
-        },
-        {
-          "value": "9 Months",
-          "label": "Campaign Duration"
+          "label": "Online purchases"
         }
       ],
       "resultsNote": "Directly verified from GA4 analytics export and store e-commerce event data.",

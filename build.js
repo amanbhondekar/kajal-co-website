@@ -138,6 +138,8 @@ projects.forEach((p, i) => {
   if (!p.slug) problems.push(`project #${i + 1} has no slug`);
   if (!services[p.service]) problems.push(`${p.slug}: unknown service "${p.service}"`);
   if (!Array.isArray(p.meta) || p.meta.length !== 4) problems.push(p.slug + ": must contain EXACTLY 4 meta blocks (got " + (p.meta ? p.meta.length : 0) + ")");
+  if (!Array.isArray(p.results) || p.results.length !== 3) problems.push(p.slug + ": must contain EXACTLY 3 result blocks (got " + (p.results ? p.results.length : 0) + ")");
+  if (Array.isArray(p.showcase) && p.showcase.length > 3) problems.push(p.slug + ": showcase holds at most 3 blocks (got " + p.showcase.length + ")");
 });
 const slugs = projects.map(p => p.slug);
 slugs.forEach((s, i) => {
@@ -158,6 +160,10 @@ fs.mkdirSync(OUT, { recursive: true });
 const byService = {};
 for (const p of projects) (byService[p.service] = byService[p.service] || []).push(p);
 
+/* the pager names the neighbouring client — the headline is too long to sit
+   in a card, and the client is what a reader is actually scanning for */
+const pagerCard = p => (p ? { slug: p.slug, client: p.client, headline: p.headline } : null);
+
 const written = new Set();
 
 for (const p of projects) {
@@ -177,8 +183,8 @@ for (const p of projects) {
     serviceHref: svc.page,
     title: text(`${p.headline} | ${p.client} | Kajal & Co.`),
     description: text(p.statement),
-    prev: siblings[at - 1] ? { slug: siblings[at - 1].slug, headline: siblings[at - 1].headline } : null,
-    next: siblings[at + 1] ? { slug: siblings[at + 1].slug, headline: siblings[at + 1].headline } : null,
+    prev: pagerCard(siblings[at - 1]),
+    next: pagerCard(siblings[at + 1]),
   });
 
   const html = render(fs.readFileSync(path.join(TPL, svc.template), 'utf8'), [scope]);

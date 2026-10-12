@@ -1040,7 +1040,15 @@ em, .em        { font-style: italic; font-weight: 500; }
 .stat-card span {
   display: block; margin-top: .6rem; font-size: var(--fs-xs);
   letter-spacing: .1em; text-transform: uppercase; color: var(--text-3);
+  overflow-wrap: break-word;
 }
+/* case-study results read as a set of three, so the metric runs smaller than
+   the hero-scale --fs-stat and is free to wrap rather than push the card */
+.stat-num--sm {
+  font-size: clamp(1.625rem, 1.1rem + 2.1vw, 2.375rem);
+  line-height: 1.1; text-wrap: balance; overflow-wrap: break-word; hyphens: auto;
+}
+.stat-grid .stat-card { display: flex; flex-direction: column; min-width: 0; }
 .on-dark .stat-card span { color: var(--on-dark-3); }
 
 .stat-row { display: flex; flex-wrap: wrap; gap: clamp(1.5rem,1rem + 3vw,3.5rem); }
@@ -1452,6 +1460,10 @@ em, .em        { font-style: italic; font-weight: 500; }
   font-size: var(--fs-display); line-height: var(--lh-tight);
   letter-spacing: var(--ls-tight); max-width: 20ch;
 }
+.case-hero__client {
+  margin: 0 0 .6rem; font-size: var(--fs-h4); font-weight: 600;
+  letter-spacing: var(--ls-head); color: var(--accent); overflow-wrap: break-word;
+}
 .case-hero__content .lead,
 .case-hero .lead { margin-top: 1.5rem; max-width: 58ch; }
 .case-hero__visual { min-width: 0; }
@@ -1528,7 +1540,11 @@ em, .em        { font-style: italic; font-weight: 500; }
 /* final showcase grid — an item marked wide spans the row */
 .showcase { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--gutter); }
 .showcase > .shot--wide { grid-column: 1 / -1; }
-@media (max-width: 640px) { .showcase { grid-template-columns: 1fr; } }
+@media (max-width: 640px) {
+  .showcase { grid-template-columns: 1fr; }
+  /* stacked, the wide block has no row to span — match the others */
+  .showcase > .shot--wide .shot__frame { aspect-ratio: 16 / 10; }
+}
 
 /* --- design decisions (website design) ------------------------------------ */
 .decision {
@@ -1612,16 +1628,39 @@ em, .em        { font-style: italic; font-weight: 500; }
 [data-reveal]:not(.is-in) .growth__bar { width: 0; }
 
 /* --- optimisation rows (performance marketing) ---------------------------- */
-.opt { display: grid; gap: 0; border-top: 1px solid var(--line-dark); }
+.opt { display: grid; gap: var(--gutter); }
 .opt__row {
-  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: clamp(1rem, .5rem + 2vw, 2.5rem);
-  padding-block: clamp(1.5rem, 1rem + 1.5vw, 2rem);
-  border-bottom: 1px solid var(--line-dark);
+  position: relative;
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0;
+  padding: clamp(1.5rem, 1rem + 1.5vw, 2rem);
+  border: 1px solid var(--line-dark); border-radius: var(--r-card);
+  background: var(--ink-2);
 }
-@media (max-width: 800px) { .opt__row { grid-template-columns: 1fr; gap: 1.25rem; } }
-.opt__row .eyebrow { margin-bottom: .5rem; }
-.opt__row p { font-size: var(--fs-sm); color: var(--on-dark-2); }
+/* the step number sits in the card corner so adjacent rows stay tellable apart */
+.opt__n {
+  position: absolute; top: 0; right: clamp(1.5rem, 1rem + 1.5vw, 2rem);
+  padding: .3rem .7rem; transform: translateY(-50%);
+  border: 1px solid var(--line-dark); border-radius: var(--r-pill);
+  background: var(--ink-3); color: var(--on-dark-3);
+  font-family: var(--font-mono); font-size: var(--fs-xs); letter-spacing: .08em;
+}
+.opt__cell { min-width: 0; padding-inline: clamp(1rem, .6rem + 1.6vw, 2rem); }
+.opt__cell:first-of-type { padding-left: 0; }
+.opt__cell:last-of-type  { padding-right: 0; }
+.opt__cell + .opt__cell  { border-left: 1px solid var(--line-dark); }
+.opt__cell .eyebrow { margin-bottom: .5rem; }
+.opt__cell p { margin: 0; font-size: var(--fs-sm); color: var(--on-dark-2); overflow-wrap: break-word; }
+/* the outcome is the payoff — give it the accent and full-strength text */
+.opt__cell--out .eyebrow { color: var(--accent); }
+.opt__cell--out p { color: var(--on-dark); }
+@media (max-width: 800px) {
+  .opt__row { grid-template-columns: 1fr; }
+  .opt__cell { padding-inline: 0; }
+  .opt__cell + .opt__cell {
+    margin-top: 1.25rem; padding-top: 1.25rem;
+    border-left: 0; border-top: 1px solid var(--line-dark);
+  }
+}
 
 /* --- funnel (performance marketing) --------------------------------------- */
 .funnel { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--gutter); }
@@ -1691,7 +1730,13 @@ em, .em        { font-style: italic; font-weight: 500; }
 }
 .case-pager__item:hover { border-color: var(--accent); transform: translateY(-2px); }
 .case-pager__item .eyebrow { margin-bottom: .6rem; }
-.case-pager__item b { font-size: var(--fs-h4); letter-spacing: var(--ls-head); }
+.case-pager__item b {
+  display: block; font-size: var(--fs-h4); letter-spacing: var(--ls-head);
+  overflow-wrap: break-word;
+}
+.case-pager__svc {
+  display: block; margin-top: .35rem; font-size: var(--fs-sm); color: var(--text-3);
+}
 .case-pager__item--next { text-align: right; }
 @media (max-width: 640px) { .case-pager__item--next { text-align: left; } }
 

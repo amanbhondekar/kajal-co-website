@@ -5,14 +5,16 @@
       {{#prev}}
       <a class="case-pager__item case-pager__item--prev" href="{{slug}}.html">
         <span class="eyebrow">Previous</span>
-        <b>{{{headline}}}</b>
+        <b>{{client}}</b>
+        <span class="case-pager__svc">{{serviceShort}}</span>
       </a>
       {{/prev}}
       {{^prev}}<span></span>{{/prev}}
       {{#next}}
       <a class="case-pager__item case-pager__item--next" href="{{slug}}.html">
         <span class="eyebrow">Next</span>
-        <b>{{{headline}}}</b>
+        <b>{{client}}</b>
+        <span class="case-pager__svc">{{serviceShort}}</span>
       </a>
       {{/next}}
     </div>
