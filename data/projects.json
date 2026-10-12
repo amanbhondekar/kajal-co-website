@@ -1048,7 +1048,9 @@
         }
       ],
       "resultsNote": "Managed continuously across four seasonal quarters with dedicated creative rotation and catalog feed optimization.",
-      "takeaway": "In high-ticket home and garden retail, ad creative must sell the lifestyle transformation before the product specs. Pairing authentic lifestyle creative with disciplined catalog retargeting created a robust acquisition system."
+      "takeaway": "In high-ticket home and garden retail, ad creative must sell the lifestyle transformation before the product specs. Pairing authentic lifestyle creative with disciplined catalog retargeting created a robust acquisition system.",
+      "thumb": "assets/img/work/blythe-living-performance.webp",
+      "thumbAlt": "Blythe Living Meta Ads Manager purchases and ROAS"
     },
     {
       "slug": "md-cargo-movers",
@@ -1192,7 +1194,9 @@
         }
       ],
       "resultsNote": "Deployed with structured Instant Lead Forms and direct WhatsApp dispatch integration.",
-      "takeaway": "In local service businesses where trust and timing are everything, asking one or two qualifying questions inside the ad form filters out low-intent noise and arms the sales team for an immediate close."
+      "takeaway": "In local service businesses where trust and timing are everything, asking one or two qualifying questions inside the ad form filters out low-intent noise and arms the sales team for an immediate close.",
+      "thumb": "assets/img/work/md-cargo-movers.webp",
+      "thumbAlt": "M.D. Cargo & Movers Meta Ads Manager messaging results"
     },
     {
       "slug": "4s-realty-ventures",
@@ -1333,7 +1337,9 @@
         }
       ],
       "resultsNote": "Configured with Higher-Intent review forms and explicit budget bracket qualifications.",
-      "takeaway": "In high-ticket luxury real estate, friction is a feature, not a bug. Introducing transparent pricing and manual form verification weeds out casual scrollers and leaves you with genuine buyers."
+      "takeaway": "In high-ticket luxury real estate, friction is a feature, not a bug. Introducing transparent pricing and manual form verification weeds out casual scrollers and leaves you with genuine buyers.",
+      "thumb": "assets/img/work/4s-realty-ventures.webp",
+      "thumbAlt": "4S Realty Ventures Meta Ads Manager lead results"
     },
     {
       "slug": "kishkin-performance",
@@ -1476,7 +1482,9 @@
         }
       ],
       "resultsNote": "Executed with Shopify product feed synchronization and multi-tier audience segmentation.",
-      "takeaway": "In e-commerce beauty, profit lives in the bundle and the repeat purchase. Focusing cold spend on proven hero items while using dynamic catalog ads for remarketing stabilized customer acquisition efficiency."
+      "takeaway": "In e-commerce beauty, profit lives in the bundle and the repeat purchase. Focusing cold spend on proven hero items while using dynamic catalog ads for remarketing stabilized customer acquisition efficiency.",
+      "thumb": "assets/img/work/kishkin-performance.webp",
+      "thumbAlt": "KishKin Meta Ads Manager lead results"
     },
     {
       "slug": "ak-followers",
@@ -1617,7 +1625,9 @@
         }
       ],
       "resultsNote": "Executed with strict compliance adherence and transparent service package tiering.",
-      "takeaway": "In digital service markets characterized by customer skepticism, transparency is your strongest differentiator. Addressing security and safety objections upfront in the ad creative is essential for consistent conversion."
+      "takeaway": "In digital service markets characterized by customer skepticism, transparency is your strongest differentiator. Addressing security and safety objections upfront in the ad creative is essential for consistent conversion.",
+      "thumb": "assets/img/work/ak-followers.webp",
+      "thumbAlt": "AK Followers Meta Ads Manager click results"
     },
     {
       "slug": "jungle-world-seo",
@@ -1736,7 +1746,9 @@
         }
       ],
       "resultsNote": "Executed with comprehensive LocalBusiness schema markup and multi-page attraction architecture.",
-      "takeaway": "For location-based entertainment, local SEO is not just about rankings—it is about booking convenience. Giving parents clear pricing, party packages, and immediate directions turns search visibility into full weekend sessions."
+      "takeaway": "For location-based entertainment, local SEO is not just about rankings—it is about booking convenience. Giving parents clear pricing, party packages, and immediate directions turns search visibility into full weekend sessions.",
+      "thumb": "assets/img/work/jungle-world-seo.webp",
+      "thumbAlt": "Jungle World Google Analytics reports snapshot"
     },
     {
       "slug": "blythe-living-seo",
@@ -1891,7 +1903,9 @@
         }
       ],
       "resultsNote": "Directly verified from GA4 analytics export and Shopify e-commerce tracking.",
-      "takeaway": "In e-commerce SEO, category pages are your most valuable commercial real estate. Eliminating crawl bloat and giving buyers genuine guidance on category pages turned organic search into a verified revenue driver."
+      "takeaway": "In e-commerce SEO, category pages are your most valuable commercial real estate. Eliminating crawl bloat and giving buyers genuine guidance on category pages turned organic search into a verified revenue driver.",
+      "thumb": "assets/img/work/blythe-living-seo.webp",
+      "thumbAlt": "Blythe Living Google Analytics reports snapshot"
     },
     {
       "slug": "little-mowgli-nursery",
@@ -2009,7 +2023,9 @@
         }
       ],
       "resultsNote": "Delivered with full ChildCare schema, funded childcare guides, and visit booking pathways.",
-      "takeaway": "Parents choosing childcare make decisions based on transparency and reassurance. Providing clear details on age rooms, funded hours, and daily routines transforms search visits into warm show-around appointments."
+      "takeaway": "Parents choosing childcare make decisions based on transparency and reassurance. Providing clear details on age rooms, funded hours, and daily routines transforms search visits into warm show-around appointments.",
+      "thumb": "assets/img/work/little-mowgli-nursery.webp",
+      "thumbAlt": "Little Mowgli Nursery Google Analytics reports snapshot"
     },
     {
       "slug": "south-ribble-taxis",
@@ -2128,7 +2144,9 @@
         }
       ],
       "resultsNote": "Engineered with TaxiService schema, persistent click-to-call actions, and regional route hubs.",
-      "takeaway": "In local transportation, mobile speed and immediate call accessibility are everything. Removing navigation hurdles and highlighting fixed airport rates captured passengers at their moment of highest intent."
+      "takeaway": "In local transportation, mobile speed and immediate call accessibility are everything. Removing navigation hurdles and highlighting fixed airport rates captured passengers at their moment of highest intent.",
+      "thumb": "assets/img/work/south-ribble-taxis.webp",
+      "thumbAlt": "South Ribble Taxis Google Analytics reports snapshot"
     },
     {
       "slug": "kishkin-digital-seo",
@@ -2281,7 +2299,9 @@
         }
       ],
       "resultsNote": "Directly verified from GA4 analytics export and store e-commerce event data.",
-      "takeaway": "E-commerce SEO succeeds through disciplined technical execution across the entire catalog. Fixing duplicate metadata, improving page speed, and optimizing commercial categories turned search into a reliable revenue driver."
+      "takeaway": "E-commerce SEO succeeds through disciplined technical execution across the entire catalog. Fixing duplicate metadata, improving page speed, and optimizing commercial categories turned search into a reliable revenue driver.",
+      "thumb": "assets/img/work/kishkin-digital-seo.webp",
+      "thumbAlt": "KishKin Digital Google Analytics e-commerce snapshot"
     }
   ]
 }
