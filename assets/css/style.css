@@ -601,7 +601,7 @@ em, .em        { font-style: italic; font-weight: 500; }
 }
 
 .marquee {
-  overflow: hidden;
+  overflow: hidden; min-width: 0;
   -webkit-mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
           mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
 }
@@ -1096,7 +1096,7 @@ em, .em        { font-style: italic; font-weight: 500; }
   display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr);
   gap: clamp(2rem,1rem + 4vw,4rem); align-items: center;
 }
-@media (max-width: 900px) { .stat-split { grid-template-columns: 1fr; } }
+@media (max-width: 900px) { .stat-split { grid-template-columns: minmax(0, 1fr); } }
 
 .stat-card {
   padding: clamp(1.5rem,1rem + 1.4vw,2rem);
