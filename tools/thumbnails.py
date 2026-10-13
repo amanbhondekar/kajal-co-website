@@ -2,7 +2,7 @@
 """
 Kajal & Co. — project art pipeline
 --------------------------------------------------------------------------
-Visual Assets/  (design masters, gitignored)  ->  assets/img/work/  (served)
+Visual Assets/  (design masters, gitignored)  ->  assets/img/  (served)
 
 The masters are full-resolution exports — roughly 34MB in total, far past
 what any slot on the site renders. This resamples them to the sizes the
@@ -33,6 +33,7 @@ OUT = os.path.join(ROOT, 'assets', 'img', 'work')
 
 THUMB_SRC = os.path.join(ROOT, 'Visual Assets', 'Projects Thumbnails')
 SHOT_SRC = os.path.join(ROOT, 'Visual Assets', 'Project Visuals')
+HERO_SRC = os.path.join(ROOT, 'Visual Assets', 'Hero Carousel Covers')
 
 # Card and case-study hero art. "<service folder>/<name>" -> project slug.
 THUMBS = {
@@ -69,6 +70,16 @@ SHOTS = {
 # file stem -> (output suffix, width). The phone never renders wider than
 # ~290 CSS px, so 720 is already past 2x.
 SHOT_KINDS = {'Desktop': ('desktop', 1600), 'Mobile': ('mobile', 720)}
+
+# Home-page hero collage. Portrait captures that drift in two columns.
+HEROES = {
+    'Hero Carousel 1': 'cover-1',
+    'Hero Carousel 2': 'cover-2',
+    'Hero Carousel 3': 'cover-3',
+    'Hero Carousel 4': 'cover-4',
+}
+HERO_OUT = os.path.join(ROOT, 'assets', 'img', 'hero')
+HERO_WIDTH = 720            # renders at most ~400 CSS px
 
 QUALITY = 82
 
