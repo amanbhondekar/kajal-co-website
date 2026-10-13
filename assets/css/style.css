@@ -1034,6 +1034,9 @@ em, .em        { font-style: italic; font-weight: 500; }
   font-size: 1.05rem; font-weight: 700; line-height: 1; color: var(--accent);
   letter-spacing: -.02em; user-select: none;
 }
+/* the initials remain the fallback for an avatar with no photograph */
+.avatar img { width: 100%; height: 100%; object-fit: cover; border-radius: inherit; display: block; }
+.avatar:has(img) { background: none; padding: 0; overflow: hidden; }
 .tst-card__who b { display: block; font-size: var(--fs-sm); font-weight: 600; color: var(--text); }
 .tst-card__who span { font-size: var(--fs-xs); color: var(--text-3); }
 
@@ -1141,9 +1144,33 @@ em, .em        { font-style: italic; font-weight: 500; }
 .person__body h3 { font-size: var(--fs-h4); }
 /* the designation leads as an eyebrow, so it carries no bottom margin of its
    own — the name sits directly under it */
-.person__role.eyebrow { margin-bottom: .5rem; }
+.person__role.eyebrow { margin-bottom: .5rem; color: var(--accent); }
 .person__body p { font-size: var(--fs-sm); color: var(--text-2); margin-top: .75rem; }
 .person__body .person__role { margin-top: 0; }
+/* name on the left, the two profiles on the right, sharing a baseline row */
+.person__name {
+  display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+}
+.person__name h3 { min-width: 0; overflow-wrap: break-word; }
+.person__social { display: inline-flex; gap: .5rem; flex: none; }
+.person__social a {
+  display: grid; place-items: center; width: 32px; height: 32px;
+  border: 1px solid var(--line); border-radius: var(--r-pill); color: var(--text-3);
+  transition: border-color .18s var(--ease), color .18s var(--ease);
+}
+.person__social svg { width: 15px; height: 15px; }
+.person__social a:hover { border-color: var(--accent); color: var(--accent); }
+.on-dark .person__social a { border-color: var(--line-dark); color: var(--on-dark-3); }
+
+/* press marks, centred, on their own transparent backgrounds */
+.press-row {
+  list-style: none; margin: 0; padding: 0;
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: center;
+  gap: clamp(1.5rem, 1rem + 3vw, 3.5rem);
+}
+/* the masters carry generous internal padding, so the rendered mark reads a
+   good deal smaller than the box it sits in */
+.press-row img { display: block; width: clamp(124px, 13vw, 176px); height: auto; }
 
 /* the story graphic carries its own transparent background */
 .story-art img { display: block; width: 100%; height: auto; }
@@ -1434,10 +1461,21 @@ em, .em        { font-style: italic; font-weight: 500; }
 .footer__copy a:hover { color: var(--on-dark-2); }
 
 /* Phones get the email on its own line and the two socials beneath it, and
-   the copyright on its own line above the two policy links. */
+   the copyright on its own line above the two policy links.
+
+   Laid out as a grid rather than with flex-basis:100%. A full-width flex item
+   stretched the email's underline across the footer, which read as a divider
+   rule; justify-self keeps the link at its text width. */
 @media (max-width: 640px) {
-  .footer__contacts > a:first-child { flex-basis: 100%; justify-content: center; }
-  .footer__copy > span { flex-basis: 100%; }
+  .footer__contacts,
+  .footer__copy {
+    display: grid; grid-template-columns: repeat(2, auto);
+    justify-content: center; justify-items: center; margin-top: 2rem;
+  }
+  .footer__contacts { gap: 1rem clamp(1.25rem, 1rem + 1vw, 2rem); }
+  .footer__copy { gap: 1rem clamp(1rem, .75rem + 1vw, 1.5rem); }
+  .footer__contacts > a:first-child,
+  .footer__copy > span { grid-column: 1 / -1; }
 }
 
 /* --------------------------------------------------------------------------

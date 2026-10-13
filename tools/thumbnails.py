@@ -36,6 +36,8 @@ SHOT_SRC = os.path.join(ROOT, 'Visual Assets', 'Project Visuals')
 HERO_SRC = os.path.join(ROOT, 'Visual Assets', 'Hero Carousel Covers')
 TEAM_SRC = os.path.join(ROOT, 'Visual Assets', 'Display Profile Pictures')
 GFX_SRC  = os.path.join(ROOT, 'Visual Assets', 'Graphics')
+PRESS_SRC = os.path.join(ROOT, 'Visual Assets', 'Featured In - Logo')
+AVA_SRC   = os.path.join(ROOT, 'Visual Assets', 'Client Avatars')
 
 # Card and case-study hero art. "<service folder>/<name>" -> project slug.
 THUMBS = {
@@ -94,6 +96,23 @@ SINGLES = {
     GFX_SRC: ({
         'About-Graphic': 'about-story',
     }, 1200),
+    PRESS_SRC: ({
+        '01': 'press/mid-day',
+        '02': 'press/silk-road-university',
+        '03': 'press/kk-modi-university',
+        '04': 'press/delhi-public-school',
+        '05': 'press/entrepreneurs-of-india',
+    }, 480),
+    AVA_SRC: ({
+        'Client Avatar Ajmal Najath':       'avatars/ajmal-najath',
+        'Client Avatar Amardeep Gill':      'avatars/amardeep-gill',
+        'Client Avatar Chandresh Bhojwani': 'avatars/chandresh-bhojwani',
+        'Client Avatar Muhilan Nalarajah':  'avatars/muhilan-nalarajah',
+        'Client Avatar Ravi Ranjan':        'avatars/ravi-ranjan',
+        'Client Avatar Saleem Nadaf':       'avatars/saleem-nadaf',
+        'Client Avatar Shikha Agrawal':     'avatars/shikha-agrawal',
+        'Client Avatar Shubham Agrawal':    'avatars/shubham-agrawal',
+    }, 176),
 }
 IMG_OUT = os.path.join(ROOT, 'assets', 'img')
 
@@ -113,6 +132,8 @@ def convert(src, dst, width):
     im = Image.open(src)
     # the about graphic is cut out, so its alpha has to survive the round trip
     keeps_alpha = im.mode in ('RGBA', 'LA') or (im.mode == 'P' and 'transparency' in im.info)
+    if keeps_alpha and im.convert('RGBA').getchannel('A').getextrema()[0] == 255:
+        keeps_alpha = False
     im = im.convert('RGBA' if keeps_alpha else 'RGB')
     w, h = im.size
     im = im.resize((width, round(h * width / w)), Image.LANCZOS)
@@ -158,7 +179,8 @@ def main():
 
     os.makedirs(OUT, exist_ok=True)
     os.makedirs(HERO_OUT, exist_ok=True)
-    os.makedirs(os.path.join(IMG_OUT, 'team'), exist_ok=True)
+    for sub in ('team', 'press', 'avatars'):
+        os.makedirs(os.path.join(IMG_OUT, sub), exist_ok=True)
     total_in = total_out = 0
     for src, dst, width in sorted(jobs, key=lambda j: j[1]):
         (w, h), a, b = convert(src, dst, width)
