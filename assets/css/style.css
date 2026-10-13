@@ -544,7 +544,7 @@ em, .em        { font-style: italic; font-weight: 500; }
 }
 
 .hero h1 { font-size: var(--fs-display); line-height: var(--lh-tight); letter-spacing: var(--ls-tight); max-width: 15ch; }
-.hero .lead { margin-top: 1.5rem; max-width: 44ch; }
+.hero .lead { margin-top: .75rem; max-width: 44ch; }
 .hero .btn-row { margin-top: 2rem; }
 .hero__micro { margin-top: 1rem; font-size: var(--fs-sm); color: var(--text-3); }
 .hero__stats { margin-top: clamp(2rem, 1.5rem + 1.5vw, 2.75rem); }
@@ -1099,6 +1099,8 @@ em, .em        { font-style: italic; font-weight: 500; }
   display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr);
   gap: clamp(2rem,1rem + 4vw,4rem); align-items: center;
 }
+/* the cut-out graphic reads best standing on the same line as the copy */
+.stat-split--bottom { align-items: end; }
 @media (max-width: 900px) { .stat-split { grid-template-columns: minmax(0, 1fr); } }
 
 .stat-card {
@@ -1161,6 +1163,14 @@ em, .em        { font-style: italic; font-weight: 500; }
 .person__social svg { width: 15px; height: 15px; }
 .person__social a:hover { border-color: var(--accent); color: var(--accent); }
 .on-dark .person__social a { border-color: var(--line-dark); color: var(--on-dark-3); }
+
+/* Phones hold every control to a 44-48px touch target: the base button sits
+   at 46, --lg comes down to meet it, and the rail arrows come up. */
+@media (max-width: 640px) {
+  .btn { padding-block: .62rem; }
+  .btn--lg { padding-block: .72rem; font-size: var(--fs-sm); }
+  .rail-arrow { width: 44px; height: 44px; }
+}
 
 /* press marks, centred, on their own transparent backgrounds */
 .press-row {
@@ -1231,8 +1241,15 @@ em, .em        { font-style: italic; font-weight: 500; }
    one line, and holding them there breaks "Book Discovery Call" over three.
    Keyed to the card rather than the viewport, because the sidebar is narrow
    on a laptop and full width on a phone. */
+/* Below this the faces, the gap and the button's label stop fitting on one
+   line. Rather than wrap, the row tightens: smaller faces, a smaller gap and
+   the decorative Meet mark dropped — enough for the label to stay on one line
+   inside a 44-48px button. */
 @container (max-width: 387px) {
-  .faq-aside__cta { flex-wrap: wrap; }
+  .faq-aside__cta { gap: 1rem; }
+  .faq-aside__cta .faces .avatar { width: 36px; height: 36px; margin-right: -10px; }
+  .faq-aside__cta .btn { min-width: 0; padding-inline: 1rem; }
+  .faq-aside__cta .btn .ico-meet { display: none; }
 }
 .faces .avatar {
   width: 44px; height: 44px; margin-right: -12px; padding: 0;
@@ -1490,6 +1507,7 @@ em, .em        { font-style: italic; font-weight: 500; }
 }
 .filters button:hover { border-color: var(--line-2); color: var(--text); }
 .filters button.is-active { background: var(--ink); border-color: var(--ink); color: var(--paper); }
+@media (max-width: 640px) { .filters button { padding-block: .66rem; } }
 .is-hidden { display: none !important; }
 
 /* --------------------------------------------------------------------------
