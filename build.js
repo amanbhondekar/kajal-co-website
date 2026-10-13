@@ -226,6 +226,19 @@ function inject(file, marker, markup) {
   console.log('  ' + file + ' (' + marker + ')');
 }
 
+/* The home rail pages one service at a time, so it carries three cards from
+   each in service order. Featured projects lead, then the rest in file order. */
+const RAIL_PER_SERVICE = 3;
+const thin = Object.keys(services).filter(k => (byService[k] || []).length < RAIL_PER_SERVICE);
+if (thin.length) {
+  console.error(`index.html rail: ${thin.join(', ')} has fewer than ${RAIL_PER_SERVICE} projects`);
+  process.exit(1);
+}
+const railCards = Object.keys(services).flatMap(key => {
+  const of = byService[key];
+  return of.filter(p => p.featured).concat(of.filter(p => !p.featured)).slice(0, RAIL_PER_SERVICE);
+});
+
 const cardTpl = fs.readFileSync(path.join(TPL, 'partials', 'work-card.html'), 'utf8');
 
 const card = (p, base) => render(cardTpl, [Object.assign({}, p, {
@@ -234,6 +247,6 @@ const card = (p, base) => render(cardTpl, [Object.assign({}, p, {
 })]);
 
 inject('portfolio.html', 'work-grid', projects.map(p => card(p, '')).join('\n'));
-inject('index.html', 'work-rail', projects.filter(p => p.featured).map(p => card(p, '')).join('\n'));
+inject('index.html', 'work-rail', railCards.map(p => card(p, '')).join('\n'));
 
 console.log(`\n${projects.length} projects across ${Object.keys(byService).length} services.`);

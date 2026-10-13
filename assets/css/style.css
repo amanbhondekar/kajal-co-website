@@ -897,6 +897,26 @@ em, .em        { font-style: italic; font-weight: 500; }
 @media (max-width: 1080px) { .rail { grid-auto-columns: 68%; } }
 @media (max-width: 640px)  { .rail { grid-auto-columns: 88%; } }
 
+.rail-nav {
+  display: flex; align-items: center; justify-content: center;
+  gap: clamp(.75rem, .5rem + 1vw, 1.25rem); margin-top: 2rem;
+}
+.rail-nav .rail-dots { margin-top: 0; }
+.rail-arrow {
+  display: grid; place-items: center; flex: none;
+  width: 38px; height: 38px; padding: 0;
+  border: 1px solid var(--line); border-radius: var(--r-pill);
+  background: var(--paper); color: var(--text-2); cursor: pointer;
+  transition: border-color .18s var(--ease), color .18s var(--ease);
+}
+.rail-arrow svg { width: 17px; height: 17px; }
+.rail-arrow--prev svg { transform: scaleX(-1); }
+.rail-arrow:hover { border-color: var(--accent); color: var(--accent); }
+.rail-arrow:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.on-dark .rail-arrow {
+  background: var(--ink-2); border-color: var(--line-dark); color: var(--on-dark-2);
+}
+
 .rail-dots { display: flex; gap: .4rem; justify-content: center; margin-top: 2rem; }
 .rail-dots button {
   width: 7px; height: 7px; padding: 0; border: 0; border-radius: var(--r-pill);
@@ -908,6 +928,9 @@ em, .em        { font-style: italic; font-weight: 500; }
 /* The whole card is one anchor, so hover, focus and the click target all
    cover the card rather than just the link at the bottom. */
 .work-card {
+  /* a grid so the link stretches to a definite height — the halves below
+     resolve against it, which a percentage height alone never gave them */
+  display: grid; align-content: stretch;
   border-radius: var(--r-card); border: 1px solid var(--line);
   background: var(--paper); overflow: hidden; height: 100%;
   transition: transform .25s var(--ease), box-shadow .25s var(--ease),
@@ -920,8 +943,10 @@ em, .em        { font-style: italic; font-weight: 500; }
   border-color: var(--line-2);
 }
 
+/* Thumbnail and copy split the card in half. 1fr 1fr resolves to the taller
+   of the two, so the image crops rather than the copy being clipped. */
 .work-card__link {
-  display: flex; flex-direction: column; height: 100%;
+  display: grid; grid-template-rows: repeat(2, minmax(0, 1fr)); height: 100%;
   color: inherit; text-decoration: none;
 }
 .work-card__link:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
@@ -929,7 +954,11 @@ em, .em        { font-style: italic; font-weight: 500; }
 /* Cover image slot. Takes an <img> with no layout change; the grid texture
    is the stand-in until real project art lands. */
 .work-card__media {
-  position: relative; aspect-ratio: 16 / 9; background: var(--mist);
+  /* An item carrying an aspect-ratio sizes itself rather than stretching, so
+     it sat short of its half. The ratio stays as the fallback for any context
+     where the row is not definite; height wins where it is. */
+  position: relative; aspect-ratio: 16 / 9; height: 100%; align-self: stretch;
+  background: var(--mist);
   border-bottom: 1px solid var(--line); display: block; overflow: hidden;
 }
 .work-card__media::before {
@@ -943,13 +972,21 @@ em, .em        { font-style: italic; font-weight: 500; }
   position: relative; width: 100%; height: 100%; object-fit: cover; display: block;
 }
 
-.work-card__body { padding: clamp(1.25rem,1rem + 1vw,1.75rem); display: flex; flex-direction: column; flex: 1; }
-.work-card__tags { display: flex; flex-wrap: wrap; gap: .5rem; margin-bottom: 1rem; }
+.work-card__body {
+  padding: clamp(.75rem,.5rem + 1vw,1.25rem);
+  display: flex; flex-direction: column; min-height: 0; overflow: hidden;
+}
+/* Industry alone, in the accent, held to one line — the service is already
+   the filter the visitor arrived through. */
+.work-card__tags { display: block; margin-bottom: .75rem; min-width: 0; }
 .work-card__tags span {
   font-family: var(--font-mono);
   font-size: var(--fs-xs); letter-spacing: .06em; text-transform: uppercase; color: var(--text-3);
 }
-.work-card__tags span + span::before { content: '·'; margin-right: .5rem; }
+.work-card__tags span {
+  display: block; color: var(--accent);
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
 .work-card h3 { margin-bottom: .6rem; }
 .work-card .body { font-size: var(--fs-sm); }
 
@@ -965,7 +1002,13 @@ em, .em        { font-style: italic; font-weight: 500; }
 }
 .quote-inline cite { display: block; margin-top: .5rem; font-style: normal; font-size: var(--fs-xs); color: var(--text-3); }
 
-.work-card .link-arrow { margin-top: auto; padding-top: 1.5rem; align-self: flex-start; }
+.work-card .link-arrow { margin-top: auto; padding-top: 1rem; align-self: flex-start; }
+/* On a narrow card the copy would otherwise outgrow its half and push the
+   split off 50/50; these two reclaim just enough for it to hold. */
+@media (max-width: 480px) {
+  .work-card__tags { margin-bottom: .5rem; }
+  .work-card .link-arrow { padding-top: .75rem; }
+}
 /* the action answers to a hover anywhere on the card, not just on itself */
 .work-card:hover .link-arrow,
 .work-card:focus-within .link-arrow { color: var(--accent); border-color: var(--accent); gap: .65rem; }
@@ -1021,13 +1064,26 @@ em, .em        { font-style: italic; font-weight: 500; }
 @media (max-width: 860px) {
   .step { position: static; height: auto; }
   .step__grid { grid-template-columns: 1fr; }
+  /* margin-top:auto has no slack once the card is auto-height, so the link
+     would otherwise sit flush against the copy above it */
+  .step__grid > div:first-child > .link-arrow {
+    align-self: stretch; display: flex; justify-content: space-between;
+    margin-top: 1.5rem;
+  }
 }
+/* Six chips plus the graphic is more than a phone should scroll through. */
+@media (max-width: 640px) { .step .chip-row { display: none; } }
 .step h3 { margin: 1rem 0 .75rem; font-size: clamp(1.5rem,1.1rem + 1.6vw,2rem); }
 .step .body { font-size: var(--fs-sm); max-width: 48ch; }
 .step .chip-row { margin-top: 1.5rem; }
 /* Reserved column — the box and icon are gone; motion graphics land here. */
 .step__panel { min-height: clamp(160px, 20vw, 230px); }
-@media (max-width: 860px) { .step__panel { display: none; } }
+@media (max-width: 860px) {
+  /* The graphic stacks under the copy rather than being dropped. min-height
+     is cleared because 20vw collapses it on a phone. */
+  .step__panel { min-height: 0; height: clamp(240px, 56vw, 320px); margin-top: 1.75rem; }
+  .svc-motion { top: 20px; left: 20px; width: calc(100% - 40px); height: calc(100% - 40px); }
+}
 
 /* sticky steps on a dark section */
 .on-dark .step { background: var(--ink-2); border-color: var(--line-dark); box-shadow: none; }
@@ -1131,9 +1187,19 @@ em, .em        { font-style: italic; font-weight: 500; }
 .faq-aside__card {
   margin-top: 2rem; padding: 1.5rem;
   border: 1px solid var(--line); border-radius: var(--r-card); background: var(--mist);
+  container-type: inline-size;
 }
-.faq-aside__card p { font-size: var(--fs-sm); color: var(--text-2); margin-bottom: 1.25rem; }
-.faces { display: flex; margin-bottom: 1.25rem; }
+.faq-aside__card p { font-size: 1rem; color: var(--text-2); margin-bottom: 1.25rem; }
+/* Faces and button sit on one line with a fixed 40px between them. */
+.faq-aside__cta { display: flex; align-items: center; gap: 1.25rem 40px; }
+.faces { display: flex; flex: none; }
+/* Below this the faces, the 40px and the button's own label no longer fit on
+   one line, and holding them there breaks "Book Discovery Call" over three.
+   Keyed to the card rather than the viewport, because the sidebar is narrow
+   on a laptop and full width on a phone. */
+@container (max-width: 387px) {
+  .faq-aside__cta { flex-wrap: wrap; }
+}
 .faces .avatar {
   width: 44px; height: 44px; margin-right: -12px; padding: 0;
   overflow: hidden; border: 0; box-shadow: 0 0 0 3px var(--mist);
@@ -1265,7 +1331,11 @@ em, .em        { font-style: italic; font-weight: 500; }
 /* both CTAs share the row equally */
 .quote-form .btn-row { display: flex; gap: .75rem; }
 .quote-form .btn-row > .btn { flex: 1 1 0; justify-content: center; }
-@media (max-width: 480px) { .quote-form .btn-row { flex-direction: column; } }
+/* .btn-row centres its items, which in a column leaves the buttons at their
+   content width instead of filling. */
+@media (max-width: 480px) {
+  .quote-form .btn-row { flex-direction: column; align-items: stretch; }
+}
 
 /* --- input icons --------------------------------------------------------- */
 .field--icon { position: relative; }
@@ -1355,6 +1425,13 @@ em, .em        { font-style: italic; font-weight: 500; }
 }
 .footer__copy a { color: var(--on-dark-3); text-decoration: underline; text-underline-offset: .22em; }
 .footer__copy a:hover { color: var(--on-dark-2); }
+
+/* Phones get the email on its own line and the two socials beneath it, and
+   the copyright on its own line above the two policy links. */
+@media (max-width: 640px) {
+  .footer__contacts > a:first-child { flex-basis: 100%; justify-content: center; }
+  .footer__copy > span { flex-basis: 100%; }
+}
 
 /* --------------------------------------------------------------------------
    20. Filters (portfolio)
@@ -1899,13 +1976,9 @@ em, .em        { font-style: italic; font-weight: 500; }
 
    Strokes are non-scaling, so they hold their weight at any panel size.
    -------------------------------------------------------------------------- */
-/* Scoped to the breakpoint where the panel column actually exists. A bare
-   .step__panel rule here would land after the `display: none` in section 12
-   and, at equal specificity, source order would win - putting the graphics
-   back on phones where the column was deliberately dropped. */
-@media (min-width: 861px) {
-  .step__panel { display: block; position: relative; }
-}
+/* The panel now renders at every width, stacked under the copy below 860px,
+   so this no longer needs scoping to the two-column breakpoint. */
+.step__panel { display: block; position: relative; }
 
 /* One padded box per card, so all three graphics sit on the same inset and
    line up across the stack.

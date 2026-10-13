@@ -98,9 +98,17 @@
     var reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
     var timer = null, page = 0, pages = 1, perPage = 1;
 
+    /* data-rail-group fixes the page size regardless of how many cards fit,
+       so a rail grouped by service keeps its groups intact on a phone. */
+    var group = parseInt(rail.dataset.railGroup, 10) || 0;
+
     var measure = function () {
-      var w = cards[0].offsetWidth + parseFloat(getComputedStyle(rail).columnGap || 0);
-      perPage = Math.max(1, Math.round(rail.clientWidth / w));
+      if (group) {
+        perPage = group;
+      } else {
+        var w = cards[0].offsetWidth + parseFloat(getComputedStyle(rail).columnGap || 0);
+        perPage = Math.max(1, Math.round(rail.clientWidth / w));
+      }
       pages = Math.max(1, Math.ceil(cards.length / perPage));
       if (page > pages - 1) page = pages - 1;
     };
@@ -136,6 +144,16 @@
       }
       paint();
     };
+
+    /* arrows wrap, same as the autoplay step, so neither ever dead-ends */
+    ['prev', 'next'].forEach(function (dir) {
+      var btn = document.querySelector('[data-rail-' + dir + '="' + rail.dataset.rail + '"]');
+      if (!btn) return;
+      btn.addEventListener('click', function () {
+        stop();
+        goto(page + (dir === 'next' ? 1 : -1));
+      });
+    });
 
     var start = function () {
       if (timer || reduced.matches || pages < 2) return;
