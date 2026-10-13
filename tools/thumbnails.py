@@ -119,10 +119,18 @@ def main():
             else:
                 missing.append('Project Visuals/%s/%s.*' % (folder, stem))
 
+    for stem, name in HEROES.items():
+        src = resolve(HERO_SRC, stem)
+        if src:
+            jobs.append((src, os.path.join(HERO_OUT, name + '.webp'), HERO_WIDTH))
+        else:
+            missing.append('Hero Carousel Covers/%s.*' % stem)
+
     if missing:
         sys.exit('missing masters:\n  ' + '\n  '.join(sorted(missing)))
 
     os.makedirs(OUT, exist_ok=True)
+    os.makedirs(HERO_OUT, exist_ok=True)
     total_in = total_out = 0
     for src, dst, width in sorted(jobs, key=lambda j: j[1]):
         (w, h), a, b = convert(src, dst, width)
