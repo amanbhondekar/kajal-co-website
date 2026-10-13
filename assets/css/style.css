@@ -1131,15 +1131,22 @@ em, .em        { font-style: italic; font-weight: 500; }
 .person { border-radius: var(--r-card); border: 1px solid var(--line); background: var(--paper); overflow: hidden; }
 .on-dark .person { background: var(--ink-2); border-color: var(--line-dark); }
 .person__photo {
-  aspect-ratio: 4/5; background: var(--mist); display: grid; place-items: center;
-  border-bottom: 1px solid var(--line);
+  aspect-ratio: 1; background: var(--mist); display: grid; place-items: center;
+  border-bottom: 1px solid var(--line); overflow: hidden;
   font-size: clamp(2rem,4vw,2.75rem); font-weight: 600; color: var(--text-3); letter-spacing: var(--ls-tight);
 }
+.person__photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .on-dark .person__photo { background: var(--ink-3); border-color: var(--line-dark); color: var(--on-dark-3); }
 .person__body { padding: 1.25rem; }
 .person__body h3 { font-size: var(--fs-h4); }
-.person__role { font-size: var(--fs-sm); color: var(--text-3); margin-top: .25rem; }
+/* the designation leads as an eyebrow, so it carries no bottom margin of its
+   own — the name sits directly under it */
+.person__role.eyebrow { margin-bottom: .5rem; }
 .person__body p { font-size: var(--fs-sm); color: var(--text-2); margin-top: .75rem; }
+.person__body .person__role { margin-top: 0; }
+
+/* the story graphic carries its own transparent background */
+.story-art img { display: block; width: 100%; height: auto; }
 
 /* founder — subtitle under the name, and the pivot question in the body */
 .founder__role {

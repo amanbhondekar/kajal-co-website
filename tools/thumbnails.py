@@ -34,6 +34,8 @@ OUT = os.path.join(ROOT, 'assets', 'img', 'work')
 THUMB_SRC = os.path.join(ROOT, 'Visual Assets', 'Projects Thumbnails')
 SHOT_SRC = os.path.join(ROOT, 'Visual Assets', 'Project Visuals')
 HERO_SRC = os.path.join(ROOT, 'Visual Assets', 'Hero Carousel Covers')
+TEAM_SRC = os.path.join(ROOT, 'Visual Assets', 'Display Profile Pictures')
+GFX_SRC  = os.path.join(ROOT, 'Visual Assets', 'Graphics')
 
 # Card and case-study hero art. "<service folder>/<name>" -> project slug.
 THUMBS = {
@@ -81,6 +83,20 @@ HEROES = {
 HERO_OUT = os.path.join(ROOT, 'assets', 'img', 'hero')
 HERO_WIDTH = 720            # renders at most ~400 CSS px
 
+# Team headshots (about page) and standalone graphics. Each maps a master's
+# file stem to its output path, relative to assets/img/.
+SINGLES = {
+    TEAM_SRC: ({
+        'Kajal Andani DP':   'team/kajal-andani',
+        'Aman Bhondekar DP': 'team/aman-bhondekar',
+        'Harsh Raiswal DP':  'team/harsh-raiswal',
+    }, 720),
+    GFX_SRC: ({
+        'About-Graphic': 'about-story',
+    }, 1200),
+}
+IMG_OUT = os.path.join(ROOT, 'assets', 'img')
+
 QUALITY = 82
 
 
@@ -94,7 +110,10 @@ def resolve(*parts, exts=('.webp', '.png', '.jpg', '.jpeg')):
 
 
 def convert(src, dst, width):
-    im = Image.open(src).convert('RGB')
+    im = Image.open(src)
+    # the about graphic is cut out, so its alpha has to survive the round trip
+    keeps_alpha = im.mode in ('RGBA', 'LA') or (im.mode == 'P' and 'transparency' in im.info)
+    im = im.convert('RGBA' if keeps_alpha else 'RGB')
     w, h = im.size
     im = im.resize((width, round(h * width / w)), Image.LANCZOS)
     im.save(dst, 'WEBP', quality=QUALITY, method=6)
@@ -126,11 +145,20 @@ def main():
         else:
             missing.append('Hero Carousel Covers/%s.*' % stem)
 
+    for folder, (names, width) in SINGLES.items():
+        for stem, out in names.items():
+            src = resolve(folder, stem)
+            if src:
+                jobs.append((src, os.path.join(IMG_OUT, out + '.webp'), width))
+            else:
+                missing.append('%s/%s.*' % (os.path.basename(folder), stem))
+
     if missing:
         sys.exit('missing masters:\n  ' + '\n  '.join(sorted(missing)))
 
     os.makedirs(OUT, exist_ok=True)
     os.makedirs(HERO_OUT, exist_ok=True)
+    os.makedirs(os.path.join(IMG_OUT, 'team'), exist_ok=True)
     total_in = total_out = 0
     for src, dst, width in sorted(jobs, key=lambda j: j[1]):
         (w, h), a, b = convert(src, dst, width)
