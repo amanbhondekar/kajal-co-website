@@ -5,10 +5,21 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{{title}}</title>
 <meta name="description" content="{{description}}">
-<link rel="canonical" href="https://kajalandani.co/work/{{slug}}.html">
+<link rel="canonical" href="{{site}}/work/{{slug}}.html">
 <meta property="og:type" content="article">
+<meta property="og:url" content="{{site}}/work/{{slug}}.html">
 <meta property="og:title" content="{{title}}">
 <meta property="og:description" content="{{description}}">
+<meta property="og:site_name" content="Kajal &amp; Co.">
+<meta property="og:locale" content="en_GB">
+{{#thumb}}<meta property="og:image" content="{{site}}/{{thumb}}">
+<meta property="og:image:width" content="1600">
+<meta property="og:image:height" content="900">
+<meta property="og:image:alt" content="{{thumbAlt}}">{{/thumb}}
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{title}}">
+<meta name="twitter:description" content="{{description}}">
+{{#thumb}}<meta name="twitter:image" content="{{site}}/{{thumb}}">{{/thumb}}
 <link rel="icon" href="{{base}}favicon.ico" sizes="32x32">
 <link rel="icon" href="{{base}}assets/img/icon-192.png" type="image/png" sizes="192x192">
 <link rel="apple-touch-icon" href="{{base}}assets/img/apple-touch-icon.png">
@@ -17,6 +28,21 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="{{base}}assets/css/style.css">
+{{!
+  The visible breadcrumb in case-hero is mirrored here so the trail is
+  machine-readable too. Positions match the rendered nav exactly.
+}}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Our Works", "item": "{{site}}/portfolio.html" },
+    { "@type": "ListItem", "position": 2, "name": "{{serviceLabel}}", "item": "{{site}}/portfolio.html#{{service}}" },
+    { "@type": "ListItem", "position": 3, "name": "{{client}}", "item": "{{site}}/work/{{slug}}.html" }
+  ]
+}
+</script>
 </head>
 <body>
 

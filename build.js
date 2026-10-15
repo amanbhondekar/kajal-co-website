@@ -22,6 +22,10 @@ const ROOT = __dirname;
 const TPL = path.join(ROOT, 'templates');
 const OUT = path.join(ROOT, 'work');
 
+/* The canonical host. Absolute URLs are required by canonical tags, Open
+   Graph and the sitemap, so they all read it from here. */
+const SITE = 'https://kajalandani.co';
+
 /* --------------------------------------------------------------------------
    1. Template engine — mustache-shaped, ~70 lines, no dependency
 
@@ -177,6 +181,7 @@ for (const p of projects) {
 
   const scope = Object.assign({}, p, {
     meta: metaBlocks,
+    site: SITE,
     showcasePair: Array.isArray(p.showcase) && p.showcase.length > 0 && p.showcase.every(s => s.src),
     base: '../',
     serviceLabel: svc.label,
@@ -248,5 +253,53 @@ const card = (p, base) => render(cardTpl, [Object.assign({}, p, {
 
 inject('portfolio.html', 'work-grid', projects.map(p => card(p, '')).join('\n'));
 inject('index.html', 'work-rail', railCards.map(p => card(p, '')).join('\n'));
+
+/* --------------------------------------------------------------------------
+   5. sitemap.xml
+
+   The hand-written pages are listed explicitly rather than globbed, so a
+   stray .html in the root never reaches the sitemap. Case studies come from
+   the content file, so adding a project adds its URL here too.
+   -------------------------------------------------------------------------- */
+
+const STATIC_PAGES = [
+  ['', '1.0'],
+  ['about.html', '0.8'],
+  ['services.html', '0.8'],
+  ['website-design.html', '0.8'],
+  ['seo.html', '0.8'],
+  ['performance-marketing.html', '0.8'],
+  ['portfolio.html', '0.9'],
+  ['contact.html', '0.7'],
+];
+
+const absent = STATIC_PAGES
+  .map(([page]) => page)
+  .filter(page => page && !fs.existsSync(path.join(ROOT, page)));
+if (absent.length) {
+  console.error('sitemap: listed page does not exist: ' + absent.join(', '));
+  process.exit(1);
+}
+
+const today = new Date().toISOString().slice(0, 10);
+const urlEntry = (loc, priority) => [
+  '  <url>',
+  '    <loc>' + SITE + '/' + loc + '</loc>',
+  '    <lastmod>' + today + '</lastmod>',
+  '    <priority>' + priority + '</priority>',
+  '  </url>',
+].join('\n');
+
+const sitemapUrls = STATIC_PAGES.map(([page, priority]) => urlEntry(page, priority))
+  .concat(projects.map(p => urlEntry('work/' + p.slug + '.html', '0.7')));
+
+fs.writeFileSync(path.join(ROOT, 'sitemap.xml'), [
+  '<?xml version="1.0" encoding="UTF-8"?>',
+  '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
+  sitemapUrls.join('\n'),
+  '</urlset>',
+  '',
+].join('\n'));
+console.log('  sitemap.xml (' + sitemapUrls.length + ' urls)');
 
 console.log(`\n${projects.length} projects across ${Object.keys(byService).length} services.`);
