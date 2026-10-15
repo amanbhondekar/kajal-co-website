@@ -1388,6 +1388,22 @@ em, .em        { font-style: italic; font-weight: 500; }
   .quote-form .btn-row { flex-direction: column; align-items: stretch; }
 }
 
+/* --- form status + consent + honeypot ------------------------------------ */
+.form-status {
+  margin-top: 1rem; font-size: var(--fs-sm); min-height: 1.4em;
+  color: var(--on-dark-2);
+}
+.form-status--ok    { color: #6ee7a8; }
+.form-status--error { color: #ff9b9b; }
+.form-status--busy  { color: var(--on-dark-3); }
+.check--consent { align-items: flex-start; line-height: 1.5; }
+/* off-screen rather than display:none — a bot reading the DOM still finds it */
+.hp {
+  position: absolute; width: 1px; height: 1px;
+  margin: -1px; padding: 0; border: 0; overflow: hidden;
+  clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap;
+}
+
 /* --- input icons --------------------------------------------------------- */
 .field--icon { position: relative; }
 .field__ico {

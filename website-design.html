@@ -195,7 +195,7 @@
       <p class="contact-cta__sub">Tell us what you&rsquo;re growing. We reply within two working days.</p>
     </div>
 
-    <form class="quote-form" data-reveal onsubmit="return false;">
+    <form class="quote-form" data-reveal data-quote-form novalidate>
       <div class="quote-form__group">
         <p class="quote-form__legend">Contact information <span class="req">*</span></p>
         <div class="form__row">
@@ -250,10 +250,26 @@
         </div>
       </div>
 
+      <div class="quote-form__group">
+        <label class="check check--consent">
+          <input type="checkbox" name="marketing_consent" value="yes">
+          I&rsquo;d like to receive occasional marketing emails from Kajal &amp; Co. I can unsubscribe at any time.
+        </label>
+      </div>
+
+      <!-- Left empty by people, filled by bots. Hidden from both the page
+           and the accessibility tree, and never focusable. -->
+      <div class="hp" aria-hidden="true">
+        <label for="q-company">Company</label>
+        <input id="q-company" name="company" type="text" tabindex="-1" autocomplete="off">
+      </div>
+
       <div class="btn-row">
         <button class="btn btn--lg" type="submit">Submit Details <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
         <a class="btn btn--ghost btn--lg" href="contact.html"><svg class="ico-meet" viewBox="0 0 87.5 72" aria-hidden="true"><path fill="#00832d" d="M49.5 36l8.53 9.75 11.47 7.33 2-17.02-2-16.64-11.69 6.44z"/><path fill="#0066da" d="M0 51.5V66c0 3.315 2.685 6 6 6h14.5l3-10.96-3-9.54-9.95-3z"/><path fill="#e94235" d="M20.5 0L0 20.5l10.55 3 9.95-3 2.95-9.41z"/><path fill="#2684fc" d="M20.5 20.5H0v31h20.5z"/><path fill="#00ac47" d="M82.6 8.68L69.5 19.42v33.66l13.16 10.79c1.97 1.54 4.85.135 4.85-2.37V11c0-2.535-2.945-3.925-4.91-2.32zM49.5 36v15.5h-29V72h43c3.315 0 6-2.685 6-6V53.08z"/><path fill="#ffba00" d="M63.5 0h-43v20.5h29V36l20-16.57V6c0-3.315-2.685-6-6-6z"/></svg>Book Your Call</a>
       </div>
+
+      <p class="form-status" data-form-status role="status" aria-live="polite"></p>
     </form>
   </div>
 </section>

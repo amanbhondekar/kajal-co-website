@@ -2,6 +2,85 @@
 (function () {
   'use strict';
 
+  /* ---------- contact form ----------------------------------------------
+     Posts to a Google Apps Script web app, which appends the enquiry to the
+     enquiries sheet and emails a copy. The script lives in
+     tools/apps-script/Code.gs; paste its /exec URL here after deploying.
+
+     Until this is set, the form tells the visitor to email instead rather
+     than pretending to send. An enquiry that silently goes nowhere is worse
+     than one the visitor knows to send another way.                       */
+  var ENDPOINT = '';
+  var FALLBACK_EMAIL = 'kajalandani.co@gmail.com';
+
+  document.querySelectorAll('[data-quote-form]').forEach(function (form) {
+    var status = form.querySelector('[data-form-status]');
+    var button = form.querySelector('button[type="submit"]');
+    var label = button ? button.innerHTML : '';
+
+    var say = function (message, state) {
+      if (!status) return;
+      status.textContent = message;
+      status.className = 'form-status' + (state ? ' form-status--' + state : '');
+    };
+
+    form.addEventListener('submit', function (ev) {
+      ev.preventDefault();
+
+      /* The service group is checked first. It is mirrored `required` across
+         every box (see the check-group block below), so letting the browser
+         report it would say "check this box" against three boxes the visitor
+         is not meant to tick.
+
+         novalidate is on the form so both of these land in the same status
+         line rather than a native bubble. */
+      if (!form.querySelector('input[name="service"]:checked')) {
+        say('Please choose at least one service.', 'error');
+        return;
+      }
+      if (!form.checkValidity()) {
+        say('Please complete the highlighted fields.', 'error');
+        form.reportValidity();
+        return;
+      }
+      if (!ENDPOINT) {
+        say('The form is not connected yet — please email ' + FALLBACK_EMAIL + '.', 'error');
+        return;
+      }
+
+      var data = new FormData(form);
+      var body = new URLSearchParams();
+      body.set('name', data.get('name') || '');
+      body.set('email', data.get('email') || '');
+      body.set('country_code', data.get('country_code') || '');
+      body.set('whatsapp', data.get('whatsapp') || '');
+      body.set('message', data.get('message') || '');
+      body.set('company', data.get('company') || '');          // honeypot
+      body.set('marketing_consent', data.get('marketing_consent') ? 'yes' : 'no');
+      body.set('services', data.getAll('service').join(', '));
+      body.set('source', location.pathname);
+
+      if (button) { button.disabled = true; button.textContent = 'Sending…'; }
+      say('Sending…', 'busy');
+
+      /* URLSearchParams keeps this a simple request, so there is no preflight
+         for the web app to answer. */
+      window.fetch(ENDPOINT, { method: 'POST', body: body })
+        .then(function (res) { return res.json(); })
+        .then(function (res) {
+          if (!res || !res.ok) throw new Error((res && res.error) || 'rejected');
+          form.reset();
+          say('Thank you — we will reply within two working days.', 'ok');
+        })
+        .catch(function () {
+          say('That did not send. Please try again, or email ' + FALLBACK_EMAIL + '.', 'error');
+        })
+        .then(function () {
+          if (button) { button.disabled = false; button.innerHTML = label; }
+        });
+    });
+  });
+
   /* ---------- mobile sheet ---------- */
   var burger = document.querySelector('[data-nav-toggle]');
   var sheet = document.getElementById('sheet');
