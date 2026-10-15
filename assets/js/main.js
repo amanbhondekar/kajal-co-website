@@ -13,6 +13,15 @@
   var ENDPOINT = '';
   var FALLBACK_EMAIL = 'kajalandani.co@gmail.com';
 
+  /* A deployment URL is easy to paste half-copied or with the id elided. A
+     placeholder posts into nowhere and every visitor is told their enquiry
+     failed, so anything that is not a full /exec URL counts as not set and
+     the form offers the email address instead. */
+  var LIVE = /^https:\/\/script\.google\.com\/macros\/s\/[A-Za-z0-9_-]{30,}\/exec$/.test(ENDPOINT);
+  if (ENDPOINT && !LIVE && window.console) {
+    console.warn('Contact form: ENDPOINT is not a complete Apps Script /exec URL, so the form is falling back to email.');
+  }
+
   document.querySelectorAll('[data-quote-form]').forEach(function (form) {
     var status = form.querySelector('[data-form-status]');
     var button = form.querySelector('button[type="submit"]');
@@ -43,7 +52,7 @@
         form.reportValidity();
         return;
       }
-      if (!ENDPOINT) {
+      if (!LIVE) {
         say('The form is not connected yet — please email ' + FALLBACK_EMAIL + '.', 'error');
         return;
       }
