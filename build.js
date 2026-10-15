@@ -271,6 +271,10 @@ const STATIC_PAGES = [
   ['performance-marketing.html', '0.8'],
   ['portfolio.html', '0.9'],
   ['contact.html', '0.7'],
+  ['privacy-policy.html', '0.3'],
+  ['terms-of-use.html', '0.3'],
+  ['cookie-policy.html', '0.3'],
+  ['disclaimer.html', '0.3'],
 ];
 
 const absent = STATIC_PAGES
