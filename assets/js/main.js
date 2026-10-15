@@ -22,6 +22,20 @@
     console.warn('Contact form: ENDPOINT is not a complete Apps Script /exec URL, so the form is falling back to email.');
   }
 
+  /* The sheet has a "Book Your Call" column, but that CTA is a link — someone
+     who clicks it leaves without submitting, so a form row would always say
+     No. Remembering the click for the session means a visitor who looks at
+     booking and then fills the form in is recorded as wanting a call. */
+  var CALL_KEY = 'kc:wants-call';
+  var wantsCall = function () {
+    try { return sessionStorage.getItem(CALL_KEY) === '1'; } catch (err) { return false; }
+  };
+  document.querySelectorAll('[data-book-call]').forEach(function (link) {
+    link.addEventListener('click', function () {
+      try { sessionStorage.setItem(CALL_KEY, '1'); } catch (err) { /* private mode */ }
+    });
+  });
+
   document.querySelectorAll('[data-quote-form]').forEach(function (form) {
     var status = form.querySelector('[data-form-status]');
     var button = form.querySelector('button[type="submit"]');
@@ -67,6 +81,7 @@
       body.set('company', data.get('company') || '');          // honeypot
       body.set('marketing_consent', data.get('marketing_consent') ? 'yes' : 'no');
       body.set('services', data.getAll('service').join(', '));
+      body.set('book_call', wantsCall() ? 'yes' : 'no');
       body.set('source', location.pathname);
 
       if (button) { button.disabled = true; button.textContent = 'Sending…'; }

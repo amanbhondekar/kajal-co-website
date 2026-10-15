@@ -1,67 +1,107 @@
 /**
  * Kajal & Co. — contact form endpoint
  * ---------------------------------------------------------------------------
- * Receives a submission from the website contact form, appends it as a row to
- * the enquiries sheet, and emails a copy so a lead is never only in a tab
+ * Receives a submission from the website contact form, appends it to the
+ * "Contact Form" tab, and emails a copy so a lead is never only in a tab
  * nobody has open.
  *
+ * Values are placed by HEADER NAME, not by position. The sheet already had its
+ * own columns and its own order before this script existed, so reordering or
+ * inserting a column there will not start writing names into the message
+ * column. A header this script does not recognise is left alone.
+ *
  * DEPLOY
- *   1. Open the enquiries spreadsheet → Extensions → Apps Script.
- *   2. Replace Code.gs with this file. Save.
- *   3. Run `setup` once from the editor and accept the permission prompt.
- *      It creates the header row if the sheet is empty, so the columns always
- *      match what doPost writes.
- *   4. Deploy → New deployment → type "Web app".
+ *   1. Spreadsheet → Extensions → Apps Script. Replace Code.gs with this. Save.
+ *   2. Run `setup` once and accept the permission prompt. It reports which
+ *      columns it matched and adds the two consent/source columns if missing.
+ *   3. Deploy → New deployment → Web app.
  *        Execute as:      Me
  *        Who has access:  Anyone
  *      "Anyone" is required — the website posts without a Google login. The
- *      script only ever appends; it never reads the sheet back out.
- *   5. Copy the /exec URL and paste it into ENDPOINT in assets/js/main.js.
+ *      script only appends; it never reads the sheet back out to the caller.
+ *   4. Copy the /exec URL into ENDPOINT in assets/js/main.js.
  *
- * Re-deploy as a NEW VERSION after any edit here, or the live URL keeps
- * running the old code.
+ * Re-deploy as a NEW VERSION after editing, or the live URL keeps running the
+ * old code.
  */
 
-var SHEET_NAME = 'Enquiries';
+var SHEET_NAME = 'Contact Form';
 var NOTIFY = 'kajalandani.co@gmail.com';
 
-var COLUMNS = [
-  'Timestamp',
-  'Name',
-  'Email',
-  'Country Code',
-  'WhatsApp',
-  'Services',
-  'Message',
-  'Marketing Consent',
-  'Source Page',
-];
+/* The form posts one `service` value per ticked box. Each maps to its own
+   column, matching how the sheet was set up. */
+var SERVICE_COLUMNS = {
+  'website-design': 'Website Design & Development',
+  'performance-marketing': 'Performance Marketing',
+  'seo': 'SEO Search Engine Optimization',
+  'other': 'Other',
+};
 
-/** Run once from the editor to grant permissions and lay down the header. */
-function setup() {
-  var sheet = targetSheet();
-  if (sheet.getLastRow() === 0) {
-    sheet.appendRow(COLUMNS);
-    sheet.getRange(1, 1, 1, COLUMNS.length).setFontWeight('bold');
-    sheet.setFrozenRows(1);
-  }
-  Logger.log('Ready. Sheet "%s" has %s rows.', sheet.getName(), sheet.getLastRow());
-}
+/* The consent record the privacy policy commits to keeping, plus the page the
+   enquiry came from. Added to the sheet only if they are not already there. */
+var EXTRA_COLUMNS = ['Marketing Consent', 'Source Page'];
 
 function targetSheet() {
-  var book = SpreadsheetApp.getActiveSpreadsheet();
-  return book.getSheetByName(SHEET_NAME) || book.insertSheet(SHEET_NAME);
+  var sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(SHEET_NAME);
+  if (!sheet) {
+    throw new Error('No sheet named "' + SHEET_NAME + '". Rename the tab, or ' +
+                    'change SHEET_NAME to match it.');
+  }
+  return sheet;
+}
+
+/** Map of header text -> 1-based column index. */
+function headerMap(sheet) {
+  var width = sheet.getLastColumn();
+  if (!width) return {};
+  var headers = sheet.getRange(1, 1, 1, width).getValues()[0];
+  var map = {};
+  headers.forEach(function (name, i) {
+    name = String(name).trim();
+    if (name) map[name] = i + 1;
+  });
+  return map;
+}
+
+/** Append the consent/source headers if the sheet does not have them yet. */
+function ensureExtraColumns(sheet) {
+  var map = headerMap(sheet);
+  EXTRA_COLUMNS.forEach(function (name) {
+    if (!map[name]) {
+      var col = sheet.getLastColumn() + 1;
+      sheet.getRange(1, col, 1, 1).setValue(name).setFontWeight('bold');
+      map[name] = col;
+    }
+  });
+  return map;
+}
+
+/** Run once from the editor: grants permissions and reports the mapping. */
+function setup() {
+  var sheet = targetSheet();
+  var map = ensureExtraColumns(sheet);
+  var wanted = ['Submission Date', 'Name', 'Email', 'Country Code',
+                'WhatsApp Number', 'Message', 'Book Your Call']
+    .concat(Object.keys(SERVICE_COLUMNS).map(function (k) { return SERVICE_COLUMNS[k]; }))
+    .concat(EXTRA_COLUMNS);
+
+  var missing = wanted.filter(function (name) { return !map[name]; });
+  Logger.log('Sheet "%s", %s data row(s).', sheet.getName(), Math.max(0, sheet.getLastRow() - 1));
+  Logger.log('Matched: %s', wanted.filter(function (n) { return map[n]; }).join(' | '));
+  if (missing.length) {
+    Logger.log('NOT FOUND (these will stay empty): %s', missing.join(' | '));
+  } else {
+    Logger.log('Every column matched.');
+  }
 }
 
 function doPost(e) {
   try {
     var form = (e && e.parameter) || {};
 
-    // Honeypot: a real person never sees this field, so anything in it is a bot.
-    // Answer 200 so the bot does not learn it was filtered.
-    if (form.company) {
-      return json({ ok: true });
-    }
+    // Honeypot: a real person never sees this field. Answer 200 so the bot
+    // does not learn it was filtered.
+    if (form.company) return json({ ok: true });
 
     var name = String(form.name || '').trim();
     var email = String(form.email || '').trim();
@@ -69,28 +109,40 @@ function doPost(e) {
       return json({ ok: false, error: 'Name and email are required.' });
     }
 
-    // One submission at a time, so two arriving together cannot land on the
-    // same row.
+    // One writer at a time, so two submissions cannot land on the same row.
     var lock = LockService.getScriptLock();
     lock.waitLock(20000);
     try {
       var sheet = targetSheet();
-      if (sheet.getLastRow() === 0) {
-        sheet.appendRow(COLUMNS);
-        sheet.getRange(1, 1, 1, COLUMNS.length).setFontWeight('bold');
-        sheet.setFrozenRows(1);
-      }
-      sheet.appendRow([
-        new Date(),
-        name,
-        email,
-        String(form.country_code || ''),
-        String(form.whatsapp || ''),
-        String(form.services || ''),
-        String(form.message || ''),
-        form.marketing_consent === 'yes' ? 'Yes' : 'No',
-        String(form.source || ''),
-      ]);
+      var map = ensureExtraColumns(sheet);
+
+      var picked = String(form.services || '')
+        .split(',')
+        .map(function (s) { return s.trim(); })
+        .filter(String);
+
+      var values = {
+        'Submission Date': new Date(),
+        'Name': name,
+        'Email': email,
+        'Country Code': String(form.country_code || ''),
+        'WhatsApp Number': String(form.whatsapp || ''),
+        'Message': String(form.message || ''),
+        'Book Your Call': form.book_call === 'yes' ? 'Yes' : 'No',
+        'Marketing Consent': form.marketing_consent === 'yes' ? 'Yes' : 'No',
+        'Source Page': String(form.source || ''),
+      };
+      // the four service columns are checkboxes, so they take real booleans
+      Object.keys(SERVICE_COLUMNS).forEach(function (key) {
+        values[SERVICE_COLUMNS[key]] = picked.indexOf(key) !== -1;
+      });
+
+      var row = new Array(sheet.getLastColumn()).fill('');
+      Object.keys(values).forEach(function (header) {
+        var col = map[header];
+        if (col) row[col - 1] = values[header];
+      });
+      sheet.appendRow(row);
     } finally {
       lock.releaseLock();
     }
@@ -98,30 +150,30 @@ function doPost(e) {
     notify(form, name, email);
     return json({ ok: true });
   } catch (err) {
-    // The row may already be in; surface the failure rather than reporting a
-    // success the visitor cannot verify.
+    // The row may already be in, so report the failure rather than a success
+    // the visitor cannot verify.
     return json({ ok: false, error: String(err) });
   }
 }
 
 function notify(form, name, email) {
   try {
-    var lines = [
-      'Name: ' + name,
-      'Email: ' + email,
-      'WhatsApp: ' + (form.country_code || '') + ' ' + (form.whatsapp || ''),
-      'Services: ' + (form.services || '—'),
-      'Marketing consent: ' + (form.marketing_consent === 'yes' ? 'Yes' : 'No'),
-      'Page: ' + (form.source || '—'),
-      '',
-      'Message:',
-      form.message || '—',
-    ];
     MailApp.sendEmail({
       to: NOTIFY,
       replyTo: email,
       subject: 'New enquiry — ' + name,
-      body: lines.join('\n'),
+      body: [
+        'Name: ' + name,
+        'Email: ' + email,
+        'WhatsApp: ' + (form.country_code || '') + ' ' + (form.whatsapp || ''),
+        'Services: ' + (form.services || '—'),
+        'Wants a call: ' + (form.book_call === 'yes' ? 'Yes' : 'No'),
+        'Marketing consent: ' + (form.marketing_consent === 'yes' ? 'Yes' : 'No'),
+        'Page: ' + (form.source || '—'),
+        '',
+        'Message:',
+        form.message || '—',
+      ].join('\n'),
     });
   } catch (err) {
     // A failed notification must not lose the row that is already saved.
