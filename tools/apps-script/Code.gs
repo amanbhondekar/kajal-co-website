@@ -36,14 +36,22 @@ var SPREADSHEET_ID = '1gz1fVQ0qq-yVadhsp2SDvlEocwfn_hyesYqwtD-omQU';  // K&Co Su
 var SHEET_NAME = 'Contact Form';
 var NOTIFY = 'kajalandani.co@gmail.com';
 
-/* The form posts one `service` value per ticked box. Each maps to its own
-   column, matching how the sheet was set up. */
+/* The form posts one `service` value per ticked box, so a submission can name
+   several. Two layouts are supported and the script fills whichever the tab
+   actually has, because placement is by header name and an unrecognised key is
+   skipped:
+
+     - one boolean column per service ("Contact Form")
+     - a single "Services" column holding the labels, comma separated ("New")
+
+   A tab carrying both gets both filled, which is harmless. */
 var SERVICE_COLUMNS = {
   'website-design': 'Website Design & Development',
   'performance-marketing': 'Performance Marketing',
   'seo': 'SEO Search Engine Optimization',
   'other': 'Other',
 };
+var SERVICES_COLUMN = 'Services';
 
 /* The consent record the privacy policy commits to keeping, plus the page the
    enquiry came from. Added to the sheet only if they are not already there. */
@@ -95,12 +103,23 @@ function ensureExtraColumns(sheet) {
 function setup() {
   var sheet = targetSheet();
   var map = ensureExtraColumns(sheet);
-  var wanted = ['Submission Date', 'Name', 'Email', 'Country Code',
-                'WhatsApp Number', 'Message', 'Book Your Call']
-    .concat(Object.keys(SERVICE_COLUMNS).map(function (k) { return SERVICE_COLUMNS[k]; }))
-    .concat(EXTRA_COLUMNS);
+  var core = ['Submission Date', 'Name', 'Email', 'Country Code',
+              'WhatsApp Number', 'Message', 'Book Your Call'].concat(EXTRA_COLUMNS);
+  var serviceCols = Object.keys(SERVICE_COLUMNS)
+    .map(function (k) { return SERVICE_COLUMNS[k]; });
+
+  // either service layout counts as present, so only flag a tab with neither
+  var hasSingle = !!map[SERVICES_COLUMN];
+  var hasBoolean = serviceCols.some(function (n) { return !!map[n]; });
+  var wanted = core.concat(hasSingle ? [SERVICES_COLUMN] : serviceCols);
 
   var missing = wanted.filter(function (name) { return !map[name]; });
+  if (!hasSingle && !hasBoolean) {
+    missing.push('(no service columns at all — expected "' + SERVICES_COLUMN +
+                 '" or the four per-service columns)');
+  }
+  Logger.log('Service layout: %s', hasSingle ? 'single "Services" column'
+    : hasBoolean ? 'one boolean column per service' : 'NONE FOUND');
   Logger.log('Sheet "%s", %s data row(s).', sheet.getName(), Math.max(0, sheet.getLastRow() - 1));
   Logger.log('Matched: %s', wanted.filter(function (n) { return map[n]; }).join(' | '));
   if (missing.length) {
@@ -151,6 +170,12 @@ function doPost(e) {
       Object.keys(SERVICE_COLUMNS).forEach(function (key) {
         values[SERVICE_COLUMNS[key]] = picked.indexOf(key) !== -1;
       });
+      // the single-column layout takes the labels, in the form's own order, so
+      // the value matches the dropdown rather than carrying raw slugs
+      values[SERVICES_COLUMN] = Object.keys(SERVICE_COLUMNS)
+        .filter(function (key) { return picked.indexOf(key) !== -1; })
+        .map(function (key) { return SERVICE_COLUMNS[key]; })
+        .join(', ');
 
       var row = new Array(sheet.getLastColumn()).fill('');
       Object.keys(values).forEach(function (header) {
