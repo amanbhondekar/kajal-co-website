@@ -4,11 +4,7 @@
 User-agent: *
 Allow: /
 
-# Not part of the public site. These are kept out of the deployment
-# (see .vercelignore); say so here too.
-Disallow: /case-studies/
-Disallow: /tools/
-Disallow: /content/
+# Build inputs that are served with the site. Not indexable prose.
 Disallow: /templates/
 Disallow: /data/
 
