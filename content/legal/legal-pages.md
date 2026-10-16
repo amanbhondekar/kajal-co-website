@@ -118,10 +118,9 @@ business purposes.
 Kajal & Co. may use a third-party scheduling service to allow visitors
 to book discovery calls.
 
-Our recommended scheduling setup is **Cal.com**, connected to Google
-Calendar and, where appropriate, Google Meet. Cal.com supports calendar
-availability, conflict checking, booking forms, reminders, and Google
-Meet integrations.
+We use **Google Calendar appointment scheduling**, which supports
+calendar availability, conflict checking, booking forms, reminders, and
+Google Meet integration.
 
 If you use a scheduling link, the information you submit through that
 service may be processed by the scheduling provider under its own
@@ -410,7 +409,7 @@ Examples may include:
 -   Google Calendar
 -   Google Meet
 -   Google Sheets
--   Cal.com or another scheduling platform
+-   Google Calendar appointment scheduling
 -   Advertising platforms
 -   Analytics platforms
 -   Website hosting providers

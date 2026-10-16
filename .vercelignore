@@ -24,3 +24,9 @@ content/
 Visual Assets/
 
 .claude/
+
+# Working notes and dead weight. README and the backups are not site content.
+README.md
+backup/
+.agents/
+skills-lock.json

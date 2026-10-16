@@ -259,37 +259,23 @@ All animation respects `prefers-reduced-motion`.
 
 ---
 
-## Mock content
+## Content status
 
-There are **no placeholder markers left** — every slot is filled so the site
-reads as finished. That means nothing on the page tells you what is real.
+Case studies, client logos, testimonials, press and team photos are real and
+approved. The case-study copy lives in `data/projects.json`, with working notes
+in `case-studies/`. That is the one file to edit; `node build.js` does the rest.
 
-**`CONTENT-TO-REPLACE.md` is the only record of what is sourced and what is
-not.** Read it before showing this to anyone.
-
-The case studies and the client logos are real now. What is still unsourced is
-the headline numbers (`₹1 Cr+`, `60+` brands, `400+` trained, `38` sites,
-`₹68 lakh`), the pricing, the press strip, and two of the three team bios.
-
-The case-study copy lives in `data/projects.json`, with working notes in
-`case-studies/`. That is the one file to edit; `node build.js` does the rest.
-
-The site is currently indexable, so anything still unsourced is crawlable.
+The headline numbers (`₹1 Cr+`, `60+` brands, `400+` trained, `38` sites,
+`₹68 lakh`, `37K+`) are kept as they are by decision.
 
 ---
 
-## Before launch
+## After deploying
 
-- [ ] **Replace every invented claim** listed in `CONTENT-TO-REPLACE.md`, or cut the sections that carry them.
-- [ ] **Write real Privacy Policy and Terms pages.** Both link to `#`; no legal copy has been drafted, deliberately.
-- [ ] **Point the Book Discovery Call CTAs at a real booking link** (Google Calendar / Cal.com). They currently go to the contact form.
-- [ ] **Add the real Instagram and LinkedIn URLs** — both are `#`.
-- [ ] **Swap the initials blocks for real photos** — founder on home, three on about.
-- [ ] **Add project imagery.** `.work-card__media` takes an `<img>` with no layout change; the CSS grid artwork is a stand-in. On case-study pages the same applies to `.shot__frame` — every labelled grey panel is a slot waiting for a real screenshot.
-- [ ] **Add hero collage imagery.** `.tile` elements are CSS-drawn stand-ins for real screenshots.
-- [ ] **Wire the form.** Front-end only — it submits nowhere. Netlify Forms is not enabled on the project.
+- [ ] Set up analytics and Search Console, then update the Privacy and Cookie Policies to name the provider.
+- [ ] Confirm the canonical domain (`kajalandani.co`) in `templates/partials/head.html`, the page heads and `sitemap.xml`; re-run `node build.js` if it changes.
+- [ ] Add Instagram and LinkedIn links for Aman Bhondekar and Harsh Raiswal on the about page (both are still `#`).
 - [ ] Update the announcement bar month (home only), or delete the `.announce` block.
-- [ ] Consider re-adding `noindex` until the mock content is replaced.
 
 ## Folded in, not standalone
 

@@ -4,8 +4,12 @@
 User-agent: *
 Allow: /
 
-# case-studies/ is the working source for data/projects.json. It is served as
-# a 404 by netlify.toml, but say so here too rather than rely on that alone.
+# Not part of the public site. These are kept out of the deployment
+# (see .vercelignore); say so here too.
 Disallow: /case-studies/
+Disallow: /tools/
+Disallow: /content/
+Disallow: /templates/
+Disallow: /data/
 
 Sitemap: https://kajalandani.co/sitemap.xml
