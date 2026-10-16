@@ -36,7 +36,7 @@
    rebuilding the script; with the id here, it is one line. */
 /* Bump this when editing, so the health check tells you whether the version
    you deployed is the version that is live. */
-var VERSION = '2026-10-16a';
+var VERSION = '2026-10-16b';
 
 var SPREADSHEET_ID = '1gz1fVQ0qq-yVadhsp2SDvlEocwfn_hyesYqwtD-omQU';  // K&Co Submissions
 var SHEET_NAME = 'Contact Form';
@@ -62,6 +62,28 @@ var SERVICES_COLUMN = 'Services';
 /* The consent record the privacy policy commits to keeping, plus the page the
    enquiry came from. Added to the sheet only if they are not already there. */
 var EXTRA_COLUMNS = ['Marketing Consent', 'Source Page'];
+
+/* Columns that must stay text. appendRow parses values as though they were
+   typed in, which destroys both of these:
+
+     "+91"        a leading + starts a formula, so it is stored as =+91 -> 91
+     "0000000000" parsed as the number 0, and any long number would reach
+                  scientific notation
+
+   A number format alone does not save them, because the coercion happens as
+   the value is written. These cells are re-written as text afterwards. */
+var TEXT_COLUMNS = ['Country Code', 'WhatsApp Number'];
+
+/** Force the given cells on one row to hold their value as literal text. */
+function writeAsText(sheet, rowIndex, map, values) {
+  TEXT_COLUMNS.forEach(function (header) {
+    var col = map[header];
+    if (!col) return;
+    sheet.getRange(rowIndex, col)
+      .setNumberFormat('@')
+      .setValue(String(values[header] === undefined ? '' : values[header]));
+  });
+}
 
 function targetSheet() {
   var book;
@@ -124,6 +146,14 @@ function setup() {
     missing.push('(no service columns at all — expected "' + SERVICES_COLUMN +
                  '" or the four per-service columns)');
   }
+  TEXT_COLUMNS.forEach(function (header) {
+    var col = map[header];
+    if (col) {
+      sheet.getRange(2, col, Math.max(1, sheet.getMaxRows() - 1), 1).setNumberFormat('@');
+    }
+  });
+  Logger.log('Text-formatted: %s', TEXT_COLUMNS.filter(function (h) { return map[h]; }).join(' | '));
+
   Logger.log('Service layout: %s', hasSingle ? 'single "Services" column'
     : hasBoolean ? 'one boolean column per service' : 'NONE FOUND');
   Logger.log('Sheet "%s", %s data row(s).', sheet.getName(), Math.max(0, sheet.getLastRow() - 1));
@@ -215,6 +245,7 @@ function doPost(e) {
         if (col) row[col - 1] = values[header];
       });
       sheet.appendRow(row);
+      writeAsText(sheet, sheet.getLastRow(), map, values);
     } finally {
       lock.releaseLock();
     }
