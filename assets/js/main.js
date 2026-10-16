@@ -10,7 +10,7 @@
      Until this is set, the form tells the visitor to email instead rather
      than pretending to send. An enquiry that silently goes nowhere is worse
      than one the visitor knows to send another way.                       */
-  var ENDPOINT = '';
+  var ENDPOINT = 'https://script.google.com/macros/s/AKfycbzFDerLaADCY2xjfjDPBTEoGOzc-bzmndwqxOiZku1T9eKSsTh-wP7MBXbHDmLMT5YKGg/exec';
   var FALLBACK_EMAIL = 'kajalandani.co@gmail.com';
 
   /* A deployment URL is easy to paste half-copied or with the id elided. A
