@@ -92,19 +92,22 @@
           "title": "Ingredient transparency and benefit-led hero blocks",
           "body": "Every product page opens with primary therapeutic benefits, followed by illustrated ingredient breakdowns and clinical certifications before pricing.",
           "why": "Wellness buyers make decisions based on ingredient safety and purity. Leading with botanical provenance builds immediate buying confidence.",
-          "shot": "Product Page &mdash; Botanical Provenance"
+          "shot": "Product Page &mdash; Botanical Provenance",
+          "src": "assets/img/work/aarshaveda-decision-01.webp"
         },
         {
           "title": "Curated wellness routines replacing isolated SKUs",
           "body": "Grouped complementary treatments into morning rituals, baby care routines, and restorative regimens with single-click bundle additions.",
           "why": "Encourages regimen-based healing while increasing average order value naturally without aggressive sales banners.",
-          "shot": "Routine Bundles &mdash; Collection View"
+          "shot": "Routine Bundles &mdash; Collection View",
+          "src": "assets/img/work/aarshaveda-decision-02.webp"
         },
         {
           "title": "Zero-friction mobile checkout architecture",
           "body": "Integrated persistent sticky cart actions, instant pincode delivery checks, and multi-gateway express payments.",
           "why": "Removes checkout hesitation on mobile devices where over 70% of initial wellness discovery occurs.",
-          "shot": "Mobile PDP &mdash; Sticky Checkout"
+          "shot": "Mobile PDP &mdash; Sticky Checkout",
+          "src": "assets/img/work/aarshaveda-decision-03.webp"
         }
       ],
       "designSystem": {
@@ -237,19 +240,22 @@
           "title": "Program-first discovery architecture",
           "body": "Replaced vague package lists with detailed program overviews featuring daily schedules, therapies included, and practitioner bios.",
           "why": "Retreat seekers invest in specific health and mental outcomes; showing the full daily journey builds deep emotional alignment.",
-          "shot": "Program Overview &mdash; Daily Schedule"
+          "shot": "Program Overview &mdash; Daily Schedule",
+          "src": "assets/img/work/sacred-lotus-retreat-decision-01.webp"
         },
         {
           "title": "Interactive accommodation showcase",
           "body": "Designed dedicated photo tours and amenity breakdowns for each villa and eco-cottage category.",
           "why": "Accommodations are the primary physical comfort consideration; clarity here reduces hesitation for high-ticket bookings.",
-          "shot": "Sanctuary Villas &mdash; Room Detail"
+          "shot": "Sanctuary Villas &mdash; Room Detail",
+          "src": "assets/img/work/sacred-lotus-retreat-decision-02.webp"
         },
         {
           "title": "Holistic inquiry brief replacing generic contact forms",
           "body": "Introduced an inquiry workflow gathering target retreat dates, wellness focus, and dietary preferences.",
           "why": "Gives the retreat team a fully qualified guest profile for personalized follow-up calls.",
-          "shot": "Reservation Workflow &mdash; Intake Brief"
+          "shot": "Reservation Workflow &mdash; Intake Brief",
+          "src": "assets/img/work/sacred-lotus-retreat-decision-03.webp"
         }
       ],
       "designSystem": {
@@ -382,19 +388,22 @@
           "title": "Procedure expectation cards with recovery transparency",
           "body": "Each clinical service page includes structured expectation panels detailing procedure duration, sensation, downtime, and expected results timeline.",
           "why": "Demystifying the clinical experience removes anxiety and pre-qualifies patients before consultation calls.",
-          "shot": "Treatment Guide &mdash; Clinical Expectations"
+          "shot": "Treatment Guide &mdash; Clinical Expectations",
+          "src": "assets/img/work/deage-decision-01.webp"
         },
         {
           "title": "Physician credentials and clinical technology showcase",
           "body": "Spotlighted US-FDA-cleared technologies, sterile clinical protocols, and specialist medical leadership.",
           "why": "In aesthetic medicine, patient confidence hinges entirely on proven medical authority and technology safety.",
-          "shot": "Clinical Standards &mdash; Medical Technology"
+          "shot": "Clinical Standards &mdash; Medical Technology",
+          "src": "assets/img/work/deage-decision-02.webp"
         },
         {
           "title": "Integrated clinical skincare e-commerce path",
           "body": "Designed a dedicated Shopify-powered catalog for physician-curated skincare products alongside clinic services.",
           "why": "Creates post-treatment skincare regimen continuity and opens scalable direct product revenue.",
-          "shot": "Clinical Skincare &mdash; Formulation Catalog"
+          "shot": "Clinical Skincare &mdash; Formulation Catalog",
+          "src": "assets/img/work/deage-decision-03.webp"
         }
       ],
       "designSystem": {
@@ -530,19 +539,22 @@
           "title": "Categorized practice area architecture",
           "body": "Reorganized 15+ specialized services into 4 core pillars: Audit & Assurance, Direct & Indirect Taxation, Corporate Advisory, and Regulatory Compliance.",
           "why": "Corporate CFOs and directors find relevant expertise within seconds without wading through general accounting copy.",
-          "shot": "Practice Area Directory &mdash; Service Architecture"
+          "shot": "Practice Area Directory &mdash; Service Architecture",
+          "src": "assets/img/work/mkps-associates-decision-01.webp"
         },
         {
           "title": "Partner credentials and firm governance showcase",
           "body": "Developed dedicated partner profiles detailing leadership experience, certifications, and sector track records.",
           "why": "In professional services, clients hire trusted advisors. Leading with partner profiles establishes human credibility.",
-          "shot": "Partner Profiles &mdash; Professional Authority"
+          "shot": "Partner Profiles &mdash; Professional Authority",
+          "src": "assets/img/work/mkps-associates-decision-02.webp"
         },
         {
           "title": "Corporate engagement inquiry brief",
           "body": "Replaced vague generic forms with a structured corporate intake requesting organization type, service requirement, and timeline.",
           "why": "Filters spam and delivers actionable context to the firm’s engagement partners immediately.",
-          "shot": "Corporate Engagement &mdash; Inquiry Channel"
+          "shot": "Corporate Engagement &mdash; Inquiry Channel",
+          "src": "assets/img/work/mkps-associates-decision-03.webp"
         }
       ],
       "designSystem": {
@@ -677,19 +689,22 @@
           "title": "Technology stack matrix with proficiency indicators",
           "body": "Built an interactive capabilities grid showcasing frameworks, cloud environments, and databases deployed across projects.",
           "why": "Engineering leaders vetting agency partners look for immediate proof of specific stack proficiency.",
-          "shot": "Technology Stack &mdash; Interactive Grid"
+          "shot": "Technology Stack &mdash; Interactive Grid",
+          "src": "assets/img/work/shap-infotech-decision-01.webp"
         },
         {
           "title": "Transparent engagement model framework",
           "body": "Created dedicated breakdowns explaining Dedicated Teams, Fixed Price SOWs, and Staff Augmentation models.",
           "why": "Clarifies commercial working structures upfront and shortens the sales discovery cycle.",
-          "shot": "Engagement Models &mdash; Commercial Options"
+          "shot": "Engagement Models &mdash; Commercial Options",
+          "src": "assets/img/work/shap-infotech-decision-02.webp"
         },
         {
           "title": "Technical inquiry brief with file upload capabilities",
           "body": "Replaced single-line contact forms with an RFP workflow allowing prospective clients to submit requirement documents.",
           "why": "Delivers qualified briefs directly to the solution architecture team for faster turnaround on technical proposals.",
-          "shot": "RFP Submission &mdash; Technical Intake"
+          "shot": "RFP Submission &mdash; Technical Intake",
+          "src": "assets/img/work/shap-infotech-decision-03.webp"
         }
       ],
       "designSystem": {
@@ -822,19 +837,22 @@
           "title": "Filterable specialist doctor directory",
           "body": "Built an intuitive doctor directory where patients can search by symptom, department (Cardiology, Pediatrics, Orthopedics), or clinic branch.",
           "why": "Reduces time-to-appointment and gives patients confidence in doctor qualifications and visiting hours.",
-          "shot": "Specialist Directory &mdash; Filterable Grid"
+          "shot": "Specialist Directory &mdash; Filterable Grid",
+          "src": "assets/img/work/swastha-healthcare-decision-01.webp"
         },
         {
           "title": "Diagnostic test preparation guides",
           "body": "Each diagnostic test card details test requirements, fasting protocols, and turn-around time for digital report delivery.",
           "why": "Eliminates patient confusion and reduces repetitive calls to the front-desk reception.",
-          "shot": "Diagnostics Hub &mdash; Test Guidelines"
+          "shot": "Diagnostics Hub &mdash; Test Guidelines",
+          "src": "assets/img/work/swastha-healthcare-decision-02.webp"
         },
         {
           "title": "Mobile-first persistent appointment action bar",
           "body": "Implemented a fixed bottom mobile bar with Book Appointment, Call Clinic, and Request Home Sample Collection.",
           "why": "Ensures patients can take immediate action on any page without scrolling back to menus.",
-          "shot": "Mobile Experience &mdash; Persistent Actions"
+          "shot": "Mobile Experience &mdash; Persistent Actions",
+          "src": "assets/img/work/swastha-healthcare-decision-03.webp"
         }
       ],
       "designSystem": {

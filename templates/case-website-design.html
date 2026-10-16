@@ -80,7 +80,12 @@
         {{/why}}
       </div>
       <figure class="shot">
+        {{#src}}
+        <img class="shot__img" src="{{base}}{{src}}" alt="{{{shot}}}" width="1600" height="900" loading="lazy" decoding="async">
+        {{/src}}
+        {{^src}}
         <div class="shot__frame"><span class="shot__label">{{{shot}}}</span></div>
+        {{/src}}
       </figure>
     </article>
     {{/decisions}}

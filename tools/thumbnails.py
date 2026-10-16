@@ -74,6 +74,11 @@ SHOTS = {
 # file stem -> (output suffix, width). The phone never renders wider than
 # ~290 CSS px, so 720 is already past 2x.
 SHOT_KINDS = {'Desktop': ('desktop', 1600), 'Mobile': ('mobile', 720)}
+DECISION_KINDS = {
+    'Decision 01': ('decision-01', 1600),
+    'Decision 02': ('decision-02', 1600),
+    'Decision 03': ('decision-03', 1600),
+}
 
 # Home-page hero collage. Portrait captures that drift in two columns.
 HEROES = {
@@ -158,6 +163,13 @@ def main():
                 jobs.append((src, os.path.join(OUT, '%s-%s.webp' % (slug, suffix)), width))
             else:
                 missing.append('Project Visuals/%s/%s.*' % (folder, stem))
+
+        for stem, (suffix, width) in DECISION_KINDS.items():
+            src = resolve(SHOT_SRC, folder, 'Mockup Visuals', stem)
+            if src:
+                jobs.append((src, os.path.join(OUT, '%s-%s.webp' % (slug, suffix)), width))
+            else:
+                missing.append('Project Visuals/%s/Mockup Visuals/%s.*' % (folder, stem))
 
     for stem, name in HEROES.items():
         src = resolve(HERO_SRC, stem)
