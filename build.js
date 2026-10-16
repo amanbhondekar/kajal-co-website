@@ -134,6 +134,24 @@ const text = s => String(s)
   .replace(/&[a-z]+;/gi, e => (e in ENTITIES ? ENTITIES[e] : e))
   .replace(/<[^>]+>/g, '');
 
+/* Meta descriptions render around 155–160 characters before Google cuts them.
+   Trim at a word boundary and say so with an ellipsis, rather than letting
+   the cut land mid-word. Shorter statements pass through untouched. */
+const DESC_MAX = 158;
+const trimDescription = s => {
+  if (s.length <= DESC_MAX) return s;
+  const cut = s.slice(0, DESC_MAX - 1);
+  return cut.slice(0, cut.lastIndexOf(' ')).replace(/[\s,;:.\-–—]+$/, '') + '…';
+};
+
+/* Titles past ~60 characters get cut in results. Drop "Case Study" before
+   letting a long client + service name be truncated. */
+const TITLE_MAX = 60;
+const caseTitle = (client, service) => {
+  const full = text(`${client}: ${service} Case Study | Kajal & Co.`);
+  return full.length <= TITLE_MAX ? full : text(`${client}: ${service} | Kajal & Co.`);
+};
+
 const data = JSON.parse(fs.readFileSync(path.join(ROOT, 'data', 'projects.json'), 'utf8'));
 const { services, projects } = data;
 
@@ -187,8 +205,12 @@ for (const p of projects) {
     serviceLabel: svc.label,
     serviceShort: svc.short || svc.label,
     serviceHref: svc.page,
-    title: text(`${p.headline} | ${p.client} | Kajal & Co.`),
-    description: text(p.statement),
+    /* "<Client>: <Service> Case Study | Kajal & Co." — about 45 characters, so
+       it survives SERP truncation and leads with the name and service people
+       actually search. The long headline stays on the page as the H1. */
+    title: caseTitle(p.client, svc.label),
+    /* optional "metaDescription" in projects.json overrides the statement */
+    description: trimDescription(text(p.metaDescription || p.statement)),
     prev: pagerCard(siblings[at - 1]),
     next: pagerCard(siblings[at + 1]),
   });
@@ -285,12 +307,14 @@ if (absent.length) {
   process.exit(1);
 }
 
-const today = new Date().toISOString().slice(0, 10);
+/* No <lastmod> and no <priority>. Every build used to stamp every URL with
+   today's date, which tells Google nothing and teaches it to ignore the field;
+   a CI checkout has no per-file history to read a real date from. Google also
+   ignores <priority>. Add <lastmod> back only when it can be the true date a
+   page's content last changed. */
 const urlEntry = (loc, priority) => [
   '  <url>',
   '    <loc>' + SITE + '/' + loc + '</loc>',
-  '    <lastmod>' + today + '</lastmod>',
-  '    <priority>' + priority + '</priority>',
   '  </url>',
 ].join('\n');
 
