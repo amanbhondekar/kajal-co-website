@@ -274,7 +274,6 @@ The headline numbers (`₹1 Cr+`, `60+` brands, `400+` trained, `38` sites,
 
 - [ ] Set up analytics and Search Console, then update the Privacy and Cookie Policies to name the provider.
 - [ ] Confirm the canonical domain (`kajalandani.co`) in `templates/partials/head.html`, the page heads and `sitemap.xml`; re-run `node build.js` if it changes.
-- [ ] Add Instagram and LinkedIn links for Aman Bhondekar and Harsh Raiswal on the about page (both are still `#`).
 - [ ] Update the announcement bar month (home only), or delete the `.announce` block.
 
 ## Folded in, not standalone
