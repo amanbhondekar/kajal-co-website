@@ -11,7 +11,10 @@
  * column. A header this script does not recognise is left alone.
  *
  * DEPLOY
- *   1. Spreadsheet → Extensions → Apps Script. Replace Code.gs with this. Save.
+ *   1. Open the Apps Script editor (Extensions → Apps Script from any of your
+ *      spreadsheets, or script.google.com). Replace Code.gs with this. Save.
+ *      The destination is SPREADSHEET_ID below, not whichever file the editor
+ *      was opened from.
  *   2. Run `setup` once and accept the permission prompt. It reports which
  *      columns it matched and adds the two consent/source columns if missing.
  *   3. Deploy → New deployment → Web app.
@@ -25,6 +28,11 @@
  * old code.
  */
 
+/* The destination workbook, named outright rather than taken from whichever
+   spreadsheet the script happens to be bound to. A bound script follows the
+   file it was created in, so moving the destination would otherwise mean
+   rebuilding the script; with the id here, it is one line. */
+var SPREADSHEET_ID = '1gz1fVQ0qq-yVadhsp2SDvlEocwfn_hyesYqwtD-omQU';  // K&Co Submissions
 var SHEET_NAME = 'Contact Form';
 var NOTIFY = 'kajalandani.co@gmail.com';
 
@@ -42,10 +50,17 @@ var SERVICE_COLUMNS = {
 var EXTRA_COLUMNS = ['Marketing Consent', 'Source Page'];
 
 function targetSheet() {
-  var sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(SHEET_NAME);
+  var book;
+  try {
+    book = SpreadsheetApp.openById(SPREADSHEET_ID);
+  } catch (err) {
+    throw new Error('Cannot open spreadsheet ' + SPREADSHEET_ID + '. Check the ' +
+                    'id and that this account can edit it. (' + err + ')');
+  }
+  var sheet = book.getSheetByName(SHEET_NAME);
   if (!sheet) {
-    throw new Error('No sheet named "' + SHEET_NAME + '". Rename the tab, or ' +
-                    'change SHEET_NAME to match it.');
+    throw new Error('No tab named "' + SHEET_NAME + '" in "' + book.getName() +
+                    '". Rename the tab, or change SHEET_NAME to match it.');
   }
   return sheet;
 }
