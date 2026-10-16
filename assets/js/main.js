@@ -36,57 +36,6 @@
     });
   });
 
-  /* ---------- discovery call popup ---------------------------------------
-     Google Calendar appointment scheduling. Google's script only offers its
-     own button, so one is built off-screen and every "Book ..." CTA clicks
-     through to it. The links keep their href, so if the script is blocked or
-     has not loaded the visitor still lands on the contact page.            */
-  var BOOKING_URL = 'https://calendar.google.com/calendar/appointments/schedules/AcZssZ0IkjxxvDDpoEUgyM9VkCSEdUqi3gYB01JNiK3AxxmSSfOTu14YCHk6DH-YPBKlzPkDCupXpLY-?gv=true';
-  var bookingButton = null;
-
-  var loadBooking = function () {
-    /* The script inserts its button as the next sibling of `target`, so the
-       target sits inside a hidden wrapper to keep the button out of sight. */
-    var wrap = document.createElement('div');
-    var host = document.createElement('span');
-    wrap.hidden = true;
-    wrap.appendChild(host);
-    document.body.appendChild(wrap);
-
-    var css = document.createElement('link');
-    css.rel = 'stylesheet';
-    css.href = 'https://calendar.google.com/calendar/scheduling-button-script.css';
-    document.head.appendChild(css);
-
-    var js = document.createElement('script');
-    js.src = 'https://calendar.google.com/calendar/scheduling-button-script.js';
-    js.async = true;
-    js.onload = function () {
-      if (!window.calendar || !window.calendar.schedulingButton) return;
-      window.calendar.schedulingButton.load({
-        url: BOOKING_URL,
-        color: '#742aff',
-        label: 'Book a discovery call',
-        target: host
-      });
-      bookingButton = host.nextElementSibling;
-    };
-    document.head.appendChild(js);
-  };
-  if (document.readyState === 'complete') loadBooking();
-  else window.addEventListener('load', loadBooking);
-
-  document.querySelectorAll('a.btn').forEach(function (link) {
-    var label = link.textContent.replace(/\s+/g, ' ').trim();
-    if (label !== 'Book Discovery Call' && label !== 'Book Your Call') return;
-    link.addEventListener('click', function (ev) {
-      if (!bookingButton) return;
-      ev.preventDefault();
-      try { sessionStorage.setItem(CALL_KEY, '1'); } catch (err) { /* private mode */ }
-      bookingButton.click();
-    });
-  });
-
   document.querySelectorAll('[data-quote-form]').forEach(function (form) {
     var status = form.querySelector('[data-form-status]');
     var button = form.querySelector('button[type="submit"]');
