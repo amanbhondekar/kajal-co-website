@@ -1,0 +1,26 @@
+# Files that belong in the repo but must not be served.
+#
+# outputDirectory is "." — the deployment serves the repo root — so anything
+# left here becomes a public URL. These are excluded from the upload entirely,
+# which is stronger than a redirect: the paths simply do not exist.
+#
+# templates/ and data/ are deliberately NOT listed. `node build.js` reads them
+# during the build, so excluding them would break the deploy. They are served,
+# which is untidy but harmless — neither is indexable prose.
+
+# The working source for data/projects.json. Published as-is it would be a
+# second, raw copy of every page under work/ — duplicate public content on a
+# site that sells SEO.
+case-studies/
+
+# Build and authoring tooling: the image pipeline, the legal-page generator,
+# and the Apps Script that receives the contact form.
+tools/
+
+# Markdown source for the legal pages. The pages themselves are committed HTML.
+content/
+
+# Design masters, already gitignored, listed for completeness.
+Visual Assets/
+
+.claude/
