@@ -1099,8 +1099,8 @@ em, .em        { font-style: italic; font-weight: 500; }
   display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr);
   gap: clamp(2rem,1rem + 4vw,4rem); align-items: center;
 }
-/* the cut-out graphic reads best standing on the same line as the copy */
-.stat-split--bottom { align-items: end; }
+/* both columns hang from the same top line */
+.stat-split--top { align-items: start; }
 @media (max-width: 900px) { .stat-split { grid-template-columns: minmax(0, 1fr); } }
 
 .stat-card {
@@ -1182,8 +1182,12 @@ em, .em        { font-style: italic; font-weight: 500; }
    good deal smaller than the box it sits in */
 .press-row img { display: block; width: clamp(124px, 13vw, 176px); height: auto; }
 
-/* the story graphic carries its own transparent background */
-.story-art img { display: block; width: 100%; height: auto; }
+/* The story graphic is a 1200px square, but its painted content spans only
+   y 43 to 930: transparent above, opaque white below. Crop to that band so
+   the head lines up with the eyebrow and the dead white below stops adding
+   height. (Percent margins resolve against width, so this scales.) */
+.story-art { aspect-ratio: 1200 / 900; overflow: hidden; }
+.story-art img { display: block; width: 100%; height: auto; margin-top: -3.6%; }
 
 /* founder — subtitle under the name, and the pivot question in the body */
 .founder__role {
