@@ -25,13 +25,19 @@
  *   4. Copy the /exec URL into ENDPOINT in assets/js/main.js.
  *
  * Re-deploy as a NEW VERSION after editing, or the live URL keeps running the
- * old code.
+ * old code. Open the /exec URL in a browser afterwards: doGet answers with the
+ * VERSION below, which is the only way to tell the deployed code from the
+ * saved code without writing a row.
  */
 
 /* The destination workbook, named outright rather than taken from whichever
    spreadsheet the script happens to be bound to. A bound script follows the
    file it was created in, so moving the destination would otherwise mean
    rebuilding the script; with the id here, it is one line. */
+/* Bump this when editing, so the health check tells you whether the version
+   you deployed is the version that is live. */
+var VERSION = '2026-10-16a';
+
 var SPREADSHEET_ID = '1gz1fVQ0qq-yVadhsp2SDvlEocwfn_hyesYqwtD-omQU';  // K&Co Submissions
 var SHEET_NAME = 'Contact Form';
 var NOTIFY = 'kajalandani.co@gmail.com';
@@ -127,6 +133,32 @@ function setup() {
   } else {
     Logger.log('Every column matched.');
   }
+}
+
+/**
+ * Health check. Open the /exec URL in a browser: a deployment running this
+ * code answers with JSON naming the version, the tab and the layout it found.
+ *
+ * Without this, "is the right code live?" has no safe answer — an empty
+ * project and a correctly deployed one both reject a GET with "Script function
+ * not found: doGet", and the only other probe is a POST, which writes a row.
+ */
+function doGet() {
+  var out = { ok: true, service: 'Kajal & Co. contact form', version: VERSION };
+  try {
+    var sheet = targetSheet();
+    var map = headerMap(sheet);
+    out.spreadsheet = sheet.getParent().getName();
+    out.tab = sheet.getName();
+    out.rows = Math.max(0, sheet.getLastRow() - 1);
+    out.layout = map[SERVICES_COLUMN] ? 'single Services column'
+      : map[SERVICE_COLUMNS['website-design']] ? 'one column per service'
+      : 'no service columns found';
+  } catch (err) {
+    out.ok = false;
+    out.error = String(err);
+  }
+  return json(out);
 }
 
 function doPost(e) {
