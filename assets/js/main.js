@@ -630,4 +630,96 @@
     resize();
     start();
   })();
+
+  /* ---------- sticky stacked process cards scale on scroll ---------- */
+  (function () {
+    var servicesSec = document.getElementById('services');
+    if (!servicesSec) return;
+    var cards = Array.prototype.slice.call(servicesSec.querySelectorAll('.step'));
+    if (cards.length < 2) return;
+
+    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+    var ticking = false;
+
+    // The head wraps to a different number of lines at different widths, so
+    // its height is measured rather than guessed. The first card docks one
+    // --head-gap below the bottom of the stuck head.
+    var head = servicesSec.querySelector('.sec-head');
+    function setDock() {
+      if (!head || window.innerWidth <= 860) {
+        servicesSec.style.removeProperty('--card-top-1');
+        return;
+      }
+      var gap = parseFloat(window.getComputedStyle(servicesSec).getPropertyValue('--head-gap')) || 60;
+      var top = parseFloat(window.getComputedStyle(head).top) || 0;
+      servicesSec.style.setProperty('--card-top-1', (top + head.offsetHeight + gap) + 'px');
+    }
+
+    function updateCardScales() {
+      ticking = false;
+      if (reduced.matches || window.innerWidth <= 860) {
+        for (var i = 0; i < cards.length; i++) {
+          cards[i].style.transform = '';
+        }
+        return;
+      }
+
+      // Read sticky target offsets from CSS or compute them
+      var dockTops = [];
+      for (var i = 0; i < cards.length; i++) {
+        var topVal = parseFloat(window.getComputedStyle(cards[i]).top);
+        dockTops.push(isNaN(topVal) ? (200 + i * 40) : topVal);
+      }
+
+      // Compute docking progress for cards 1..N-1
+      // progress[j] = 0 (far below dock) -> 1 (docked at sticky top)
+      var progress = [1];
+      for (var j = 1; j < cards.length; j++) {
+        var rect = cards[j].getBoundingClientRect();
+        var dock = dockTops[j];
+        var dist = rect.top - dock;
+        var travel = cards[j].offsetHeight || 440;
+        var p = 0;
+        if (dist <= 0) {
+          p = 1;
+        } else if (dist < travel) {
+          p = 1 - (dist / travel);
+        }
+        progress.push(p);
+      }
+
+      // Each stacked level scales down by -5% (0.05)
+      // Card N-1 (front card) scale = 1.0
+      // Card i scale = 1.0 - sum_{j = i + 1}^{N - 1} (0.05 * progress[j])
+      for (var k = 0; k < cards.length; k++) {
+        var scale = 1.0;
+        for (var m = k + 1; m < cards.length; m++) {
+          scale -= 0.05 * progress[m];
+        }
+        cards[k].style.transform = 'scale(' + scale.toFixed(4) + ')';
+      }
+    }
+
+    function onScroll() {
+      if (!ticking) {
+        requestAnimationFrame(updateCardScales);
+        ticking = true;
+      }
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', function () { setDock(); onScroll(); }, { passive: true });
+    if (reduced.addEventListener) {
+      reduced.addEventListener('change', onScroll);
+    }
+
+    // Initial calculation, repeated once fonts settle: the webfont changes
+    // how the head wraps and therefore its height.
+    setDock();
+    updateCardScales();
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(function () { setDock(); updateCardScales(); });
+    }
+    window.addEventListener('load', function () { setDock(); updateCardScales(); });
+  })();
 })();

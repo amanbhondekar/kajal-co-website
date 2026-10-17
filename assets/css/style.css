@@ -1045,14 +1045,88 @@ em, .em        { font-style: italic; font-weight: 500; }
 /* --------------------------------------------------------------------------
    12. Process — sticky stacked phase cards
    -------------------------------------------------------------------------- */
-.steps { display: grid; gap: clamp(1rem,.5rem + 1.5vw,1.5rem); }
-.step {
-  position: sticky; top: clamp(5.5rem, 4rem + 3vw, 7rem);
-  height: 440px;
-  border-radius: var(--r-card); border: 1px solid var(--line);
-  background: var(--paper); padding: clamp(1.5rem, 1rem + 2vw, 2.5rem);
-  box-shadow: var(--shadow-card);
+#services {
+  --sec-head-top: clamp(4.5rem, 3.25rem + 1.5vw, 5.25rem);
+  /* Fallback only: main.js sets this to head top + head height + --head-gap
+     so the docked first card always sits exactly --head-gap under the head. */
+  --card-top-1: clamp(11.5rem, 9.25rem + 3.2vw, 13.5rem);
+  --card-offset: 40px;
+  --head-gap: 60px;
 }
+
+@media (min-width: 861px) {
+  /* Make the whole section header sticky from the top */
+  #services .sec-head {
+    position: sticky;
+    top: var(--sec-head-top);
+    z-index: 10;
+    margin-bottom: var(--head-gap);
+    padding-bottom: .25rem;
+    background: var(--ink);
+  }
+}
+
+.steps {
+  display: grid;
+  gap: clamp(2rem, 1.5rem + 2vw, 3.5rem);
+  padding-bottom: clamp(8rem, 18vh, 14rem);
+}
+
+.step {
+  position: sticky;
+  height: 440px;
+  border-radius: var(--r-card);
+  border: 1px solid var(--line);
+  background: var(--paper);
+  padding: clamp(1.5rem, 1rem + 2vw, 2.5rem);
+  box-shadow: var(--shadow-card);
+  transform-origin: top center;
+  will-change: transform;
+  transition: transform .12s cubic-bezier(0.16, 1, 0.3, 1), box-shadow .2s ease;
+}
+
+@media (min-width: 861px) {
+  /* Stagger sticky top positions by 40px */
+  .step:nth-child(1) {
+    top: var(--card-top-1);
+    z-index: 1;
+  }
+  .step:nth-child(2) {
+    top: calc(var(--card-top-1) + var(--card-offset));
+    z-index: 2;
+  }
+  .step:nth-child(3) {
+    top: calc(var(--card-top-1) + calc(var(--card-offset) * 2));
+    z-index: 3;
+  }
+}
+
+.step__head {
+  display: flex;
+  align-items: center;
+  gap: .85rem;
+  min-height: 20px;
+  margin-bottom: .85rem;
+}
+.step__head .badge {
+  background: transparent;
+  color: var(--accent);
+  padding: 0;
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: .02em;
+  line-height: 1;
+  align-self: center;
+  flex-shrink: 0;
+}
+.step__head h3 {
+  margin: 0;
+  font-size: clamp(1.15rem, 0.95rem + 0.6vw, 1.45rem);
+  line-height: 1.2;
+  font-weight: 600;
+  color: var(--on-dark);
+}
+
 .step__grid {
   display: grid; grid-template-columns: minmax(0,1.15fr) minmax(0,.85fr);
   gap: clamp(1.5rem,1rem + 2vw,2.5rem); align-items: stretch;
@@ -1064,8 +1138,18 @@ em, .em        { font-style: italic; font-weight: 500; }
 .step__grid > div:first-child > .badge,
 .step__grid > div:first-child > .link-arrow { align-self: flex-start; }
 .step__grid > div:first-child > .link-arrow { margin-top: auto; }
+
 @media (max-width: 860px) {
-  .step { position: static; height: auto; }
+  /* no sticky stack on a phone, so the gap under the head is plain margin */
+  #services { --head-gap: 40px; }
+  #services .sec-head { margin-bottom: var(--head-gap); }
+  .steps { padding-bottom: 0; gap: 1.5rem; }
+  .step {
+    position: static;
+    height: auto;
+    padding: clamp(1.5rem, 1rem + 2vw, 2.5rem);
+    transform: none !important;
+  }
   .step__grid { grid-template-columns: 1fr; }
   /* margin-top:auto has no slack once the card is auto-height, so the link
      would otherwise sit flush against the copy above it */
@@ -1074,13 +1158,13 @@ em, .em        { font-style: italic; font-weight: 500; }
     margin-top: 1.5rem;
   }
 }
+
 /* Six chips plus the graphic is more than a phone should scroll through. */
 @media (max-width: 640px) { .step .chip-row { display: none; } }
-.step h3 { margin: 1rem 0 .75rem; font-size: clamp(1.5rem,1.1rem + 1.6vw,2rem); }
 .step .body { font-size: var(--fs-sm); max-width: 48ch; }
-.step .chip-row { margin-top: 1.5rem; }
+.step .chip-row { margin-top: 1.25rem; }
 /* Reserved column — the box and icon are gone; motion graphics land here. */
-.step__panel { min-height: clamp(160px, 20vw, 230px); }
+.step__panel { display: block; position: relative; min-height: clamp(160px, 20vw, 230px); }
 @media (max-width: 860px) {
   /* The graphic stacks under the copy rather than being dropped. min-height
      is cleared because 20vw collapses it on a phone. */
@@ -1088,8 +1172,12 @@ em, .em        { font-style: italic; font-weight: 500; }
   .svc-motion { top: 20px; left: 20px; width: calc(100% - 40px); height: calc(100% - 40px); }
 }
 
-/* sticky steps on a dark section */
-.on-dark .step { background: var(--ink-2); border-color: var(--line-dark); box-shadow: none; }
+/* sticky steps on a dark section — elevation shadow for stacked layers */
+.on-dark .step {
+  background: var(--ink-2);
+  border-color: var(--line-dark);
+  box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.4), 0 1px 2px rgba(0, 0, 0, 0.6);
+}
 .on-dark .chip { background: var(--ink-3); border-color: var(--line-dark); color: var(--on-dark-2); }
 
 /* --------------------------------------------------------------------------
