@@ -1050,20 +1050,21 @@ em, .em        { font-style: italic; font-weight: 500; }
   /* Fallback only: main.js sets this to head top + head height + --head-gap
      so the docked first card always sits exactly --head-gap under the head. */
   --card-top-1: clamp(11.5rem, 9.25rem + 3.2vw, 13.5rem);
-  --card-offset: 40px;
+  --card-pad: clamp(1.5rem, 1rem + 2vw, 2.5rem);
+  /* Each docked card shows a strip of the one beneath it. The strip has to
+     clear the card's top padding and the badge/title row, or it is blank. */
+  --card-offset: calc(var(--card-pad) + 2.5rem);
   --head-gap: 60px;
 }
 
-@media (min-width: 861px) {
-  /* Make the whole section header sticky from the top */
-  #services .sec-head {
-    position: sticky;
-    top: var(--sec-head-top);
-    z-index: 10;
-    margin-bottom: var(--head-gap);
-    padding-bottom: .25rem;
-    background: var(--ink);
-  }
+/* The whole section header sticks under the fixed site header, at every width. */
+#services .sec-head {
+  position: sticky;
+  top: var(--sec-head-top);
+  z-index: 10;
+  margin-bottom: var(--head-gap);
+  padding-bottom: .25rem;
+  background: var(--ink);
 }
 
 .steps {
@@ -1078,27 +1079,25 @@ em, .em        { font-style: italic; font-weight: 500; }
   border-radius: var(--r-card);
   border: 1px solid var(--line);
   background: var(--paper);
-  padding: clamp(1.5rem, 1rem + 2vw, 2.5rem);
+  padding: var(--card-pad);
   box-shadow: var(--shadow-card);
   transform-origin: top center;
   will-change: transform;
   transition: transform .12s cubic-bezier(0.16, 1, 0.3, 1), box-shadow .2s ease;
 }
 
-@media (min-width: 861px) {
-  /* Stagger sticky top positions by 40px */
-  .step:nth-child(1) {
-    top: var(--card-top-1);
-    z-index: 1;
-  }
-  .step:nth-child(2) {
-    top: calc(var(--card-top-1) + var(--card-offset));
-    z-index: 2;
-  }
-  .step:nth-child(3) {
-    top: calc(var(--card-top-1) + calc(var(--card-offset) * 2));
-    z-index: 3;
-  }
+/* Stagger sticky top positions by --card-offset */
+.step:nth-child(1) {
+  top: var(--card-top-1);
+  z-index: 1;
+}
+.step:nth-child(2) {
+  top: calc(var(--card-top-1) + var(--card-offset));
+  z-index: 2;
+}
+.step:nth-child(3) {
+  top: calc(var(--card-top-1) + calc(var(--card-offset) * 2));
+  z-index: 3;
 }
 
 .step__head {
@@ -1140,16 +1139,12 @@ em, .em        { font-style: italic; font-weight: 500; }
 .step__grid > div:first-child > .link-arrow { margin-top: auto; }
 
 @media (max-width: 860px) {
-  /* no sticky stack on a phone, so the gap under the head is plain margin */
-  #services { --head-gap: 40px; }
-  #services .sec-head { margin-bottom: var(--head-gap); }
-  .steps { padding-bottom: 0; gap: 1.5rem; }
-  .step {
-    position: static;
-    height: auto;
-    padding: clamp(1.5rem, 1rem + 2vw, 2.5rem);
-    transform: none !important;
-  }
+  /* Tablet and phone keep the sticky head and the stacking cards. Cards size
+     to their content here (the graphic stacks under the copy), and the head
+     needs to clear the taller fixed site header. */
+  #services { --head-gap: 40px; --sec-head-top: 5.5rem; }
+  .steps { padding-bottom: 2rem; gap: 1.5rem; }
+  .step { height: auto; }
   .step__grid { grid-template-columns: 1fr; }
   /* margin-top:auto has no slack once the card is auto-height, so the link
      would otherwise sit flush against the copy above it */

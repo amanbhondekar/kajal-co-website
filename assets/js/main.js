@@ -646,10 +646,7 @@
     // --head-gap below the bottom of the stuck head.
     var head = servicesSec.querySelector('.sec-head');
     function setDock() {
-      if (!head || window.innerWidth <= 860) {
-        servicesSec.style.removeProperty('--card-top-1');
-        return;
-      }
+      if (!head) return;
       var gap = parseFloat(window.getComputedStyle(servicesSec).getPropertyValue('--head-gap')) || 60;
       var top = parseFloat(window.getComputedStyle(head).top) || 0;
       servicesSec.style.setProperty('--card-top-1', (top + head.offsetHeight + gap) + 'px');
@@ -657,7 +654,7 @@
 
     function updateCardScales() {
       ticking = false;
-      if (reduced.matches || window.innerWidth <= 860) {
+      if (reduced.matches) {
         for (var i = 0; i < cards.length; i++) {
           cards[i].style.transform = '';
         }
