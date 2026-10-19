@@ -47,21 +47,30 @@
   </div>
 </header>
 <main id="main">
-<section class="section">
+<section class="hero error">
+  <div class="hero__dots" aria-hidden="true"><canvas class="hero__dots-canvas"></canvas></div>
   <div class="container">
-    <div class="sec-head sec-head--center">
-      <div>
+    <div class="error__inner">
+      <p class="error__code" aria-hidden="true">
+        <span class="error__ghost">404</span>
+        <span class="error__glitch error__glitch--a">404</span>
+        <span class="error__glitch error__glitch--b">404</span>
+        <span class="error__solid">404</span>
+      </p>
+
+      <div class="error__card">
         <span class="eyebrow">Error 404</span>
-        <h1 class="h2 sec-head__title">That page is not <span class="hl"><em>here.</em></span></h1>
-        <p class="lead">It may have moved, or the link may be wrong. These are the ones people usually want.</p>
+        <h1 class="error__title">That page is not <span class="hl"><em>here.</em></span></h1>
+        <p class="lead">It may have moved, or the link may be wrong. Head back to the start, or tell us what you were looking for.</p>
       </div>
-    </div>
-    <div class="btn-row" style="justify-content:center">
-      <a class="btn" href="/">Back to home
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-      </a>
-      <a class="btn btn--ghost" href="/portfolio.html">See the work</a>
-      <a class="btn btn--ghost" href="/contact.html">Get in touch</a>
+
+      <div class="btn-row error__actions">
+        <a class="btn" href="/">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>
+          Back to home
+        </a>
+        <a class="btn btn--ghost" href="/contact.html">Contact Us</a>
+      </div>
     </div>
   </div>
 </section>
