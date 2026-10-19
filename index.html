@@ -195,9 +195,13 @@
           <div class="step__panel" aria-hidden="true">
             <div class="svc-motion__box">
   <svg class="svc-motion" viewBox="0 0 360 300" fill="none" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
-                <g class="wd-stage">
+                <defs>
+                    <filter id="wdGlow" x="-40%" y="-60%" width="180%" height="220%"><feGaussianBlur stdDeviation="6"/></filter>
+                  </defs>
+                  <g class="wd-stage">
 
                   <!-- artboard + layout guides -->
+                  <rect class="wd-surface" x="26" y="34" width="186" height="214" rx="10"/>
                   <rect class="wd-board" x="26" y="34" width="186" height="214" rx="10" pathLength="100"/>
                   <line class="wd-guide wd-g1" x1="94" y1="44" x2="94" y2="238"/>
                   <line class="wd-guide wd-g2" x1="144" y1="44" x2="144" y2="238"/>
@@ -210,8 +214,16 @@
                   <rect class="wd-el wd-x wd-s2" x="178" y="58"  width="14"  height="4"  rx="2"/>
 
                   <rect class="wd-el wd-y wd-s3" x="44" y="80" width="150" height="46" rx="6"/>
+                  <rect class="wd-glow wd-glowHero" x="44" y="80" width="150" height="46" rx="6" filter="url(#wdGlow)"/>
                   <rect class="wd-heroFill"   x="44" y="80" width="150" height="46" rx="6"/>
                   <rect class="wd-heroStroke" x="44" y="80" width="150" height="46" rx="6"/>
+<g class="wd-heroDet">
+                    <rect x="54" y="91" width="64" height="5.5" rx="2.75" fill="rgba(255,255,255,.7)"/>
+                    <rect x="54" y="101" width="44" height="3.5" rx="1.75" fill="rgba(255,255,255,.35)"/>
+                    <rect x="54" y="111" width="28" height="8" rx="4" fill="#742aff"/>
+                    <circle cx="172" cy="94" r="5" fill="rgba(255,255,255,.5)"/>
+                    <path d="M126 122 L146 104 L158 114 L170 106 L186 122 Z" fill="rgba(255,255,255,.16)"/>
+                  </g>
 
                   <rect class="wd-el wd-x wd-s4" x="44" y="140" width="110" height="5" rx="2.5"/>
                   <rect class="wd-el wd-x wd-s4b" x="44" y="153" width="78" height="5" rx="2.5"/>
@@ -219,6 +231,11 @@
                   <rect class="wd-el wd-x wd-s5"  x="44"  y="172" width="70" height="34" rx="6"/>
                   <rect class="wd-cardFill"       x="44"  y="172" width="70" height="34" rx="6"/>
                   <rect class="wd-cardStroke"     x="44"  y="172" width="70" height="34" rx="6"/>
+<g class="wd-cardDet">
+                    <circle cx="56" cy="184" r="4.5" fill="rgba(255,255,255,.75)"/>
+                    <rect x="66" y="181" width="34" height="3.5" rx="1.75" fill="rgba(255,255,255,.5)"/>
+                    <rect x="52" y="193" width="52" height="3" rx="1.5" fill="rgba(255,255,255,.3)"/>
+                  </g>
                   <rect class="wd-el wd-x wd-s5b" x="124" y="172" width="70" height="34" rx="6"/>
 
                   <rect class="wd-el wd-x wd-s6" x="44" y="220" width="150" height="10" rx="5"/>
@@ -230,6 +247,7 @@
                     <rect class="wd-h" x="195" y="73" width="6" height="6"/>
                     <rect class="wd-h" x="37" y="127" width="6" height="6"/>
                     <rect class="wd-h" x="195" y="127" width="6" height="6"/>
+<g class="wd-tag"><rect x="156" y="130" width="44" height="11" rx="3"/><text x="178" y="137.8" text-anchor="middle">150 &#215; 46</text></g>
                   </g>
                   <g class="wd-sel wd-selB">
                     <rect x="40" y="168" width="78" height="42" rx="7"/>
@@ -237,9 +255,12 @@
                     <rect class="wd-h" x="115" y="165" width="6" height="6"/>
                     <rect class="wd-h" x="37" y="207"  width="6" height="6"/>
                     <rect class="wd-h" x="115" y="207" width="6" height="6"/>
+<g class="wd-tag"><rect x="76" y="206" width="42" height="11" rx="3"/><text x="97" y="213.8" text-anchor="middle">70 &#215; 34</text></g>
+                  <g class="wd-cursor"><path d="M0 0 L0 17 L4.4 13 L7.3 19.5 L10.4 18.2 L7.5 12 L13.3 11.7 Z"/></g>
                   </g>
 
                   <!-- build pass: the markup that renders it -->
+                  <path class="wd-link" d="M212 150 H236"/>
                   <g class="wd-code">
                     <rect class="wd-codeFrame" x="236" y="92" width="100" height="116" rx="8"/>
                     <rect class="wd-ln wd-l1" x="250" y="112" width="54" height="4" rx="2"/>
@@ -247,6 +268,11 @@
                     <rect class="wd-ln wd-l3 wd-lnAccent" x="258" y="144" width="58" height="4" rx="2"/>
                     <rect class="wd-ln wd-l4" x="250" y="160" width="34" height="4" rx="2"/>
                     <rect class="wd-caret" x="250" y="108" width="2" height="12" rx="1"/>
+<g class="wd-codeDet">
+                      <circle cx="246" cy="100" r="1.7"/>
+                      <circle cx="253" cy="100" r="1.7"/>
+                      <circle cx="260" cy="100" r="1.7"/>
+                    </g>
                   </g>
 
                 </g>
@@ -280,6 +306,13 @@
             <div class="step__panel" aria-hidden="true">
               <div class="svc-motion__box">
   <svg class="svc-motion" viewBox="0 0 360 300" fill="none" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+                  <defs>
+                    <linearGradient id="seoArea" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0" stop-color="#742aff" stop-opacity=".32"/>
+                      <stop offset="1" stop-color="#742aff" stop-opacity="0"/>
+                    </linearGradient>
+                    <filter id="seoGlow" x="-20%" y="-80%" width="140%" height="260%"><feGaussianBlur stdDeviation="6"/></filter>
+                  </defs>
                   <g class="seo-stage">
             
                     <!-- the query -->
@@ -289,6 +322,7 @@
                       <path d="M49.4 50.4 L54 55"/>
                     </g>
                     <rect class="seo-q" x="62" y="43.5" width="118" height="4.5" rx="2.25"/>
+<rect class="seo-caret" x="184" y="42" width="1.6" height="8" rx=".8"/>
             
                     <!-- the rank this page lands on -->
                     <rect class="seo-pos" x="16" y="76" width="3" height="22" rx="1.5"/>
@@ -301,20 +335,26 @@
             
                     <!-- the page that climbs -->
                     <g class="seo-slot seo-win">
-                      <rect class="seo-tint" x="18" y="193" width="212" height="30" rx="7"/>
+                      <rect class="seo-glowWin" x="18" y="193" width="212" height="30" rx="7" filter="url(#seoGlow)"/>
+                  <rect class="seo-tint" x="18" y="193" width="212" height="30" rx="7"/>
                       <rect class="seo-t seo-e5" x="26" y="200" width="136" height="6" rx="3"/>
                       <rect class="seo-m seo-e5" x="26" y="213" width="90"  height="4" rx="2"/>
                       <rect class="seo-winT" x="26" y="200" width="136" height="6" rx="3"/>
                       <rect class="seo-winM" x="26" y="213" width="90"  height="4" rx="2"/>
+<g class="seo-badge"><circle cx="212" cy="208" r="8"/><path d="M209.4 205.6 L212.2 204 V212"/></g>
                     </g>
             
                     <!-- and the curve it compounds into -->
-                    <line class="seo-axis" x1="248" y1="238" x2="340" y2="238"/>
-                    <path class="seo-curve" pathLength="100" d="M252 230 L 274 221 L 296 203 L 318 174 L 338 138"/>
+                    <line class="seo-grid" x1="248" y1="198" x2="340" y2="198"/>
+                    <line class="seo-grid" x1="248" y1="158" x2="340" y2="158"/>
+                  <line class="seo-axis" x1="248" y1="238" x2="340" y2="238"/>
+                    <path class="seo-area" d="M252 230 L274 221 L296 203 L318 174 L338 138 L338 238 L252 238 Z" fill="url(#seoArea)"/>
+                  <path class="seo-curve" pathLength="100" d="M252 230 L 274 221 L 296 203 L 318 174 L 338 138"/>
                     <circle class="seo-dot seo-k1" cx="274" cy="221" r="2.6"/>
                     <circle class="seo-dot seo-k2" cx="296" cy="203" r="2.6"/>
                     <circle class="seo-dot seo-k3" cx="318" cy="174" r="2.6"/>
                     <circle class="seo-dot seo-k4" cx="338" cy="138" r="2.6"/>
+<circle class="seo-ping" cx="338" cy="138" r="2.6"/>
             
                   </g>
                 </svg>
@@ -347,42 +387,61 @@
             <div class="step__panel" aria-hidden="true">
               <div class="svc-motion__box">
                 <svg class="svc-motion" viewBox="0 0 360 300" fill="none" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+                  <defs>
+                    <filter id="pmGlow" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="6"/></filter>
+                  </defs>
                   <g class="pm-stage">
             
                     <!-- three creatives in test -->
                     <g class="pm-card pm-c1">
                       <rect class="pm-frame" x="26" y="40" width="86" height="54" rx="7"/>
                       <rect class="pm-thumb" x="34" y="48" width="70" height="24" rx="4"/>
+<path class="pm-glyph" d="M66 56 L66 64 L73 60 Z"/>
                       <rect class="pm-line"  x="34" y="78" width="54" height="3.5" rx="1.75"/>
                       <rect class="pm-line"  x="34" y="86" width="38" height="3.5" rx="1.75"/>
                     </g>
                     <g class="pm-card pm-c2">
                       <rect class="pm-frame" x="26" y="110" width="86" height="54" rx="7"/>
                       <rect class="pm-thumb" x="34" y="118" width="70" height="24" rx="4"/>
+<circle class="pm-glyph" cx="69" cy="130" r="5"/>
                       <rect class="pm-line"  x="34" y="148" width="54" height="3.5" rx="1.75"/>
                       <rect class="pm-line"  x="34" y="156" width="38" height="3.5" rx="1.75"/>
                     </g>
                     <g class="pm-card pm-c3">
                       <rect class="pm-frame" x="26" y="180" width="86" height="54" rx="7"/>
                       <rect class="pm-thumb" x="34" y="188" width="70" height="24" rx="4"/>
+<rect class="pm-glyph" x="60" y="196" width="7" height="8" rx="1.5"/><rect class="pm-glyph" x="70" y="196" width="7" height="8" rx="1.5"/>
                       <rect class="pm-line"  x="34" y="218" width="54" height="3.5" rx="1.75"/>
                       <rect class="pm-line"  x="34" y="226" width="38" height="3.5" rx="1.75"/>
                     </g>
             
                     <!-- the one the numbers back -->
-                    <rect class="pm-win" x="26" y="110" width="86" height="54" rx="7"/>
+                    <rect class="pm-glow" x="26" y="110" width="86" height="54" rx="7" filter="url(#pmGlow)"/>
+                  <rect class="pm-win" x="26" y="110" width="86" height="54" rx="7"/>
+<rect class="pm-thumbHi" x="34" y="118" width="70" height="24" rx="4"/>
+                    <g class="pm-badge"><circle cx="112" cy="110" r="7"/><path d="M108.6 110.2 L110.9 112.5 L115.2 107.9"/></g>
             
                     <!-- everything is tracked back to one place -->
                     <path class="pm-link pm-k1" pathLength="100" d="M112 67 C 140 67, 142 137, 160 137"/>
                     <path class="pm-link pm-k2" pathLength="100" d="M112 137 H 160"/>
                     <path class="pm-link pm-k3" pathLength="100" d="M112 207 C 140 207, 142 137, 160 137"/>
                     <circle class="pm-hub" cx="167" cy="137" r="6"/>
+<circle class="pm-ripple" cx="167" cy="137" r="6"/>
                     <path class="pm-feed" pathLength="100" d="M174 137 H 214"/>
+<circle class="pm-pk pm-pk1" r="2.2"/>
+                    <circle class="pm-pk pm-pk2" r="2.2"/>
+                    <circle class="pm-pk pm-pk3" r="2.2"/>
+                    <circle class="pm-pk pm-pk4" r="2.2"/>
             
                     <!-- spend against what it returned -->
                     <line class="pm-base" x1="224" y1="238" x2="334" y2="238"/>
                     <rect class="pm-spend"  x="238" y="190" width="30" height="48" rx="4"/>
-                    <rect class="pm-return" x="290" y="110" width="30" height="128" rx="4"/>
+                    <rect class="pm-glowBar" x="290" y="110" width="30" height="128" rx="4" filter="url(#pmGlow)"/>
+                  <rect class="pm-return" x="290" y="110" width="30" height="128" rx="4"/>
+<text class="pm-lbl" x="253" y="251" text-anchor="middle">SPEND</text>
+                    <text class="pm-lbl" x="305" y="251" text-anchor="middle">RETURN</text>
+                    <line class="pm-ref" x1="268" y1="190" x2="332" y2="190"/>
+                    <path class="pm-gap" d="M328 110 V190 M324 110 H332 M324 190 H332"/>
             
                   </g>
                 </svg>

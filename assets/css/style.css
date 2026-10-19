@@ -2188,7 +2188,13 @@ em, .em        { font-style: italic; font-weight: 500; }
    black box inside a 20px-radius card reads as a mistake. */
 .svc-motion__box {
   position: absolute; inset: 0;
-  background: var(--ink);
+  /* dot grid and violet blooms in opposite corners give the flat panel some atmosphere */
+  background:
+    radial-gradient(90% 70% at 88% -6%, rgba(116, 42, 255, .30), transparent 64%),
+    radial-gradient(90% 70% at 12% 106%, rgba(116, 42, 255, .30), transparent 64%),
+    radial-gradient(rgba(255, 255, 255, .05) 1px, transparent 1.3px) 0 0 / 18px 18px,
+    var(--ink);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .05);
   border: 1px solid var(--line-dark);
   border-radius: var(--r-panel);
   overflow: hidden;
@@ -2736,6 +2742,200 @@ em, .em        { font-style: italic; font-weight: 500; }
   .pm-card, .pm-hub { transform: none !important; }
   .pm-link, .pm-feed { stroke-dashoffset: 0 !important; }
   .pm-spend, .pm-return { transform: scaleY(1) !important; }
+}
+
+/* --------------------------------------------------------------------------
+   32. Card graphics - detail layer
+   Depth and small supporting detail on top of sections 29-31, on the same 7s
+   clock: soft glows behind the elements that win, a surface under the
+   artboard, tiny labels and glyphs, a cursor, data packets. All of it lives
+   inside the stage groups, so the loop fade-out still takes it with the rest.
+   -------------------------------------------------------------------------- */
+
+/* --- 01 website design ----------------------------------------------------- */
+.wd-surface { fill: rgba(255, 255, 255, .03); stroke: none; opacity: 0; animation: wdSurface 7s ease infinite; }
+.wd-glow { fill: var(--accent); stroke: none; opacity: 0; }
+.wd-glowHero { animation: wdGlowHero 7s cubic-bezier(.4, 0, .2, 1) infinite; }
+.wd-heroDet, .wd-cardDet { opacity: 0; }
+.wd-heroDet { animation: wdHeroFill 7s cubic-bezier(.4, 0, .2, 1) infinite; }
+.wd-cardDet { animation: wdCardFill 7s cubic-bezier(.4, 0, .2, 1) infinite; }
+
+.wd-tag rect { fill: var(--accent); stroke: none; stroke-dasharray: none; }
+.wd-tag text {
+  fill: #fff; stroke: none; font: 500 6.5px/1 var(--font-mono); letter-spacing: .04em;
+}
+
+.wd-cursor { opacity: 0; animation: wdCursor 7s cubic-bezier(.45, 0, .2, 1) infinite; }
+.wd-cursor path { fill: #fff; stroke: rgba(11, 11, 11, .85); stroke-width: .8; stroke-linejoin: round; }
+
+.wd-link { fill: none; stroke: rgba(116, 42, 255, .5); stroke-width: 1; stroke-dasharray: 2 3; opacity: 0; animation: wdCodeDet 7s ease infinite; }
+.wd-codeDet { opacity: 0; animation: wdCodeDet 7s ease infinite; }
+.wd-codeDet circle { fill: rgba(255, 255, 255, .26); stroke: none; }
+
+@keyframes wdSurface {
+  0%, 3%    { opacity: 0; }
+  12%, 100% { opacity: 1; }
+}
+@keyframes wdGlowHero {
+  0%, 40%   { opacity: 0; }
+  46%, 100% { opacity: .5; }
+}
+@keyframes wdCodeDet {
+  0%, 56%   { opacity: 0; }
+  62%, 100% { opacity: 1; }
+}
+/* arrives, lands on the hero's corner, hops to the card's corner, leaves */
+@keyframes wdCursor {
+  0%, 32%   { opacity: 0; transform: translate(214px, 152px); }
+  35%       { opacity: 1; transform: translate(214px, 152px); }
+  38%, 48%  { opacity: 1; transform: translate(196px, 130px); }
+  53%, 62%  { opacity: 1; transform: translate(118px, 209px); }
+  68%       { opacity: 0; transform: translate(150px, 238px); }
+  100%      { opacity: 0; transform: translate(150px, 238px); }
+}
+
+/* --- 02 SEO ---------------------------------------------------------------- */
+.seo-caret { fill: #fff; stroke: none; opacity: 0; animation: seoCaret 7s steps(1, end) infinite; }
+.seo-glowWin { fill: var(--accent); stroke: none; opacity: 0; animation: seoGlowWin 7s cubic-bezier(.4, 0, .2, 1) infinite; }
+.seo-badge {
+  opacity: 0; transform-box: fill-box; transform-origin: center;
+  animation: seoBadge 7s cubic-bezier(.16, 1, .3, 1) infinite;
+}
+.seo-badge circle { fill: var(--accent); stroke: none; }
+.seo-badge path { fill: none; stroke: #fff; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.seo-grid { stroke: rgba(255, 255, 255, .07); stroke-width: 1; stroke-dasharray: 2 4; opacity: 0; animation: seoAxis 7s ease infinite; }
+.seo-area { stroke: none; opacity: 0; animation: seoArea 7s ease infinite; }
+.seo-ping {
+  fill: none; stroke: var(--accent); stroke-width: 1.4; opacity: 0;
+  transform-box: fill-box; transform-origin: center;
+  animation: seoPing 7s cubic-bezier(.2, .7, .3, 1) infinite;
+}
+
+/* blinks while the query types, then rests */
+@keyframes seoCaret {
+  0%, 12%       { opacity: 0; }
+  12.01%, 14.5% { opacity: 1; }
+  14.51%, 17%   { opacity: 0; }
+  17.01%, 19.5% { opacity: 1; }
+  19.51%, 22%   { opacity: 0; }
+  22.01%, 24.5% { opacity: 1; }
+  24.51%, 100%  { opacity: 0; }
+}
+@keyframes seoGlowWin {
+  0%, 43%   { opacity: 0; }
+  52%, 100% { opacity: .38; }
+}
+@keyframes seoBadge {
+  0%, 66%   { opacity: 0; transform: scale(0); }
+  72%, 100% { opacity: 1; transform: scale(1); }
+}
+@keyframes seoArea {
+  0%, 78%   { opacity: 0; }
+  88%, 100% { opacity: 1; }
+}
+@keyframes seoPing {
+  0%, 88%   { opacity: 0; transform: scale(1); }
+  89%       { opacity: .8; transform: scale(1); }
+  97%, 100% { opacity: 0; transform: scale(3.4); }
+}
+
+/* --- 03 performance marketing --------------------------------------------- */
+.pm-glyph { fill: rgba(255, 255, 255, .26); stroke: none; }
+.pm-glow, .pm-glowBar { fill: var(--accent); stroke: none; opacity: 0; }
+.pm-glow    { animation: pmGlow    7s cubic-bezier(.4, 0, .2, 1) infinite; }
+.pm-glowBar { animation: pmGlowBar 7s cubic-bezier(.4, 0, .2, 1) infinite; }
+.pm-thumbHi { fill: rgba(116, 42, 255, .28); stroke: none; opacity: 0; animation: pmWin 7s cubic-bezier(.4, 0, .2, 1) infinite; }
+.pm-badge {
+  opacity: 0; transform-box: fill-box; transform-origin: center;
+  animation: pmBadge 7s cubic-bezier(.16, 1, .3, 1) infinite;
+}
+.pm-badge circle { fill: var(--accent); stroke: #0b0b0b; stroke-width: 1.4; }
+.pm-badge path { fill: none; stroke: #fff; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.pm-ripple {
+  fill: none; stroke: var(--accent); stroke-width: 1.2; opacity: 0;
+  transform-box: fill-box; transform-origin: center;
+  animation: pmRipple 7s cubic-bezier(.2, .7, .3, 1) infinite;
+}
+.pm-lbl {
+  fill: rgba(255, 255, 255, .38); stroke: none; opacity: 0;
+  font: 500 6.5px/1 var(--font-mono); letter-spacing: .08em;
+  animation: pmBase 7s ease infinite;
+}
+.pm-ref { stroke: rgba(255, 255, 255, .42); stroke-width: 1; stroke-dasharray: 2 3; opacity: 0; animation: pmGap 7s ease infinite; }
+.pm-gap { fill: none; stroke: rgba(255, 255, 255, .6); stroke-width: 1; stroke-linecap: round; opacity: 0; animation: pmGap 7s ease infinite; }
+
+/* Packets ride the tracking lines. offset-path is not universal, so they only
+   exist where it is; elsewhere the lines simply draw on as before. */
+.pm-pk { display: none; fill: #cdb9ff; stroke: none; opacity: 0; offset-rotate: 0deg; }
+@supports (offset-path: path('M0 0 L1 1')) {
+  .pm-pk { display: inline; }
+}
+.pm-pk1 { offset-path: path('M112 67 C 140 67, 142 137, 160 137');   animation: pmPk1 7s cubic-bezier(.4, 0, .2, 1) infinite; }
+.pm-pk2 { offset-path: path('M112 137 H 160');                       animation: pmPk2 7s cubic-bezier(.4, 0, .2, 1) infinite; }
+.pm-pk3 { offset-path: path('M112 207 C 140 207, 142 137, 160 137'); animation: pmPk3 7s cubic-bezier(.4, 0, .2, 1) infinite; }
+.pm-pk4 { offset-path: path('M174 137 H 214');                       animation: pmPk4 7s cubic-bezier(.4, 0, .2, 1) infinite; }
+
+@keyframes pmGlow {
+  0%, 44%   { opacity: 0; }
+  50%, 100% { opacity: .42; }
+}
+@keyframes pmGlowBar {
+  0%, 61%   { opacity: 0; }
+  82%, 100% { opacity: .4; }
+}
+@keyframes pmBadge {
+  0%, 47%   { opacity: 0; transform: scale(0); }
+  53%, 100% { opacity: 1; transform: scale(1); }
+}
+@keyframes pmRipple {
+  0%, 41%   { opacity: 0; transform: scale(1); }
+  42%       { opacity: .75; transform: scale(1); }
+  52%, 100% { opacity: 0; transform: scale(2.8); }
+}
+@keyframes pmGap {
+  0%, 82%   { opacity: 0; }
+  88%, 100% { opacity: 1; }
+}
+@keyframes pmPk1 {
+  0%, 32%   { opacity: 0; offset-distance: 0%; }
+  33%       { opacity: 1; offset-distance: 0%; }
+  44%       { opacity: 1; offset-distance: 100%; }
+  45%, 100% { opacity: 0; offset-distance: 100%; }
+}
+@keyframes pmPk2 {
+  0%, 34%   { opacity: 0; offset-distance: 0%; }
+  35%       { opacity: 1; offset-distance: 0%; }
+  45%       { opacity: 1; offset-distance: 100%; }
+  46%, 100% { opacity: 0; offset-distance: 100%; }
+}
+@keyframes pmPk3 {
+  0%, 36%   { opacity: 0; offset-distance: 0%; }
+  37%       { opacity: 1; offset-distance: 0%; }
+  47%       { opacity: 1; offset-distance: 100%; }
+  48%, 100% { opacity: 0; offset-distance: 100%; }
+}
+/* once the numbers back the winner, one packet carries on to the chart */
+@keyframes pmPk4 {
+  0%, 52%   { opacity: 0; offset-distance: 0%; }
+  53%       { opacity: 1; offset-distance: 0%; }
+  60%       { opacity: 1; offset-distance: 100%; }
+  61%, 100% { opacity: 0; offset-distance: 100%; }
+}
+
+/* Settled frame for reduced motion, matching the finished composition of each. */
+@media (prefers-reduced-motion: reduce) {
+  .wd-surface, .wd-heroDet, .wd-cardDet, .wd-link, .wd-codeDet { opacity: 1 !important; }
+  .wd-glowHero { opacity: .5 !important; }
+  .wd-cursor { opacity: 0 !important; }
+  .seo-glowWin { opacity: .38 !important; }
+  .seo-badge, .seo-grid, .seo-area { opacity: 1 !important; }
+  .seo-badge { transform: none !important; }
+  .seo-caret, .seo-ping { opacity: 0 !important; }
+  .pm-glow { opacity: .42 !important; }
+  .pm-glowBar { opacity: .4 !important; }
+  .pm-thumbHi, .pm-badge, .pm-lbl, .pm-ref, .pm-gap { opacity: 1 !important; }
+  .pm-badge { transform: none !important; }
+  .pm-pk, .pm-ripple { display: none !important; }
 }
 
 /* Inline Google Calendar booking. The embed is white, so it sits on a white
