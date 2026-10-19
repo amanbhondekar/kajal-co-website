@@ -2,6 +2,71 @@
 (function () {
   'use strict';
 
+  /* ---------- loading screen ----------------------------------------------
+     A logo over a progress bar. The bar is a spring chasing a target that
+     creeps forward in random steps every half second, never past 90% until
+     the page has really loaded; then it is sent to 100% and the screen fades.
+     It is held for at least MIN ms so it reads as an animation rather than a
+     flash, and released after MAX ms whatever the page is doing. If this
+     script never runs, a CSS animation on .preloader lifts it anyway.       */
+  (function () {
+    var pre = document.querySelector('[data-preloader]');
+    if (!pre) return;
+    var bar = pre.querySelector('.preloader__bar');
+
+    var MIN = 600, MAX = 5000;
+    var STIFFNESS = 100, DAMPING = 20; // critically damped: no overshoot past the end
+    var start = performance.now();
+    var last = start;
+    var loaded = document.readyState === 'complete';
+    var target = Math.random() * 0.2;
+    var x = 0, v = 0;
+    var finishing = false, closed = false;
+    var loop = null;
+
+    var steps = setInterval(function () {
+      if (!finishing) target = Math.min(0.9, target + Math.random() * 0.2);
+    }, 500);
+
+    var close = function () {
+      if (closed) return;
+      closed = true;
+      clearInterval(steps);
+      clearInterval(loop);
+      pre.classList.add('is-done');
+      setTimeout(function () { pre.hidden = true; }, 600);
+    };
+
+    var frame = function () {
+      if (closed) return;
+      var now = performance.now();
+      var dt = Math.min((now - last) / 1000, 0.05);
+      last = now;
+      var elapsed = now - start;
+
+      if (!finishing && ((loaded && elapsed >= MIN) || elapsed >= MAX)) {
+        finishing = true;
+        target = 1;
+      }
+
+      v += (-STIFFNESS * (x - target) - DAMPING * v) * dt;
+      x = Math.max(0, Math.min(1, x + v * dt));
+      bar.style.transform = 'scaleX(' + x.toFixed(4) + ')';
+
+      // A tab opened in the background runs timers at ~1Hz, which would drag
+      // the spring out for a minute; nobody is watching, so just finish.
+      if (finishing && (x >= 0.995 || document.hidden)) { bar.style.transform = 'scaleX(1)'; close(); }
+    };
+
+    window.addEventListener('load', function () { loaded = true; });
+    // Back/forward restores the page from memory without a load event.
+    window.addEventListener('pageshow', function (e) { if (e.persisted) close(); });
+    // A timer rather than requestAnimationFrame so the screen can still close
+    // when frames are not being produced (background tab, embedded webview).
+    loop = setInterval(frame, 16);
+    frame();
+  })();
+
   /* ---------- contact form ----------------------------------------------
      Posts to a Google Apps Script web app, which appends the enquiry to the
      enquiries sheet and emails a copy. The script lives in

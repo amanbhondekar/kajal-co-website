@@ -2818,3 +2818,31 @@ em, .em        { font-style: italic; font-weight: 500; }
   .error__code, .error__card, .error__actions { animation: none; }
   .error__glitch { animation: none; }
 }
+
+/* --------------------------------------------------------------------------
+   Loading screen — logo over a progress bar. Markup sits first in <body> on
+   every page; main.js drives the bar and fades the screen out.
+   -------------------------------------------------------------------------- */
+.preloader {
+  position: fixed; inset: 0; z-index: 10000;
+  display: grid; place-items: center;
+  background: var(--paper);
+  transition: opacity .45s var(--ease), visibility 0s linear .45s;
+  /* failsafe: lifts the screen after 6s even if main.js never runs */
+  animation: preloader-failsafe .45s ease 6s forwards;
+}
+.preloader.is-done { opacity: 0; visibility: hidden; pointer-events: none; }
+.preloader[hidden] { display: none; }
+.preloader__inner { display: grid; justify-items: center; gap: 1.75rem; padding: 1.5rem; }
+/* same box as the header logo */
+.preloader__logo { display: block; height: 32px; width: auto; max-width: none; }
+.preloader__track {
+  width: min(240px, 60vw); height: 6px; overflow: hidden;
+  border-radius: var(--r-pill); background: rgba(116, 42, 255, .12);
+}
+.preloader__bar {
+  width: 100%; height: 100%; border-radius: inherit;
+  background: var(--accent); transform: scaleX(0); transform-origin: left center;
+  will-change: transform;
+}
+@keyframes preloader-failsafe { to { opacity: 0; visibility: hidden; pointer-events: none; } }
