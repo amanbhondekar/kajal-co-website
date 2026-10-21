@@ -25,9 +25,8 @@
 <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
 <link rel="manifest" href="site.webmanifest">
 <meta name="theme-color" content="#742aff">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,200..800&amp;family=Geist+Mono:wght@300..700&amp;display=swap">
+<link rel="preload" href="assets/fonts/bricolage-grotesque-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/geist-mono-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="assets/css/style.css">
 <script type="application/ld+json">
 {
@@ -58,7 +57,7 @@
 
 <header class="header">
   <div class="header__inner">
-    <a href="index.html" class="brand" aria-label="Kajal &amp; Co. &mdash; home">
+    <a href="./" class="brand" aria-label="Kajal &amp; Co. &mdash; home">
       <img src="assets/img/logo-bold-black.svg" alt="Kajal &amp; Co." width="137" height="32">
     </a>
     <nav class="nav" aria-label="Primary">
@@ -70,7 +69,7 @@
         <div class="nav__drop" id="drop-services">
           <a href="website-design.html"><span class="nav__drop__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 21h10"/><rect width="20" height="14" x="2" y="3" rx="2"/></svg></span>Website Design &amp; Development</a>
           <a href="performance-marketing.html"><span class="nav__drop__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 7h6v6"/><path d="m22 7-8.5 8.5-5-5L2 17"/></svg></span>Performance Marketing</a>
-          <a href="seo.html"><span class="nav__drop__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m8 11 2 2 4-4"/><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg></span>SEO Search Engine Optimization</a>
+          <a href="seo.html"><span class="nav__drop__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m8 11 2 2 4-4"/><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg></span>SEO</a>
         </div>
       </div>
       <a class="nav__link" href="portfolio.html">Our Works</a>
@@ -92,7 +91,7 @@
       <div class="sheet__sub">
         <a href="website-design.html">Website Design &amp; Development</a>
         <a href="performance-marketing.html">Performance Marketing</a>
-        <a href="seo.html">SEO Search Engine Optimization</a>
+        <a href="seo.html">SEO</a>
       </div>
     </div>
     <a class="sheet__link" href="portfolio.html">Our Works</a>
@@ -125,12 +124,12 @@
 
       <div class="collage" aria-hidden="true">
         <div class="collage__col">
-          <div class="tile tile--shot"><img src="assets/img/hero/cover-1.webp" alt="" width="720" height="1280" decoding="async"></div>
-          <div class="tile tile--shot"><img src="assets/img/hero/cover-2.webp" alt="" width="720" height="1280" decoding="async"></div>
+          <div class="tile tile--shot"><img src="assets/img/hero/cover-1.webp" alt="" width="576" height="1024" fetchpriority="high" decoding="async"></div>
+          <div class="tile tile--shot"><img src="assets/img/hero/cover-2.webp" alt="" width="576" height="1024" fetchpriority="high" decoding="async"></div>
         </div>
         <div class="collage__col collage__col--b">
-          <div class="tile tile--shot"><img src="assets/img/hero/cover-3.webp" alt="" width="720" height="1280" loading="lazy" decoding="async"></div>
-          <div class="tile tile--shot"><img src="assets/img/hero/cover-4.webp" alt="" width="720" height="1280" loading="lazy" decoding="async"></div>
+          <div class="tile tile--shot"><img src="assets/img/hero/cover-3.webp" alt="" width="576" height="1024" loading="lazy" decoding="async"></div>
+          <div class="tile tile--shot"><img src="assets/img/hero/cover-4.webp" alt="" width="576" height="1024" loading="lazy" decoding="async"></div>
         </div>
       </div>
     </div>
@@ -866,7 +865,7 @@
       </div>
 
       <div class="founder__media" data-reveal>
-        <img src="assets/img/about-graphic.webp" alt="Kajal Andani, with highlights: 37K+ Instagram followers, 20+ trusted brands, and &#8377;1 Cr+ revenue generated." width="2000" height="2000">
+        <img src="assets/img/about-graphic.webp" alt="Kajal Andani, with highlights: 37K+ Instagram followers, 20+ trusted brands, and &#8377;1 Cr+ revenue generated." width="1280" height="1280" loading="lazy" decoding="async">
       </div>
     </div>
   </div>
@@ -995,7 +994,7 @@
         <div class="check-grid" data-check-group>
           <label class="check"><input type="checkbox" name="service" value="website-design">Website Design &amp; Development</label>
           <label class="check"><input type="checkbox" name="service" value="performance-marketing">Performance Marketing</label>
-          <label class="check"><input type="checkbox" name="service" value="seo">SEO Search Engine Optimization</label>
+          <label class="check"><input type="checkbox" name="service" value="seo">SEO</label>
           <label class="check"><input type="checkbox" name="service" value="other">Other</label>
         </div>
       </fieldset>
@@ -1036,7 +1035,7 @@
 <footer class="footer on-dark">
   <div class="container">
     <div class="footer__inner">
-      <a href="index.html" class="brand" aria-label="Kajal &amp; Co. &mdash; home">
+      <a href="./" class="brand" aria-label="Kajal &amp; Co. &mdash; home">
         <img src="assets/img/logo-bold.svg" alt="Kajal &amp; Co." width="188" height="44">
       </a>
       <div class="footer__contacts">

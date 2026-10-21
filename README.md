@@ -66,7 +66,7 @@ node build.js
 
 Nothing else needs touching. The generator writes a page per project, refreshes
 the portfolio grid and the home-page rail, and deletes the page of any project
-you removed. Netlify runs the same command on deploy, so a push that edits the
+you removed. Vercel runs the same command on deploy (`buildCommand` in `vercel.json`), so a push that edits the
 content file but forgets the build still ships correctly.
 
 **The three templates are deliberately separate.** Each follows its own

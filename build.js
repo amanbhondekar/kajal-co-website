@@ -142,6 +142,14 @@ const clip = (s, max) => {
   return cut.slice(0, cut.lastIndexOf(' ')).replace(/[\s,;:.–—-]+$/, '') + '…';
 };
 
+/* Titles past ~60 characters are cut in results. Drop "Case Study" before
+   letting a long client + service name be truncated. */
+const TITLE_MAX = 60;
+const caseTitle = (client, service) => {
+  const full = text(`${client} | ${service} Case Study | Kajal & Co.`);
+  return full.length <= TITLE_MAX ? full : text(`${client} | ${service} | Kajal & Co.`);
+};
+
 const data = JSON.parse(fs.readFileSync(path.join(ROOT, 'data', 'projects.json'), 'utf8'));
 const { services, projects } = data;
 
@@ -192,11 +200,12 @@ for (const p of projects) {
     site: SITE,
     showcasePair: Array.isArray(p.showcase) && p.showcase.length > 0 && p.showcase.every(s => s.src),
     base: '../',
+    home: '../',
     serviceLabel: svc.label,
     serviceShort: svc.short || svc.label,
     serviceHref: svc.page,
     // client first, and short enough to show in full: the long headline is the page's h1
-    title: text(`${p.client} | ${svc.label} Case Study | Kajal & Co.`),
+    title: caseTitle(p.client, svc.label),
     description: clip(text(p.statement), 158),
     prev: pagerCard(siblings[at - 1]),
     next: pagerCard(siblings[at + 1]),
@@ -294,12 +303,14 @@ if (absent.length) {
   process.exit(1);
 }
 
-const today = new Date().toISOString().slice(0, 10);
+/* No <lastmod> and no <priority>. Every build used to stamp every URL with
+   today's date, which tells Google nothing and teaches it to ignore the field;
+   a CI checkout has no per-file history to read a real date from. Google also
+   ignores <priority>. Add <lastmod> back only when it can be the true date a
+   page's content last changed. */
 const urlEntry = (loc, priority) => [
   '  <url>',
   '    <loc>' + SITE + '/' + loc + '</loc>',
-  '    <lastmod>' + today + '</lastmod>',
-  '    <priority>' + priority + '</priority>',
   '  </url>',
 ].join('\n');
 
