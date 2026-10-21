@@ -2,6 +2,83 @@
 (function () {
   'use strict';
 
+  /* ---------- cookie consent ----------------------------------------------
+     The visitor chooses "all" or "essential"; the choice lives in
+     localStorage and any page can read it through window.kcConsent. Nothing
+     non-essential is loaded yet. When analytics goes in, load it only after
+     kcConsent.allowed() is true, or inside a 'kc:consent' listener:
+
+       if (kcConsent.allowed()) loadAnalytics();
+       document.addEventListener('kc:consent', function (e) {
+         if (e.detail === 'all') loadAnalytics();
+       });
+
+     The footer's "Cookie settings" button reopens the notice.             */
+  (function () {
+    var KEY = 'kc:consent';
+    var read = function () {
+      try { var v = localStorage.getItem(KEY); return v === 'all' || v === 'essential' ? v : null; }
+      catch (err) { return null; }
+    };
+    var write = function (v) {
+      try { localStorage.setItem(KEY, v); } catch (err) { /* private mode: choice lasts the page */ }
+    };
+    var current = read();
+
+    window.kcConsent = {
+      get: function () { return current; },
+      allowed: function () { return current === 'all'; }
+    };
+
+    var box = null;
+    var build = function () {
+      box = document.createElement('div');
+      box.className = 'consent';
+      box.setAttribute('role', 'dialog');
+      box.setAttribute('aria-label', 'Cookie preferences');
+      box.hidden = true;
+      box.innerHTML =
+        '<p class="consent__title">Cookies</p>' +
+        '<p class="consent__text">We use essential cookies to keep the site working, and, if you allow it, analytics ' +
+        'cookies to see how it is used. <a href="/cookie-policy.html">Cookie Policy</a></p>' +
+        '<div class="consent__actions">' +
+          '<button type="button" class="btn" data-consent="all">Accept all</button>' +
+          '<button type="button" class="btn btn--ghost" data-consent="essential">Essential only</button>' +
+        '</div>';
+      box.addEventListener('click', function (e) {
+        var b = e.target.closest('[data-consent]');
+        if (!b) return;
+        current = b.getAttribute('data-consent');
+        write(current);
+        box.classList.remove('is-open');
+        setTimeout(function () { box.hidden = true; }, 350);
+        document.dispatchEvent(new CustomEvent('kc:consent', { detail: current }));
+      });
+      document.body.appendChild(box);
+    };
+
+    var open = function (focus) {
+      if (!box) build();
+      box.hidden = false;
+      // reading a layout property commits the hidden state first, so the
+      // transition runs (no frame callbacks: they stall in background tabs)
+      void box.offsetWidth;
+      box.classList.add('is-open');
+      if (focus) { var first = box.querySelector('button'); if (first) first.focus(); }
+    };
+
+    document.addEventListener('click', function (e) {
+      if (e.target.closest('[data-cookie-settings]')) open(true);
+    });
+
+    // First visit: wait until the loading screen has gone, then ask.
+    if (current === null) {
+      var ask = function () { setTimeout(function () { if (read() === null) open(false); }, 900); };
+      if (document.readyState === 'complete') ask();
+      else window.addEventListener('load', ask);
+    }
+  })();
+
   /* ---------- loading screen ----------------------------------------------
      A logo over a progress bar. The bar is a spring chasing a target that
      creeps forward in random steps every half second, never past 90% until

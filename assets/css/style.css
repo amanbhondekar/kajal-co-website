@@ -5,8 +5,6 @@
    Palette: black / white / neutrals
    ========================================================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,200..800&family=Geist+Mono:wght@300..700&display=swap');
-
 /* --------------------------------------------------------------------------
    1. Tokens
    -------------------------------------------------------------------------- */
@@ -1579,6 +1577,11 @@ em, .em        { font-style: italic; font-weight: 500; }
 }
 .footer__copy a { color: var(--on-dark-3); text-decoration: underline; text-underline-offset: .22em; }
 .footer__copy a:hover { color: var(--on-dark-2); }
+.footer__link-btn {
+  padding: 0; border: 0; background: none; font: inherit; cursor: pointer;
+  color: var(--on-dark-3); text-decoration: underline; text-underline-offset: .22em;
+}
+.footer__link-btn:hover { color: var(--on-dark-2); }
 
 /* Phones get the email on its own line and the two socials beneath it, and
    the copyright on its own line above the two policy links.
@@ -3053,3 +3056,29 @@ em, .em        { font-style: italic; font-weight: 500; }
   will-change: transform;
 }
 @keyframes preloader-failsafe { to { opacity: 0; visibility: hidden; pointer-events: none; } }
+
+/* --------------------------------------------------------------------------
+   Cookie notice — built by main.js on a first visit, and by the footer's
+   "Cookie settings" button afterwards. Sits under the loading screen.
+   -------------------------------------------------------------------------- */
+.consent {
+  position: fixed; left: 1rem; bottom: 1rem; z-index: 900;
+  width: min(25rem, calc(100vw - 2rem));
+  padding: 1.25rem 1.25rem 1.1rem;
+  background: var(--paper); color: var(--text);
+  border: 1px solid var(--line); border-radius: var(--r-card);
+  box-shadow: 0 18px 48px -18px rgba(0, 0, 0, .28), 0 2px 6px rgba(0, 0, 0, .06);
+  opacity: 0; transform: translateY(14px);
+  transition: opacity .35s var(--ease), transform .35s var(--ease);
+}
+.consent[hidden] { display: none; }
+.consent.is-open { opacity: 1; transform: none; }
+.consent__title { margin: 0 0 .35rem; font-weight: 600; font-size: 1.05rem; letter-spacing: var(--ls-tight); }
+.consent__text { margin: 0; font-size: var(--fs-sm); line-height: 1.5; color: var(--text-2); }
+.consent__text a { color: inherit; text-decoration: underline; text-underline-offset: .2em; }
+.consent__actions { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: 1rem; }
+.consent__actions .btn { padding: .6rem 1.1rem; font-size: var(--fs-sm); }
+@media (max-width: 480px) {
+  .consent { left: .75rem; right: .75rem; bottom: .75rem; width: auto; }
+  .consent__actions .btn { flex: 1 1 0; justify-content: center; }
+}
