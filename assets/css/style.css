@@ -2144,6 +2144,13 @@ em, .em        { font-style: italic; font-weight: 500; }
   white-space: nowrap;
 }
 
+/* the hero copy column is narrow here; "Revenue generated" plus two more labels
+   only fit on one row with the type and gutters tightened */
+@media (min-width: 561px) and (max-width: 1180px) {
+  .hero-stat { padding-inline: clamp(.85rem, .5rem + 1.2vw, 1.25rem); }
+  .hero-stat span { font-size: 11px; letter-spacing: .06em; }
+}
+
 @media (max-width: 560px) {
   /* three bare figures stacked read as a list, so keep them in a row and
      bring the type down instead */

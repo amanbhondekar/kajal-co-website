@@ -134,6 +134,14 @@ const text = s => String(s)
   .replace(/&[a-z]+;/gi, e => (e in ENTITIES ? ENTITIES[e] : e))
   .replace(/<[^>]+>/g, '');
 
+/* Search results cut a description at about 160 characters; end on a word
+   rather than let the engine pick the spot. */
+const clip = (s, max) => {
+  if (s.length <= max) return s;
+  const cut = s.slice(0, max - 1);
+  return cut.slice(0, cut.lastIndexOf(' ')).replace(/[\s,;:.–—-]+$/, '') + '…';
+};
+
 const data = JSON.parse(fs.readFileSync(path.join(ROOT, 'data', 'projects.json'), 'utf8'));
 const { services, projects } = data;
 
@@ -187,8 +195,9 @@ for (const p of projects) {
     serviceLabel: svc.label,
     serviceShort: svc.short || svc.label,
     serviceHref: svc.page,
-    title: text(`${p.headline} | ${p.client} | Kajal & Co.`),
-    description: text(p.statement),
+    // client first, and short enough to show in full: the long headline is the page's h1
+    title: text(`${p.client} | ${svc.label} Case Study | Kajal & Co.`),
+    description: clip(text(p.statement), 158),
     prev: pagerCard(siblings[at - 1]),
     next: pagerCard(siblings[at + 1]),
   });

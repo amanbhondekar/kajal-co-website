@@ -265,8 +265,7 @@ Case studies, client logos, testimonials, press and team photos are real and
 approved. The case-study copy lives in `data/projects.json`, with working notes
 in `case-studies/`. That is the one file to edit; `node build.js` does the rest.
 
-The headline numbers (`₹1 Cr+`, `60+` brands, `400+` trained, `38` sites,
-`₹68 lakh`, `37K+`) are kept as they are by decision.
+The headline stats are fixed across the site: `37K+` Instagram followers, `20+` trusted brands and `₹1 Cr+` revenue generated (home hero, portfolio, the home and About graphics). The service pages also carry `38` sites shipped / `1.8s` load and `₹68 lakh` tracked paid revenue, kept by decision.
 
 ---
 
